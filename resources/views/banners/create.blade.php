@@ -1,5 +1,7 @@
 <x-app-layout>
-    <div class="bg-white min-h-[800px]">
+    <div class="bg-white min-h-[800px] pt-12">
+        <x-breadcrumb :breadcrumbs="[['name' => 'Banners', 'url' => route('banners.index')]]" />
+
         <!-- Banner creation title and description -->
         <div class="mb-8 space-y-3">
             <h1 class="text-3xl sm:text-4xl font-semibold text-center pt-[90px]">Add Your Banner</h1>

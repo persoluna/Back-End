@@ -1,5 +1,6 @@
 <x-app-layout>
     <div class="note-container py-12">
+        <x-breadcrumb />
         <div class="m-4 py-4 overflow-x-auto">
             <div class="inline-block min-w-full shadow rounded-lg overflow-hidden flex-col">
                 <div class="sm:flex justify-start sm:justify-between items-center mb-4">

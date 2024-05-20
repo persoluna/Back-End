@@ -1,5 +1,6 @@
 <x-app-layout>
-    <div class="bg-white min-h-[800px]">
+    <div class="bg-white min-h-[800px] pt-12">
+        <x-breadcrumb :breadcrumbs="[['name' => 'Banners', 'url' => route('banners.index')]]" />
         <!-- Banner edit title -->
         <div class="mb-8 space-y-3">
             <h1 class="text-3xl font-semibold text-center sm:text-left sm:pl-[80px] pt-[90px]">Edit Banner</h1>
@@ -81,11 +82,18 @@
                         for="banner_image">Banner Image</label>
                     <input
                         class="border-input bg-background ring-offset-background placeholder:text-muted-foreground focus-visible:ring-ring flex h-10 w-full rounded-md border px-3 text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-                        id="banner_image" type="file" name="banner_image">
-                    @if ($banner->banner_image)
-                        <img src="{{ asset('storage/banners/' . $banner->banner_image) }}" alt="{{ $banner->alt_tag }}"
-                            class="h-min[100px] w-auto pa-2">
-                    @endif
+                        id="banner_image" type="file" name="banner_image" onchange="previewImage(event)">
+
+                    <div id="image-container">
+                        @if ($banner->banner_image)
+                            <img src="{{ asset('storage/banners/' . $banner->banner_image) }}"
+                                alt="{{ $banner->alt_tag }}" class="h-min[100px] w-auto pa-2">
+                        @endif
+                    </div>
+
+                    <img id="preview-image" src="" alt="Preview Image" class="h-min[100px] w-auto pa-2"
+                        style="display: none;">
+
                     @error('banner_image')
                         <div class="text-red-500 mt-2 text-sm">
                             {{ $message }}
@@ -104,4 +112,30 @@
             </div>
         </form>
     </div>
+    <script>
+        function previewImage(event) {
+            var previewImage = document.getElementById('preview-image');
+            var imageContainer = document.getElementById('image-container');
+
+            if (event.target.files.length > 0) {
+                var reader = new FileReader();
+                reader.onload = function() {
+                    if (previewImage) {
+                        previewImage.src = reader.result;
+                        previewImage.style.display = 'block';
+                        if (imageContainer) {
+                            imageContainer.style.display = 'none';
+                        }
+                    }
+                }
+                reader.readAsDataURL(event.target.files[0]);
+            } else {
+                previewImage.src = '';
+                previewImage.style.display = 'none';
+                if (imageContainer) {
+                    imageContainer.style.display = 'block';
+                }
+            }
+        }
+    </script>
 </x-app-layout>
