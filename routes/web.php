@@ -1,15 +1,21 @@
 <?php
 
 use App\Http\Controllers\BannerController;
+use App\Http\Controllers\CounterController;
 use App\Http\Controllers\ProfileController;
 use App\Livewire\SearchBanner;
+use App\Livewire\SearchCounter;
 use Illuminate\Support\Facades\Route;
 
+// ! LiveWire SearchBanner and SearchCounter
 Route::get('/search-banner', SearchBanner::class);
+Route::get('/search-counter', SearchCounter::class);
 
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::resource('counters', CounterController::class);
 
 Route::resource('banners', BannerController::class);
 
