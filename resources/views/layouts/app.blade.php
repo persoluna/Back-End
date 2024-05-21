@@ -39,8 +39,11 @@
         </main>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
-    <!-- Livewire Scripts -->
+    {{-- ! Livewire Scripts --}}
     @livewireScripts
+
+    {{-- ! For the Alert Message --}}
+    @stack('scripts')
 </body>
 
 </html>
