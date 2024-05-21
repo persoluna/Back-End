@@ -1,6 +1,6 @@
 <x-app-layout>
     <div class="note-container py-12">
-        <x-breadcrumb />
+        <x-breadcrumb :breadcrumbs="[['name' => 'Banners', 'url' => route('banners.index')]]" />
         <div class="m-4 py-4 overflow-x-auto">
             <div class="inline-block min-w-full shadow rounded-lg overflow-hidden flex-col">
                 <div class="sm:flex justify-start sm:justify-between items-center mb-4">
@@ -54,7 +54,13 @@
                     </script>
                 @endif
 
-                <table class="min-w-full leading-normal mt-8">
+                {{-- ! Live wire search --}}
+                <div class="py-12">
+                    @livewire('search-banner')
+                </div>
+
+
+                {{-- <table class="min-w-full leading-normal mt-8">
                     <thead>
                         <tr>
                             <th
@@ -112,7 +118,7 @@
                             </tr>
                         @endforeach
                     </tbody>
-                </table>
+                </table> --}}
             </div>
         </div>
     </div>

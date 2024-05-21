@@ -1,6 +1,16 @@
 <x-app-layout>
     <div class="bg-white min-h-[800px] pt-12">
-        <x-breadcrumb :breadcrumbs="[['name' => 'Banners', 'url' => route('banners.index')]]" />
+        @if (isset($banner))
+            <x-breadcrumb :breadcrumbs="[
+                ['name' => 'Banners', 'url' => route('banners.index')],
+                ['name' => $banner->title, 'url' => route('banners.edit', $banner->id)],
+            ]" />
+        @else
+            <x-breadcrumb :breadcrumbs="[
+                ['name' => 'Home', 'url' => route('dashboard')],
+                ['name' => 'Banners', 'url' => route('banners.index')],
+            ]" />
+        @endif
         <!-- Banner edit title -->
         <div class="mb-8 space-y-3">
             <h1 class="text-3xl font-semibold text-center sm:text-left sm:pl-[80px] pt-[90px]">Edit Banner</h1>

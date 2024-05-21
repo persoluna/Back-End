@@ -2,7 +2,10 @@
 
 use App\Http\Controllers\BannerController;
 use App\Http\Controllers\ProfileController;
+use App\Livewire\SearchBanner;
 use Illuminate\Support\Facades\Route;
+
+Route::get('/search-banner', SearchBanner::class);
 
 Route::get('/', function () {
     return view('welcome');
