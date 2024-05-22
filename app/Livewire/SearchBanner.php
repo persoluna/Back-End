@@ -4,10 +4,15 @@ namespace App\Livewire;
 
 use App\Models\Banner;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class SearchBanner extends Component
 {
+    use WithPagination;
+
     public $search = '';
+
+    public $perPage = 5; // Number of items per page (default value)
 
     // ! For Status filed change functionallity
     public $bannerId;
@@ -19,10 +24,6 @@ class SearchBanner extends Component
         $this->bannerStatus = !$banner->status;
 
         $banner->update(['status' => $this->bannerStatus]);
-
-        $this->dispatch('banner-status-updated', [
-            'message' => 'Banner status updated successfully.',
-        ]);
     }
 
     public function render()
@@ -33,7 +34,7 @@ class SearchBanner extends Component
                     ->orWhere('alt_tag', 'like', '%' . $this->search . '%');
             })
             ->latest()
-            ->get();
+            ->paginate($this->perPage);
 
         return view('livewire.search-banner', compact('banners'));
     }
