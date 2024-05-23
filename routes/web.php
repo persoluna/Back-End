@@ -4,19 +4,30 @@ use App\Http\Controllers\ApplicationController;
 use App\Http\Controllers\BannerController;
 use App\Http\Controllers\CounterController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\WhyChooseUsController;
 use App\Livewire\SearchApplication;
 use App\Livewire\SearchBanner;
 use App\Livewire\SearchCounter;
+use App\Livewire\SearchWhyChooseUs;
 use Illuminate\Support\Facades\Route;
 
 // ! LiveWire SearchBanner and SearchCounter
 Route::get('/search-application', SearchApplication::class);
 Route::get('/search-banner', SearchBanner::class);
 Route::get('/search-counter', SearchCounter::class);
+Route::get('/search-whychooseus', SearchWhyChooseUs::class);
 
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/whychooseus', [WhyChooseUsController::class, 'index'])->name('whychooseus.index');
+Route::get('/whychooseus/create', [WhyChooseUsController::class, 'create'])->name('whychooseus.create');
+Route::post('/whychooseus', [WhyChooseUsController::class, 'store'])->name('whychooseus.store');
+Route::get('/whychooseus/{whyChooseUsItem}', [WhyChooseUsController::class, 'show'])->name('whychooseus.show');
+Route::get('/whychooseus/{whychooseus}/edit', [WhyChooseUsController::class, 'edit'])->name('whychooseus.edit');
+Route::put('/whychooseus/{whyChooseUsItem}', [WhyChooseUsController::class, 'update'])->name('whychooseus.update');
+Route::delete('/whychooseus/{whyChooseUsItem}', [WhyChooseUsController::class, 'destroy'])->name('whychooseus.destroy');
 
 Route::resource('applications', ApplicationController::class);
 
