@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ApplicationController;
 use App\Http\Controllers\BannerController;
+use App\Http\Controllers\ClientController;
 use App\Http\Controllers\CounterController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\WhyChooseUsController;
@@ -28,6 +29,8 @@ Route::get('/whychooseus/{whyChooseUsItem}', [WhyChooseUsController::class, 'sho
 Route::get('/whychooseus/{whychooseus}/edit', [WhyChooseUsController::class, 'edit'])->name('whychooseus.edit');
 Route::put('/whychooseus/{whyChooseUsItem}', [WhyChooseUsController::class, 'update'])->name('whychooseus.update');
 Route::delete('/whychooseus/{whyChooseUsItem}', [WhyChooseUsController::class, 'destroy'])->name('whychooseus.destroy');
+
+Route::resource('clients', ClientController::class);
 
 Route::resource('applications', ApplicationController::class);
 
