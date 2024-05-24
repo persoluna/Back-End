@@ -1,14 +1,14 @@
 <x-app-layout>
     <div class="note-container py-12">
-        <x-breadcrumb :breadcrumbs="[['name' => 'Applications', 'url' => route('applications.index')]]" />
+        <x-breadcrumb :breadcrumbs="[['name' => 'Testimonials', 'url' => route('testimonials.index')]]" />
         <div class="m-4 py-4 overflow-x-auto">
             <div class="inline-block min-w-full shadow rounded-lg overflow-hidden flex-col">
                 <div class="sm:flex justify-start sm:justify-between items-center mb-4">
-                    <h1 class="sm:text-4xl text-3xl font-semibold  sm:pb-4 pb-8">Applications</h1>
-                    <a href="{{ route('applications.create') }}"
+                    <h1 class="sm:text-4xl text-3xl font-semibold  sm:pb-4 pb-8">Testimonials</h1>
+                    <a href="{{ route('testimonials.create') }}"
                         class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Create
                         New
-                        Application 🎬</a>
+                        Testimonial 🎬</a>
                 </div>
                 @if (session('success'))
                     <div id="success-message"
@@ -57,14 +57,14 @@
                 <script>
                     const toggleMessage = document.getElementById('toggle-message');
                     const toggleCheckbox = document.querySelector(
-                        'input[wire:model="application.status"]');
+                        'input[wire:model="testimonial.status"]');
 
                     toggleCheckbox.addEventListener('change', function() {
                         if (this.checked) {
-                            toggleMessage.textContent = 'application status changed to Active.';
+                            toggleMessage.textContent = 'testimonial status changed to Active.';
                             toggleMessage.classList.remove('hidden'); // Show the message
                         } else {
-                            toggleMessage.textContent = 'application status changed to Inactive.';
+                            toggleMessage.textContent = 'testimonial status changed to Inactive.';
                             toggleMessage.classList.remove('hidden'); // Show the message
                         }
 
@@ -75,9 +75,9 @@
                         }, 3000); // Hide after 3 seconds
                     });
                 </script>
-                {{-- ! Live wire search for Application --}}
+                {{-- ! Live wire search for Testimonial --}}
                 <div class="py-12">
-                    @livewire('search-application')
+                    @livewire('search-testimonial')
                 </div>
             </div>
         </div>
