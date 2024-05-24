@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AboutController;
 use App\Http\Controllers\ApplicationController;
 use App\Http\Controllers\BannerController;
 use App\Http\Controllers\ClientController;
@@ -30,6 +31,8 @@ Route::get('/whychooseus/{whyChooseUsItem}', [WhyChooseUsController::class, 'sho
 Route::get('/whychooseus/{whychooseus}/edit', [WhyChooseUsController::class, 'edit'])->name('whychooseus.edit');
 Route::put('/whychooseus/{whyChooseUsItem}', [WhyChooseUsController::class, 'update'])->name('whychooseus.update');
 Route::delete('/whychooseus/{whyChooseUsItem}', [WhyChooseUsController::class, 'destroy'])->name('whychooseus.destroy');
+
+Route::resource('abouts', AboutController::class);
 
 Route::resource('testimonials', TestimonialController::class);
 
