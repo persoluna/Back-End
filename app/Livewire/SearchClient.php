@@ -14,18 +14,6 @@ class SearchClient extends Component
 
     public $perPage = 5; // Number of items per page (default value)
 
-    public $clientId;
-
-    public $clientStatus;
-
-    public function updateClientStatus(Client $client)
-    {
-        $this->clientId = $client->id;
-        $this->clientStatus = !$client->status;
-
-        $client->update(['status' => $this->clientStatus]);
-    }
-
     public function render()
     {
         $clients = Client::query()

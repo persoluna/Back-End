@@ -76,6 +76,7 @@ class ClientController extends Controller
             'alt_tag' => 'required|max:255',
         ]);
 
+        // Check if a new image is uploaded
         if ($request->hasFile('client_image')) {
             // Delete the old image from the "client" folder
             Storage::delete('public/clients/' . $client->client_image);
@@ -99,6 +100,11 @@ class ClientController extends Controller
      */
     public function destroy(Client $client)
     {
-        //
+        // Delete the associated image file from the "clients" folder
+        Storage::delete('public/clients/' . $client->client_image);
+
+        $client->delete();
+
+        return redirect()->route('clients.index')->with('success', 'Client deleted successfully.');
     }
 }
