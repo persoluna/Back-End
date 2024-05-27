@@ -32,24 +32,10 @@
                     @enderror
                 </div>
 
-                <!-- Application description input field -->
-                <div class="lg:col-span-1">
-                    <label
-                        class="text-base font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                        for="application_description">Application Description</label>
-                    <input
-                        class="border-input bg-background ring-offset-background placeholder:text-muted-foreground focus-visible:ring-ring flex h-10 w-full rounded-md border px-3 py-2 text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-                        id="application_description" placeholder="Enter the Application Description" type="text"
-                        name="application_description" value="{{ old('application_description') }}">
-                    @error('application_description')
-                        <div class="text-red-500 mt-2 text-sm">
-                            {{ $message }}
-                        </div>
-                    @enderror
-                </div>
+                <br>
 
                 <!-- Application Description input field -->
-                <div class="lg:col-span-1">
+                <div class="lg:col-span-2">
                     <label
                         class="text-base font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                         for="application_description">Application Description</label>
@@ -79,7 +65,7 @@
                         </div>
                     @enderror
                 </div>
-
+                <br>
                 <!-- Application image input field -->
                 <div class="lg:col-span-1">
                     <label
