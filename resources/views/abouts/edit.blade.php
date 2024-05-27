@@ -21,10 +21,10 @@
         <form action="{{ route('abouts.update', $about->id) }}" method="POST" class="w-full" enctype="multipart/form-data">
             @csrf
             @method('PUT')
-            <div class="mb-10 items-center grid lg:grid-cols-2 gap-6 m-[80px] justify-center">
+            <div class="mb-10 items-center grid lg:grid-cols-8 gap-8 m-[80px] justify-center">
 
                 <!-- About Title input field -->
-                <div class="lg:col-span-1">
+                <div class="lg:col-span-3">
                     <label
                         class="text-base font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                         for="title">Title</label>
@@ -39,23 +39,24 @@
                     @enderror
                 </div>
                 <br>
+
                 <!-- Application Image input field -->
-                <div class="lg:col-span-1">
+                <div class="lg:col-span-6">
                     <label
                         class="text-base font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                         for="image1">Image 1</label>
                     <input
                         class="border-input bg-background ring-offset-background placeholder:text-muted-foreground focus-visible:ring-ring flex h-10 w-full rounded-md border px-3 text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-                        id="image1" type="file" name="image1" onchange="previewImage(event)">
+                        id="image1" type="file" name="image1" onchange="previewImage(event, 'image-preview1')">
 
-                    <div id="image-container">
+                    <div id="image-container1">
                         @if ($about->image1)
                             <img src="{{ asset('storage/abouts/' . $about->image1) }}" alt="{{ $about->alt_tag1 }}"
                                 class="min-h-[100px] w-auto p-2">
                         @endif
                     </div>
 
-                    <img id="image-preview" src="" alt="Preview Image" class="min-h-[100px] w-auto pa-2"
+                    <img id="image-preview1" src="" alt="Preview Image" class="min-h-[100px] w-auto pa-2"
                         style="display: none;">
 
                     @error('image1')
@@ -66,7 +67,7 @@
                 </div>
                 <br>
                 <!-- About us image Alt Tag1 input field -->
-                <div class="lg:col-span-1">
+                <div class="lg:col-span-2">
                     <label
                         class="text-base font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                         for="alt_tag">Alt Tag1</label>
@@ -82,22 +83,22 @@
                 </div>
                 <br>
                 <!-- Application Image input field -->
-                <div class="lg:col-span-1">
+                <div class="lg:col-span-6">
                     <label
                         class="text-base font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                         for="image2">Image 2</label>
                     <input
                         class="border-input bg-background ring-offset-background placeholder:text-muted-foreground focus-visible:ring-ring flex h-10 w-full rounded-md border px-3 text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-                        id="image2" type="file" name="image2" onchange="previewImage(event)">
+                        id="image2" type="file" name="image2" onchange="previewImage(event, 'image-preview2')">
 
-                    <div id="image-container">
+                    <div id="image-container2">
                         @if ($about->image2)
                             <img src="{{ asset('storage/abouts/' . $about->image2) }}" alt="{{ $about->alt_tag2 }}"
                                 class="min-h-[100px] w-auto p-2">
                         @endif
                     </div>
 
-                    <img id="image-preview" src="" alt="Preview Image" class="min-h-[100px] w-auto pa-2"
+                    <img id="image-preview2" src="" alt="Preview Image" class="min-h-[100px] w-auto pa-2"
                         style="display: none;">
 
                     @error('image2')
@@ -108,7 +109,7 @@
                 </div>
                 <br>
                 <!-- Application Alt Tag input field -->
-                <div class="lg:col-span-1">
+                <div class="lg:col-span-2">
                     <label
                         class="text-base font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                         for="alt_tag2">Alt Tag2</label>
@@ -126,7 +127,7 @@
                 <br>
 
                 <!-- About Sub Title input field -->
-                <div class="lg:col-span-1">
+                <div class="lg:col-span-6">
                     <label
                         class="text-base font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                         for="sub_title">Sub Title</label>
@@ -141,15 +142,16 @@
                     @enderror
                 </div>
                 <br>
+
                 <!-- About Description input field -->
-                <div class="lg:col-span-1">
+                <div class="lg:col-span-6">
                     <label
                         class="text-base font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                         for="description">Description</label>
-                    <input
-                        class="border-input bg-background ring-offset-background placeholder:text-muted-foreground focus-visible:ring-ring flex h-10 w-full rounded-md border px-3 py-2 text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-                        id="description" placeholder="Enter the About Description" type="text" name="description"
-                        value="{{ old('description', $about->description) }}">
+
+                    <!-- Quill Editor -->
+                    <div id="editor"></div>
+
                     @error('description')
                         <div class="text-red-500 mt-2 text-sm">
                             {{ $message }}
@@ -157,10 +159,82 @@
                     @enderror
                 </div>
                 <br>
+                <!-- Owner Name input field -->
+                <div class="lg:col-span-3">
+                    <label
+                        class="text-base font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                        for="owner_name">Owner Name</label>
+                    <input
+                        class="border-input bg-background ring-offset-background placeholder:text-muted-foreground focus-visible:ring-ring flex h-10 w-full rounded-md border px-3 py-2 text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                        id="owner_name" placeholder="Enter the Owner Name" type="text" name="owner_name"
+                        value="{{ old('owner_name', $about->owner_name) }}">
+                    @error('owner_name')
+                        <div class="text-red-500 mt-2 text-sm">
+                            {{ $message }}
+                        </div>
+                    @enderror
+                </div>
+                <br>
+                <!-- About Owner Designation input field -->
+                <div class="lg:col-span-3">
+                    <label
+                        class="text-base font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                        for="owner_designation">Owner Designation</label>
+                    <input
+                        class="border-input bg-background ring-offset-background placeholder:text-muted-foreground focus-visible:ring-ring flex h-10 w-full rounded-md border px-3 py-2 text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                        id="owner_designation" placeholder="Enter the About us owner_designation" type="text"
+                        name="owner_designation" value="{{ old('owner_name', $about->owner_designation) }}">
+                    @error('owner_designation')
+                        <div class="text-red-500 mt-2 text-sm">
+                            {{ $message }}
+                        </div>
+                    @enderror
+                </div>
+                <br>
+                <!-- Owner_signature-->
+                <div class="lg:col-span-6">
+                    <label
+                        class="text-base font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                        for="owner_signature">Signature</label>
+                    <input
+                        class="border-input bg-background ring-offset-background placeholder:text-muted-foreground focus-visible:ring-ring flex h-10 w-full rounded-md border px-3 text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                        id="owner_signature" type="file" name="owner_signature"
+                        onchange="previewImage(event, 'image-preview3')">
 
+                    <div id="image-container3">
+                        @if ($about->owner_signature)
+                            <img src="{{ asset('storage/abouts/' . $about->owner_signature) }}"
+                                alt="{{ $about->alt_tag3 }}" class="min-h-[100px] w-auto p-2">
+                        @endif
+                    </div>
 
+                    <img id="image-preview3" src="" alt="Preview Image" class="min-h-[100px] w-auto pa-2"
+                        style="display: none;">
 
+                    @error('owner_signature')
+                        <div class="text-red-500 mt-2 text-sm">
+                            {{ $message }}
+                        </div>
+                    @enderror
+                </div>
+                <br>
+                <!--  Alt Tag3 input field -->
+                <div class="lg:col-span-2">
+                    <label
+                        class="text-base font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                        for="alt_tag3">Alt Tag3</label>
+                    <input
+                        class="border-input bg-background ring-offset-background placeholder:text-muted-foreground focus-visible:ring-ring flex h-10 w-full rounded-md border px-3 py-2 text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                        id="alt_tag3" placeholder="_____" type="text" name="alt_tag3"
+                        value="{{ old('alt_tag3', $about->alt_tag3) }}">
+                    @error('alt_tag3')
+                        <div class="text-red-500 mt-2 text-sm">
+                            {{ $message }}
+                        </div>
+                    @enderror
+                </div>
 
+                <br>
 
                 <!-- Update Application button -->
                 <div class="pt-8 flex justify-center sm:w-fit lg:col-span-2">
@@ -174,9 +248,18 @@
         </form>
     </div>
     <script>
-        function previewImage(event) {
-            var previewImage = document.getElementById('image-preview');
-            var imageContainer = document.getElementById('image-container');
+        const quill = new Quill('#editor', {
+            theme: 'snow'
+        });
+
+        // Set the initial value of the editor if editing an existing record
+        quill.root.innerHTML = `{!! old('description', $about->description) !!}`;
+    </script>
+
+    <script>
+        function previewImage(event, previewId) {
+            var previewImage = document.getElementById(previewId);
+            var imageContainer = document.getElementById(previewId.replace('preview', 'container'));
 
             if (event.target.files.length > 0) {
                 var reader = new FileReader();
