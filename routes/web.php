@@ -6,6 +6,7 @@ use App\Http\Controllers\BannerController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\CounterController;
+use App\Http\Controllers\FooterController;
 use App\Http\Controllers\HeaderController;
 use App\Http\Controllers\MissionController;
 use App\Http\Controllers\ProfileController;
@@ -34,6 +35,8 @@ Route::get('/whychooseus/{whyChooseUsItem}', [WhyChooseUsController::class, 'sho
 Route::get('/whychooseus/{whychooseus}/edit', [WhyChooseUsController::class, 'edit'])->name('whychooseus.edit');
 Route::put('/whychooseus/{whyChooseUsItem}', [WhyChooseUsController::class, 'update'])->name('whychooseus.update');
 Route::delete('/whychooseus/{whyChooseUsItem}', [WhyChooseUsController::class, 'destroy'])->name('whychooseus.destroy');
+
+Route::resource('footers', FooterController::class);
 
 Route::resource('headers', HeaderController::class);
 
