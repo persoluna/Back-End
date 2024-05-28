@@ -11,6 +11,7 @@ use App\Http\Controllers\HeaderController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\MissionController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\StaticseoController;
 use App\Http\Controllers\TestimonialController;
 use App\Http\Controllers\WhyChooseUsController;
 use App\Livewire\SearchApplication;
@@ -36,6 +37,8 @@ Route::get('/whychooseus/{whyChooseUsItem}', [WhyChooseUsController::class, 'sho
 Route::get('/whychooseus/{whychooseus}/edit', [WhyChooseUsController::class, 'edit'])->name('whychooseus.edit');
 Route::put('/whychooseus/{whyChooseUsItem}', [WhyChooseUsController::class, 'update'])->name('whychooseus.update');
 Route::delete('/whychooseus/{whyChooseUsItem}', [WhyChooseUsController::class, 'destroy'])->name('whychooseus.destroy');
+
+Route::resource('staticseos', StaticseoController::class);
 
 Route::resource('menus', MenuController::class);
 

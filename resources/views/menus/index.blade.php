@@ -3,12 +3,20 @@
         <x-breadcrumb :breadcrumbs="[['name' => 'Pages', 'url' => route('menus.index')]]" />
         <div class="m-4 py-4 overflow-x-auto">
             <div class="inline-block min-w-full shadow rounded-lg overflow-hidden flex-col">
-                <div class="sm:flex justify-start sm:justify-between items-center mb-4">
-                    <h1 class="sm:text-4xl text-3xl font-semibold  sm:pb-4 pb-8">Pages</h1>
-                    <a href="{{ route('menus.create') }}"
-                        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Create
-                        New
-                        Page 🎬</a>
+                <div class="grid gap-6 justify-start sm:justify-between lg:grid-cols-1 items-center mb-4">
+                    <h1 class="sm:text-4xl text-3xl font-semibold sm:pb-4 pb-8">Pages</h1>
+
+                    <div class="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-4">
+                        <a href="{{ route('menus.create') }}"
+                            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded sm:max-w-[200px]">
+                            Create New Page 🎬
+                        </a>
+
+                        <a href="{{ route('staticseos.index') }}"
+                            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded sm:max-w-[200px]">
+                            Update Static SEO 🗄️
+                        </a>
+                    </div>
                 </div>
                 @if (session('success'))
                     <div id="success-message"
