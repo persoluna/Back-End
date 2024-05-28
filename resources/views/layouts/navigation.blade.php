@@ -139,8 +139,9 @@
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                         fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round">
-                        <path d="M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"></path>
-                        <path d="M12 21v-6a4 4 0 0 1 4-4h4"></path>
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <line x1="12" y1="16" x2="12" y2="12"></line>
+                        <line x1="12" y1="8" x2="12.01" y2="8"></line>
                     </svg>
                     <span class="flex-1 ms-3 text-left rtl:text-right whitespace-nowrap">About</span>
                     <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
@@ -168,22 +169,60 @@
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                         fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round">
-                        <path d="M4 4h16v2H4zM4 10h16v2H4zM4 16h16v2H4z" />
-                        <rect x="4" y="4" width="16" height="16" rx="2" ry="2" />
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16c0 1.1.9 2 2 2h12a2 2 0 0 0 2-2V8l-6-6z" />
+                        <path d="M14 3v5h5M16 13H8M16 17H8M10 9H8" />
                     </svg>
                     <span class="ms-3">Blogs</span>
                 </a>
             </li>
-
+            <li>
+                <button type="button"
+                    class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+                    aria-controls="dropdown-settings" data-collapse-toggle="dropdown-settings">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <line x1="4" y1="21" x2="4" y2="14"></line>
+                        <line x1="4" y1="10" x2="4" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="12"></line>
+                        <line x1="12" y1="8" x2="12" y2="3"></line>
+                        <line x1="20" y1="21" x2="20" y2="16"></line>
+                        <line x1="20" y1="12" x2="20" y2="3"></line>
+                        <line x1="1" y1="14" x2="7" y2="14"></line>
+                        <line x1="9" y1="8" x2="15" y2="8"></line>
+                        <line x1="17" y1="16" x2="23" y2="16"></line>
+                    </svg>
+                    <span class="flex-1 ms-3 text-left rtl:text-right whitespace-nowrap">Settings</span>
+                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                        viewBox="0 0 10 6">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="m1 1 4 4 4-4" />
+                    </svg>
+                </button>
+                <ul id="dropdown-settings" class="hidden py-2 space-y-2">
+                    <li>
+                        <a href="{{ route('headers.index') }}"
+                            class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Update
+                            Header</a>
+                    </li>
+                    {{-- <li>
+                        <a href="{{ route('footers.index') }}"
+                            class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Footer</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('menus.index') }}"
+                            class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Menu</a>
+                    </li> --}}
+                </ul>
+            </li>
             <li>
                 <a href="{{ route('profile.edit') }}"
                     class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                         fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="10"></circle>
-                        <line x1="12" y1="16" x2="12" y2="12"></line>
-                        <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="12" cy="7" r="4"></circle>
                     </svg>
                     <span class="flex-1 ms-3 whitespace-nowrap">Profile</span>
                 </a>
