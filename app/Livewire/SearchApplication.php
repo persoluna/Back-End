@@ -15,6 +15,7 @@ class SearchApplication extends Component
     public $perPage = 5; // Number of items per page (default value)
 
     public $applicationId;
+
     public $applicationStatus;
 
     public function updateApplicationStatus(Application $application)

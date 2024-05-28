@@ -84,6 +84,7 @@
                     <span class="ms-3">Dashboard</span>
                 </a>
             </li>
+
             <li>
                 <button type="button"
                     class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
@@ -161,6 +162,19 @@
                     </li>
                 </ul>
             </li>
+            <li>
+                <a href="{{ route('blogs.index') }}"
+                    class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M4 4h16v2H4zM4 10h16v2H4zM4 16h16v2H4z" />
+                        <rect x="4" y="4" width="16" height="16" rx="2" ry="2" />
+                    </svg>
+                    <span class="ms-3">Blogs</span>
+                </a>
+            </li>
+
             <li>
                 <a href="{{ route('profile.edit') }}"
                     class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
