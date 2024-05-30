@@ -29,7 +29,7 @@
                         class="text-base font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                         for="title">Title</label>
                     <input
-                        class="border-input bg-background ring-offset-background placeholder:text-muted-foreground focus-visible:ring-ring flex h-10 w-full rounded-md border px-3 py-2 text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                        class="border-input bg-background ring-offset-background placeholder:text-muted-foreground focus-visible:ring-ring flex h-10 w-60 rounded-md border px-3 py-2 text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                         id="title" placeholder="Enter the About us title" type="text" name="title"
                         value="{{ old('title', $about->title) }}">
                     @error('title')
@@ -46,13 +46,13 @@
                         class="text-base font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                         for="image1">Image 1</label>
                     <input
-                        class="border-input bg-background ring-offset-background placeholder:text-muted-foreground focus-visible:ring-ring flex h-10 w-full rounded-md border px-3 text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                        class="border-input bg-background ring-offset-background placeholder:text-muted-foreground focus-visible:ring-ring flex h-10 w-80 rounded-md border px-3 text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                         id="image1" type="file" name="image1" onchange="previewImage(event, 'image-preview1')">
 
                     <div id="image-container1">
                         @if ($about->image1)
                             <img src="{{ asset('storage/abouts/' . $about->image1) }}" alt="{{ $about->alt_tag1 }}"
-                                class="min-h-[100px] w-auto p-2">
+                                class="min-h-[100px] max-h-[500px] w-auto p-2">
                         @endif
                     </div>
 
@@ -88,7 +88,7 @@
                         class="text-base font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                         for="image2">Image 2</label>
                     <input
-                        class="border-input bg-background ring-offset-background placeholder:text-muted-foreground focus-visible:ring-ring flex h-10 w-full rounded-md border px-3 text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                        class="border-input bg-background ring-offset-background placeholder:text-muted-foreground focus-visible:ring-ring flex h-10 w-80 rounded-md border px-3 text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                         id="image2" type="file" name="image2" onchange="previewImage(event, 'image-preview2')">
 
                     <div id="image-container2">
@@ -132,7 +132,7 @@
                         class="text-base font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                         for="sub_title">Sub Title</label>
                     <input
-                        class="border-input bg-background ring-offset-background placeholder:text-muted-foreground focus-visible:ring-ring flex h-10 w-full rounded-md border px-3 py-2 text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                        class="border-input bg-background ring-offset-background placeholder:text-muted-foreground focus-visible:ring-ring flex h-10 w-80 rounded-md border px-3 py-2 text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                         id="sub_title" placeholder="Enter the About us Sub title" type="text" name="sub_title"
                         value="{{ old('title', $about->sub_title) }}">
                     @error('sub_title')
@@ -147,11 +147,10 @@
                 <div class="lg:col-span-6">
                     <label
                         class="text-base font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                        for="description">Description</label>
-
-                    <!-- Quill Editor -->
-                    <div id="editor"></div>
-
+                        for="description">About Description</label>
+                    <textarea
+                        class="border-input bg-background ring-offset-background placeholder:text-muted-foreground focus-visible:ring-ring flex h-40 w-full rounded-md border px-3 py-2 text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                        id="description" placeholder="Enter a brief description" name="description">{{ old('description', $about->description) }}</textarea>
                     @error('description')
                         <div class="text-red-500 mt-2 text-sm">
                             {{ $message }}
@@ -159,8 +158,10 @@
                     @enderror
                 </div>
                 <br>
+
+
                 <!-- Owner Name input field -->
-                <div class="lg:col-span-3">
+                <div class="lg:col-span-2">
                     <label
                         class="text-base font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                         for="owner_name">Owner Name</label>
@@ -197,7 +198,7 @@
                         class="text-base font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                         for="owner_signature">Signature</label>
                     <input
-                        class="border-input bg-background ring-offset-background placeholder:text-muted-foreground focus-visible:ring-ring flex h-10 w-full rounded-md border px-3 text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                        class="border-input bg-background ring-offset-background placeholder:text-muted-foreground focus-visible:ring-ring flex h-10 w-80 rounded-md border px-3 text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                         id="owner_signature" type="file" name="owner_signature"
                         onchange="previewImage(event, 'image-preview3')">
 
@@ -219,12 +220,12 @@
                 </div>
                 <br>
                 <!--  Alt Tag3 input field -->
-                <div class="lg:col-span-2">
+                <div class="lg:col-span-6">
                     <label
                         class="text-base font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                         for="alt_tag3">Alt Tag3</label>
                     <input
-                        class="border-input bg-background ring-offset-background placeholder:text-muted-foreground focus-visible:ring-ring flex h-10 w-full rounded-md border px-3 py-2 text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                        class="border-input bg-background ring-offset-background placeholder:text-muted-foreground focus-visible:ring-ring flex h-10 w-60 rounded-md border px-3 py-2 text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                         id="alt_tag3" placeholder="_____" type="text" name="alt_tag3"
                         value="{{ old('alt_tag3', $about->alt_tag3) }}">
                     @error('alt_tag3')
@@ -235,7 +236,6 @@
                 </div>
 
                 <br>
-
                 <!-- Update Application button -->
                 <div class="pt-8 flex justify-center sm:w-fit lg:col-span-2">
                     <button
@@ -247,14 +247,6 @@
             </div>
         </form>
     </div>
-    <script>
-        const quill = new Quill('#editor', {
-            theme: 'snow'
-        });
-
-        // Set the initial value of the editor if editing an existing record
-        quill.root.innerHTML = `{!! old('description', $about->description) !!}`;
-    </script>
 
     <script>
         function previewImage(event, previewId) {

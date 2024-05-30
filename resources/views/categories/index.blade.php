@@ -4,18 +4,16 @@
         <div class="m-4 py-4 overflow-x-auto">
             <div class="inline-block min-w-full shadow rounded-lg overflow-hidden flex-col">
                 <div class="grid gap-6 justify-start sm:justify-between lg:grid-cols-1 items-center mb-4">
-                    <h1 class="sm:text-4xl text-3xl font-semibold sm:pb-4 pb-8">Categories</h1>
+                    <h1 class="sm:text-4xl text-3xl font-semibold  sm:pb-4 pb-8">Categories</h1>
 
                     <div class="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-4">
-                        <a href="{{ route('categories.create') }}"
-                            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded sm:max-w-[200px]">
-                            Create New Category
-                        </a>
 
-                        {{-- ! Category Title --}}
-                        <a href="#"
-                            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded sm:max-w-[200px]">
-                            Update Category Title
+                        <a href="{{ route('categories.create') }}"
+                            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded sm:max-w-[200px]">Create
+                            New Category</a>
+                        <a href="{{ route('headings.edit', 4) }}"
+                            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded sm:max-w-[200px] max-w-[130px]">
+                            Update Title
                         </a>
                     </div>
                 </div>

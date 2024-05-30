@@ -56,8 +56,8 @@
             </script>
         @endif
 
-        <div class="m-[60px] items-start">
-            <div class="grid lg:grid-cols-6 gap-6">
+        <div class="m-[60px] lg:pr-[200px] items-start">
+            <div class="grid lg:grid-cols-6 gap-4">
                 <br>
 
                 {{-- ! Mission --}}
