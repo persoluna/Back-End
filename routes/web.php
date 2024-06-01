@@ -14,6 +14,7 @@ use App\Http\Controllers\MenuController;
 use App\Http\Controllers\MissionController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SchemaDumpController;
 use App\Http\Controllers\StaticseoController;
 use App\Http\Controllers\TestimonialController;
 use App\Http\Controllers\WhyChooseUsController;
@@ -22,6 +23,16 @@ use App\Livewire\SearchBanner;
 use App\Livewire\SearchCounter;
 use App\Livewire\SearchWhyChooseUs;
 use Illuminate\Support\Facades\Route;
+
+Route::get('/schema-dump', [SchemaDumpController::class, 'dumpSchema'])->name('schema.dump');
+
+Route::get('/schema-dump-view', function () {
+    return view('schema_dump');
+});
+
+Route::get('/tables', function () {
+    return response()->json(config('database.schema.tables'));
+});
 
 // ! LiveWire SearchBanner and SearchCounter
 Route::get('/search-application', SearchApplication::class);
