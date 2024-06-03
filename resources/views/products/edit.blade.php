@@ -42,7 +42,32 @@
                         @enderror
                     </div>
                 </div>
-                <br>
+
+                <!-- Sub Category dropdown -->
+                <div class="lg:col-span-1">
+                    <div class="space-y-2">
+                        <label
+                            class="text-base font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                            for="subcategory_id">
+                            Sub Category
+                        </label>
+                        <select
+                            class="border-input bg-background ring-offset-background placeholder:text-muted-foreground focus-visible:ring-ring flex h-10 w-full rounded-md border px-3 py-2 text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                            id="subcategory_id" name="subcategory_id">
+                            @foreach ($subcategories as $subcategory)
+                                <option value="{{ $subcategory->id }}"
+                                    {{ $product->subcategory_id == $subcategory->id ? 'selected' : '' }}>
+                                    {{ $subcategory->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                        @error('subcategory_id')
+                            <div class="text-red-500 mt-2 text-sm">
+                                {{ $message }}
+                            </div>
+                        @enderror
+                    </div>
+                </div>
 
                 <!-- Product Name input field -->
                 <div class="lg:col-span-1">

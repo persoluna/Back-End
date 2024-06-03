@@ -1,22 +1,18 @@
 <?php
+
 namespace App\Models;
 
-use App\Models\Category;
-use App\Models\Subcategory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Product extends Model
+class Subcategory extends Model
 {
     use HasFactory;
 
     protected $fillable = [
         'category_id',
-        'subcategory_id',
-        'product_name',
+        'name',
         'slug',
-        'description',
         'image',
         'alt_tag',
         'meta_title',
@@ -26,13 +22,13 @@ class Product extends Model
         'status',
     ];
 
-    public function category(): BelongsTo
+    public function products()
     {
-        return $this->belongsTo(Category::class);
+        return $this->hasMany(Product::class);
     }
 
-    public function subcategory(): BelongsTo
+    public function category()
     {
-        return $this->belongsTo(Subcategory::class);
+        return $this->belongsTo(Category::class);
     }
 }

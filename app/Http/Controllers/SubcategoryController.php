@@ -3,20 +3,19 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
-use App\Models\Product;
 use App\Models\Subcategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
-class ProductController extends Controller
+class SubcategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $products = Product::latest()->get();
-        return view('products.index', compact('products'));
+        $subcategories = Subcategory::latest()->get();
+        return view('subcategories.index', compact('subcategories'));
     }
 
     /**
@@ -24,9 +23,8 @@ class ProductController extends Controller
      */
     public function create()
     {
-        $subcategories = Subcategory::all();
         $categories = Category::all();
-        return view('products.create', compact('categories', 'subcategories'));
+        return view('subcategories.create', compact('categories'));
     }
 
     /**
@@ -36,10 +34,8 @@ class ProductController extends Controller
     {
         $validatedData = $request->validate([
             'category_id' => 'required',
-            'subcategory_id' => 'required',
-            'product_name' => 'required|max:255',
-            'slug' => 'required|unique:products|max:255',
-            'description' => 'required',
+            'name' => 'required|max:255',
+            'slug' => 'required|unique:categories|max:255',
             'image' => 'required',
             'alt_tag' => 'required|max:255',
             'meta_title' => 'required|max:255',
@@ -52,18 +48,18 @@ class ProductController extends Controller
             return back()->withInput()->withErrors(['category_id' => 'Please select a category']);
         }
 
-        $productImagePath = $request->file('image')->store('public/product_images');
-        $validatedData['image'] = basename($productImagePath);
+        $subcategoryImagePath = $request->file('image')->store('public/sub_category_images');
+        $validatedData['image'] = basename($subcategoryImagePath);
 
-        $product = Product::create($validatedData);
+        $subcategory = Subcategory::create($validatedData);
 
-        return redirect()->route('products.index')->with('success', 'Product created successfully.');
+        return redirect()->route('subcategories.index')->with('success', 'Sub Category created successfully.');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Product $product)
+    public function show(Subcategory $subcategory)
     {
         //
     }
@@ -71,17 +67,16 @@ class ProductController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Product $product)
+    public function edit(Subcategory $subcategory)
     {
-        $subcategories = Subcategory::all();
         $categories = Category::all();
-        return view('products.edit', compact('product', 'categories', 'subcategories'));
+        return view('subcategories.edit', compact('subcategory', 'categories'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Product $product)
+    public function update(Request $request, Subcategory $subcategory)
     {
         if (!$request->has('category_id')) {
             return back()->withInput()->withErrors(['category_id' => 'Please select a category']);
@@ -89,10 +84,8 @@ class ProductController extends Controller
 
         $validatedData = $request->validate([
             'category_id' => 'required',
-            'subcategory_id' => 'required',
-            'product_name' => 'nullable|max:255',
-            'slug' => 'nullable|max:255|unique:products,slug,' . $product->id,
-            'description' => 'nullable',
+            'name' => 'nullable|max:255',
+            'slug' => 'nullable|max:255|unique:subcategories,slug,' . $subcategory->id,
             'image' => 'nullable',
             'alt_tag' => 'nullable|max:255',
             'meta_title' => 'nullable|max:255',
@@ -101,23 +94,28 @@ class ProductController extends Controller
             'meta_canonical' => 'nullable|url',
         ]);
 
-        Storage::delete('public/product_images/' . $product->image);
+        Storage::delete('public/sub_category_images/' . $subcategory->image);
 
-        $productImagePath = $request->file('image')->store('public/product_images');
-        $validatedData['image'] = basename($productImagePath);
+        $subcategoryImagePath = $request->file('image')->store('public/sub_category_images');
+        $validatedData['image'] = basename($subcategoryImagePath);
 
-        $product->update($validatedData);
+        $subcategory->update($validatedData);
 
-        return redirect()->route('products.index')->with('success', 'Product updated successfully.');
+        return redirect()->route('subcategories.index')->with('success', 'Sub category updated successfully.');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Product $product)
+    public function destroy(Subcategory $subcategory)
     {
-        Storage::delete('public/product_images/' . $product->image);
-        $product->delete();
-        return redirect()->route('products.index')->with('success', 'Product deleted successfully.');
+
+        // Update associated products to have a default subcategory value
+        $subcategory->products()->update(['subcategory_id' => null]);
+
+        Storage::delete('public/sub_category_images/' . $subcategory->image);
+        $subcategory->delete();
+
+        return redirect()->route('subcategories.index')->with('success', 'Sub category deleted successfully.');
     }
 }

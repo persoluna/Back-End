@@ -118,6 +118,12 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
+        // Update associated products to have a null category value
+        $category->products()->update(['category_id' => null]);
+
+        // Update associated subcategories to have a null category value
+        $category->subcategories()->update(['category_id' => null]);
+
         // Delete the image from the 'public/category_images/' directory
         Storage::delete('public/category_images/' . $category->image);
 

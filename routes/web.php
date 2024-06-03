@@ -16,12 +16,14 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SchemaDumpController;
 use App\Http\Controllers\StaticseoController;
+use App\Http\Controllers\SubcategoryController;
 use App\Http\Controllers\TestimonialController;
 use App\Http\Controllers\TruncateTablesController;
 use App\Http\Controllers\WhyChooseUsController;
 use App\Livewire\SearchApplication;
 use App\Livewire\SearchBanner;
 use App\Livewire\SearchCounter;
+use App\Livewire\SearchSubcategory;
 use App\Livewire\SearchWhyChooseUs;
 use Illuminate\Support\Facades\Route;
 
@@ -34,11 +36,12 @@ Route::get('/tables', function () {
     return response()->json(config('database.schema.tables'));
 });
 
-// ! LiveWire SearchBanner and SearchCounter
+// ! LiveWire Search Components
 Route::get('/search-application', SearchApplication::class);
 Route::get('/search-banner', SearchBanner::class);
 Route::get('/search-counter', SearchCounter::class);
 Route::get('/search-whychooseus', SearchWhyChooseUs::class);
+Route::get('/search-subcategory', SearchSubcategory::class);
 
 Route::get('/', function () {
     return view('welcome');
@@ -81,6 +84,8 @@ Route::resource('applications', ApplicationController::class);
 Route::resource('counters', CounterController::class);
 
 Route::resource('banners', BannerController::class);
+
+Route::resource('subcategories', SubcategoryController::class);
 
 Route::get('/dashboard', function () {
     return view('dashboard');
