@@ -17,6 +17,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SchemaDumpController;
 use App\Http\Controllers\StaticseoController;
 use App\Http\Controllers\TestimonialController;
+use App\Http\Controllers\TruncateTablesController;
 use App\Http\Controllers\WhyChooseUsController;
 use App\Livewire\SearchApplication;
 use App\Livewire\SearchBanner;
@@ -24,12 +25,11 @@ use App\Livewire\SearchCounter;
 use App\Livewire\SearchWhyChooseUs;
 use Illuminate\Support\Facades\Route;
 
+Route::post('/truncate-tables', [TruncateTablesController::class, 'truncateAllTables'])->name('truncate-tables');
+
 Route::get('/schema-dump', [SchemaDumpController::class, 'dumpSchema'])->name('schema.dump');
 
-Route::get('/schema-dump-view', function () {
-    return view('schema_dump');
-});
-
+// ! FOR TESTING PURPOSES ONLY
 Route::get('/tables', function () {
     return response()->json(config('database.schema.tables'));
 });
