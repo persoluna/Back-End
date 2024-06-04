@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\ApplicationController;
+use App\Http\Controllers\BackupController;
+use App\Http\Controllers\BackupfiledownloadController;
 use App\Http\Controllers\BannerController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CategoryController;
@@ -31,12 +33,13 @@ Route::post('/truncate-tables', [TruncateTablesController::class, 'truncateAllTa
 
 Route::get('/schema-dump', [SchemaDumpController::class, 'dumpSchema'])->name('schema.dump');
 
-// ! FOR TESTING PURPOSES ONLY
+// ! FOR TESTING PURPOSES ONLY DO NOT EXECUTE IF NOT SURE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 Route::get('/tables', function () {
     return response()->json(config('database.schema.tables'));
 });
+Route::get('/back-upppppppppppp', [BackupController::class, 'createBackup'])->name('back.up');
 
-// ! LiveWire Search Components
+// TODO LiveWire Search Components
 Route::get('/search-application', SearchApplication::class);
 Route::get('/search-banner', SearchBanner::class);
 Route::get('/search-counter', SearchCounter::class);
@@ -96,5 +99,9 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+// ! Backup SQL file donwload routes for each of the three latest backups
+Route::get('/backups', [BackupfiledownloadController::class, 'downloadBackups'])->name('backups.index');
+Route::get('/backups/download/{index}', [BackupfiledownloadController::class, 'downloadBackup'])->name('backups.download');
 
 require __DIR__ . '/auth.php';
