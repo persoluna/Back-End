@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\CountersExport;
+use App\Imports\CountersImport;
 use App\Models\Counter;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Maatwebsite\Excel\Facades\Excel;
 
 class CounterController extends Controller
 {
@@ -15,6 +18,28 @@ class CounterController extends Controller
     {
         $counters = Counter::latest()->get();
         return view('counters.index', compact('counters'));
+    }
+
+    /**
+     */
+    public function export()
+    {
+        return Excel::download(new CountersExport, 'counters.xlsx');
+    }
+
+    /**
+     *
+     */
+    public function import(Request $request)
+    {
+        // Validate incoming request data
+        $request->validate([
+            'file' => 'required|max:2048',
+        ]);
+
+        Excel::import(new CountersImport, $request->file('file'));
+
+        return back()->with('success', 'Counters imported successfully.');
     }
 
     /**

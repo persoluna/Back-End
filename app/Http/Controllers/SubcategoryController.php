@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\SubcategoriesExport;
+use App\Imports\SubcategoriesImport;
 use App\Models\Category;
 use App\Models\Subcategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Maatwebsite\Excel\Facades\Excel;
 
 class SubcategoryController extends Controller
 {
@@ -16,6 +19,27 @@ class SubcategoryController extends Controller
     {
         $subcategories = Subcategory::latest()->get();
         return view('subcategories.index', compact('subcategories'));
+    }
+
+    /**
+     */
+    public function export()
+    {
+        return Excel::download(new SubcategoriesExport, 'subcategories.xlsx');
+    }
+
+    /**
+     */
+    public function import(Request $request)
+    {
+        // Validate incoming request data
+        $request->validate([
+            'file' => 'required|max:2048',
+        ]);
+
+        Excel::import(new SubcategoriesImport, $request->file('file'));
+
+        return back()->with('success', 'Subcategories imported successfully.');
     }
 
     /**

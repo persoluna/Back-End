@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\BannersExport;
+use App\Imports\BannersImport;
 use App\Models\Banner;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Maatwebsite\Excel\Facades\Excel;
 
 class BannerController extends Controller
 {
@@ -15,6 +18,28 @@ class BannerController extends Controller
     {
         $banners = Banner::latest()->get();
         return view('banners.index', compact('banners'));
+    }
+
+    /**
+     */
+    public function export()
+    {
+        return Excel::download(new BannersExport, 'banners.xlsx');
+    }
+
+    /**
+     *
+     */
+    public function import(Request $request)
+    {
+        // Validate incoming request data
+        $request->validate([
+            'file' => 'required|max:2048',
+        ]);
+
+        Excel::import(new BannersImport, $request->file('file'));
+
+        return back()->with('success', 'Banners imported successfully.');
     }
 
     /**

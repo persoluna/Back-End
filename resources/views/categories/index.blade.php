@@ -17,6 +17,13 @@
                         </a>
                     </div>
                 </div>
+
+
+                <a href="{{ route('categories.export') }}"
+                    class="inline-flex items-center px-4 py-2 bg-yellow-400 text-white rounded-md hover:bg-yellow-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 float-right">
+                    <i class="fas fa-download mr-2"></i> Export Categories Data
+                </a>
+
                 @if (session('success'))
                     <div id="success-message"
                         class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative opacity-0 transition-opacity duration-500"
@@ -88,6 +95,35 @@
                     @livewire('search-category')
                 </div>
             </div>
+        </div>
+        <div class="grid justify-end">
+            <form action="{{ route('categories.import') }}" method="POST" enctype="multipart/form-data">
+                @csrf
+
+                <div class="mb-3">
+                    <label for="file" class="form-label block text-sm font-medium text-gray-700">Import Categories
+                        Data</label>
+                    <input type="file" name="file" id="file"
+                        class="form-control block w-fit px-3 rounded-md border border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                </div>
+
+                <button type="submit" id="importButton"
+                    class="items-center px-4 py-2 bg-gray-400 text-white rounded-md hover:bg-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 hidden">
+                    <i class="mr-2"></i> Import Categories Data
+                </button>
+            </form>
+            <script>
+                const fileInput = document.getElementById('file');
+                const importButton = document.getElementById('importButton');
+
+                fileInput.addEventListener('change', function() {
+                    if (this.files.length > 0) {
+                        importButton.classList.remove('hidden');
+                    } else {
+                        importButton.classList.add('hidden');
+                    }
+                });
+            </script>
         </div>
     </div>
 </x-app-layout>

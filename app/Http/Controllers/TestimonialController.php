@@ -1,9 +1,12 @@
 <?php
 namespace App\Http\Controllers;
 
+use App\Exports\TestimonialsExport;
+use App\Imports\TestimonialsImport;
 use App\Models\Testimonial;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Maatwebsite\Excel\Facades\Excel;
 
 class TestimonialController extends Controller
 {
@@ -14,6 +17,28 @@ class TestimonialController extends Controller
     {
         $testimonials = Testimonial::latest()->get();
         return view('testimonials.index', compact('testimonials'));
+    }
+
+    /**
+     */
+    public function export()
+    {
+        return Excel::download(new TestimonialsExport, 'testimonials.xlsx');
+    }
+
+    /**
+     *
+     */
+    public function import(Request $request)
+    {
+        // Validate incoming request data
+        $request->validate([
+            'file' => 'required|max:2048',
+        ]);
+
+        Excel::import(new TestimonialsImport, $request->file('file'));
+
+        return back()->with('success', 'Testimonials imported successfully.');
     }
 
     /**

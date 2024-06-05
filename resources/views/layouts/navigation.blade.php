@@ -75,7 +75,7 @@
         <ul class="space-y-2 font-medium">
             <li>
                 <a href="{{ route('dashboard') }}"
-                    class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                    class="{{ Route::currentRouteNamed('dashboard') ? 'active' : '' }} flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                         fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M21.21 15.89A10 10 0 1 1 8 2.83"></path>
@@ -87,7 +87,7 @@
 
             <li>
                 <button type="button"
-                    class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+                    class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ Route::currentRouteNamed('banners.index') || Route::currentRouteNamed('counters.create') || Route::currentRouteNamed('banners.create') || Route::currentRouteNamed('counters.index') || Route::currentRouteNamed('applications.index') || Route::currentRouteNamed('applications.create') || Route::currentRouteNamed('whychooseus.index') || Route::currentRouteNamed('whychooseus.create') || Route::currentRouteNamed('clients.index') || Route::currentRouteNamed('clients.create') || Route::currentRouteNamed('testimonials.index') || Route::currentRouteNamed('testimonials.create') ? 'parent-active' : '' }}"
                     aria-controls="dropdown-example" data-collapse-toggle="dropdown-example">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                         fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -101,40 +101,40 @@
                             d="m1 1 4 4 4-4" />
                     </svg>
                 </button>
-                <ul id="dropdown-example" class="hidden py-2 space-y-2">
+                <ul id="dropdown-example"
+                    class="space-y-2 {{ Route::currentRouteNamed('banners.index') || Route::currentRouteNamed('counters.index') || Route::currentRouteNamed('counters.create') || Route::currentRouteNamed('banners.create') || Route::currentRouteNamed('applications.index') || Route::currentRouteNamed('applications.create') || Route::currentRouteNamed('whychooseus.index') || Route::currentRouteNamed('whychooseus.create') || Route::currentRouteNamed('clients.index') || Route::currentRouteNamed('clients.create') || Route::currentRouteNamed('testimonials.index') || Route::currentRouteNamed('testimonials.create') ? 'block' : 'hidden' }}">
                     <li>
                         <a href="{{ route('banners.index') }}"
-                            class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Banners</a>
+                            class="{{ Route::currentRouteNamed('banners.index') ? 'active' : '' }} flex items-center w-full p-2 mt-3 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Banners</a>
                     </li>
                     <li>
                         <a href="{{ route('counters.index') }}"
-                            class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Counters</a>
+                            class="{{ Route::currentRouteNamed('counters.index') ? 'active' : '' }} flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Counters</a>
                     </li>
                     <li>
                         <a href="{{ route('applications.index') }}"
-                            class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Application</a>
+                            class="{{ Route::currentRouteNamed('applications.index') ? 'active' : '' }} flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Application</a>
                     </li>
                     <li>
                         <a href="{{ route('whychooseus.index') }}"
-                            class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Why
+                            class="{{ Route::currentRouteNamed('whychooseus.index') ? 'active' : '' }} flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Why
                             Choose Us</a>
                     </li>
                     <li>
                         <a href="{{ route('clients.index') }}"
-                            class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Clients</a>
+                            class="{{ Route::currentRouteNamed('clients.index') ? 'active' : '' }} flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Client</a>
                     </li>
                     <li>
                         <a href="{{ route('testimonials.index') }}"
-                            class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Testimonials</a>
+                            class="{{ Route::currentRouteNamed('testimonials.index') ? 'active' : '' }} flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Testimonials</a>
                     </li>
                 </ul>
             </li>
 
 
-
             <li>
                 <button type="button"
-                    class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+                    class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ Route::currentRouteNamed('abouts.index') || Route::currentRouteNamed('abouts.edit') || Route::currentRouteNamed('missions.index') || Route::currentRouteNamed('missions.show', 1) || Route::currentRouteNamed('abouts.show', 1) || Route::currentRouteNamed('missions.edit', 1) || Route::currentRouteNamed('abouts.edit', 1) ? 'parent-active' : '' }}"
                     aria-controls="dropdown-about" data-collapse-toggle="dropdown-about">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                         fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round"
@@ -150,22 +150,23 @@
                             d="m1 1 4 4 4-4" />
                     </svg>
                 </button>
-                <ul id="dropdown-about" class="hidden py-2 space-y-2">
+                <ul id="dropdown-about"
+                    class="{{ Route::currentRouteNamed('abouts.index') || Route::currentRouteNamed('abouts.edit') || Route::currentRouteNamed('missions.index') || Route::currentRouteNamed('missions.show', 1) || Route::currentRouteNamed('abouts.show', 1) || Route::currentRouteNamed('missions.edit', 1) || Route::currentRouteNamed('abouts.edit', 1) ? 'block' : 'hidden' }} py-2 space-y-2">
                     <li>
                         <a href="{{ route('abouts.index') }}"
-                            class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">About
+                            class="{{ Route::currentRouteNamed('abouts.index') ? 'active' : '' }} flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">About
                             Us</a>
                     </li>
                     <li>
                         <a href="{{ route('missions.index') }}"
-                            class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Mission
+                            class="{{ Route::currentRouteNamed('missions.index') ? 'active' : '' }} flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Mission
                             & Vision</a>
                     </li>
                 </ul>
             </li>
             <li>
                 <button type="button"
-                    class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+                    class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ Route::currentRouteNamed('categories.index') || Route::currentRouteNamed('categories.create') || Route::currentRouteNamed('subcategories.index') || Route::currentRouteNamed('subcategories.create') || Route::currentRouteNamed('products.index') || Route::currentRouteNamed('products.create') ? 'parent-active' : '' }}"
                     aria-controls="dropdown-product" data-collapse-toggle="dropdown-product">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                         fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round"
@@ -181,25 +182,26 @@
                             d="m1 1 4 4 4-4" />
                     </svg>
                 </button>
-                <ul id="dropdown-product" class="hidden py-2 space-y-2">
+                <ul id="dropdown-product"
+                    class="{{ Route::currentRouteNamed('categories.index') || Route::currentRouteNamed('categories.create') || Route::currentRouteNamed('subcategories.create') || Route::currentRouteNamed('subcategories.index') || Route::currentRouteNamed('products.index') || Route::currentRouteNamed('products.create') ? 'block' : 'hidden' }} py-2 space-y-2">
                     <li>
                         <a href="{{ route('categories.index') }}"
-                            class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Categories</a>
+                            class="{{ Route::currentRouteNamed('categories.index') ? 'active' : '' }} flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Categories</a>
                     </li>
                     <li>
                         <a href="{{ route('subcategories.index') }}"
-                            class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Sub-categories</a>
+                            class="{{ Route::currentRouteNamed('subcategories.index') ? 'active' : '' }} flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Sub-categories</a>
                     </li>
                     <li>
                         <a href="{{ route('products.index') }}"
-                            class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Products</a>
+                            class="{{ Route::currentRouteNamed('products.index') ? 'active' : '' }} flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Products</a>
                     </li>
                 </ul>
             </li>
             <li>
                 <a href="{{ route('blogs.index') }}"
-                    class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                    class="{{ Route::currentRouteNamed('blogs.index') || Route::currentRouteNamed('blogs.create') || Route::currentRouteNamed('headings.edit', 5) ? 'active' : '' }} flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"><svg
+                        xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                         fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round">
                         <path d="M14 2H6a2 2 0 0 0-2 2v16c0 1.1.9 2 2 2h12a2 2 0 0 0 2-2V8l-6-6z" />
@@ -210,7 +212,7 @@
             </li>
             <li>
                 <button type="button"
-                    class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+                    class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ Route::currentRouteNamed('headers.index') || Route::currentRouteNamed('footers.index') || Route::currentRouteNamed('menus.index') || Route::currentRouteNamed('menus.create') || Route::currentRouteNamed('staticseos.index') ? 'parent-active' : '' }}"
                     aria-controls="dropdown-settings" data-collapse-toggle="dropdown-settings">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                         fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round"
@@ -232,27 +234,28 @@
                             d="m1 1 4 4 4-4" />
                     </svg>
                 </button>
-                <ul id="dropdown-settings" class="hidden py-2 space-y-2">
+                <ul id="dropdown-settings"
+                    class="{{ Route::currentRouteNamed('headers.index') || Route::currentRouteNamed('footers.index') || Route::currentRouteNamed('menus.index') || Route::currentRouteNamed('menus.create') || Route::currentRouteNamed('staticseos.index') ? 'block' : 'hidden' }} py-2 space-y-2">
                     <li>
                         <a href="{{ route('headers.index') }}"
-                            class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Update
+                            class="{{ Route::currentRouteNamed('headers.index') ? 'active' : '' }} flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Update
                             Header</a>
                     </li>
                     <li>
                         <a href="{{ route('footers.index') }}"
-                            class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Update
+                            class="{{ Route::currentRouteNamed('footers.index') ? 'active' : '' }} flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Update
                             Footer</a>
                     </li>
                     <li>
                         <a href="{{ route('menus.index') }}"
-                            class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Update
+                            class="{{ Route::currentRouteNamed('menus.index') || Route::currentRouteNamed('staticseos.index') || Route::currentRouteNamed('menus.create') ? 'active' : '' }} flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Update
                             Menu</a>
                     </li>
                 </ul>
             </li>
             <li>
                 <a href="{{ route('profile.edit') }}"
-                    class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                    class="{{ Route::currentRouteNamed('profile.edit') ? 'active' : '' }} flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                         fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round">
@@ -264,7 +267,7 @@
             </li>
             <li>
                 <a href="{{ route('backups.index') }}"
-                    class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                    class="{{ Route::currentRouteNamed('backups.index') ? 'active' : '' }} flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                         fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round">

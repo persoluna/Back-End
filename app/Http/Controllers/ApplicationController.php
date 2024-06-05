@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\ApplicationsExport;
+use App\Imports\ApplicationsImport;
 use App\Models\Application;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ApplicationController extends Controller
 {
@@ -15,6 +18,28 @@ class ApplicationController extends Controller
     {
         $applications = Application::latest()->get();
         return view('applications.index', compact('applications'));
+    }
+
+    /**
+     */
+    public function export()
+    {
+        return Excel::download(new ApplicationsExport, 'applications.xlsx');
+    }
+
+    /**
+     *
+     */
+    public function import(Request $request)
+    {
+        // Validate incoming request data
+        $request->validate([
+            'file' => 'required|max:2048',
+        ]);
+
+        Excel::import(new ApplicationsImport, $request->file('file'));
+
+        return back()->with('success', 'Applications imported successfully.');
     }
 
     /**

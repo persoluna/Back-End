@@ -7,6 +7,15 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ config('app.name', 'Laravel') }}</title>
+    <style>
+        .active {
+            background-color: rgb(105, 106, 211);
+        }
+
+        .parent-active {
+            border-bottom: 2px solid #ffffff;
+        }
+    </style>
 
     {{-- ! quill editor --}}
     <script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>

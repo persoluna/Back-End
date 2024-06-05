@@ -46,7 +46,8 @@ class FooterController extends Controller
      */
     public function edit(Footer $footer)
     {
-        //
+        $footer = Footer::find(1);
+        return view('footers.edit', compact('footer'));
     }
 
     /**

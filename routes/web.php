@@ -104,4 +104,46 @@ Route::middleware('auth')->group(function () {
 Route::get('/backups', [BackupfiledownloadController::class, 'downloadBackups'])->name('backups.index');
 Route::get('/backups/download/{index}', [BackupfiledownloadController::class, 'downloadBackup'])->name('backups.download');
 
+// ! Excel Export and Import routes FOR TESTING ONLY !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+// ? Export and Import Banners
+Route::get('banners-export', [BannerController::class, 'export'])->name('banners.export');
+Route::post('banners-import', [BannerController::class, 'import'])->name('banners.import');
+
+// ? Export and Import Counters
+Route::get('counters-export', [CounterController::class, 'export'])->name('counters.export');
+Route::post('counters-import', [CounterController::class, 'import'])->name('counters.import');
+
+// ? Export and Import Applications
+Route::get('applications-export', [ApplicationController::class, 'export'])->name('applications.export');
+Route::post('applications-import', [ApplicationController::class, 'import'])->name('applications.import');
+
+// ? Export and Import WhyChooseUs
+Route::get('whychooseus-export', [WhyChooseUsController::class, 'export'])->name('whychooseus.export');
+Route::post('whychooseus-import', [WhyChooseUsController::class, 'import'])->name('whychooseus.import');
+
+// ? Export and Import clients
+Route::get('clients-export', [ClientController::class, 'export'])->name('clients.export');
+Route::post('clients-import', [ClientController::class, 'import'])->name('clients.import');
+
+// ? Export and Import testimonials
+Route::get('testimonials-export', [TestimonialController::class, 'export'])->name('testimonials.export');
+Route::post('testimonials-import', [TestimonialController::class, 'import'])->name('testimonials.import');
+
+// ? Export and Import categories
+Route::get('categories-export', [CategoryController::class, 'export'])->name('categories.export');
+Route::post('categories-import', [CategoryController::class, 'import'])->name('categories.import');
+
+// ? Export and Import subcategories
+Route::get('subcategories-export', [SubcategoryController::class, 'export'])->name('subcategories.export');
+Route::post('subcategories-import', [SubcategoryController::class, 'import'])->name('subcategories.import');
+
+// ? Export and Import products
+Route::get('products-export', [ProductController::class, 'export'])->name('products.export');
+Route::post('products-import', [ProductController::class, 'import'])->name('products.import');
+
+// ? Export and Import blogs
+Route::get('blogs-export', [BlogController::class, 'export'])->name('blogs.export');
+Route::post('blogs-import', [BlogController::class, 'import'])->name('blogs.import');
+
 require __DIR__ . '/auth.php';

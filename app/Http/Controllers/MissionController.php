@@ -38,7 +38,8 @@ class MissionController extends Controller
      */
     public function show(Mission $mission)
     {
-        //
+        $mission = Mission::find(1);
+        return view('missions.show', compact('mission'));
     }
 
     /**

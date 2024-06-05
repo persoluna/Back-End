@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\ClientsExport;
+use App\Imports\ClientsImport;
 use App\Models\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ClientController extends Controller
 {
@@ -15,6 +18,28 @@ class ClientController extends Controller
     {
         $clients = Client::latest()->get();
         return view('clients.index', compact('clients'));
+    }
+
+    /**
+     */
+    public function export()
+    {
+        return Excel::download(new ClientsExport, 'clients.xlsx');
+    }
+
+    /**
+     *
+     */
+    public function import(Request $request)
+    {
+        // Validate incoming request data
+        $request->validate([
+            'file' => 'required|max:2048',
+        ]);
+
+        Excel::import(new ClientsImport, $request->file('file'));
+
+        return back()->with('success', 'Clients imported successfully.');
     }
 
     /**

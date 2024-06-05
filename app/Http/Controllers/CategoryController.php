@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\CategoriesExport;
+use App\Imports\CategoriesImport;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Maatwebsite\Excel\Facades\Excel;
 
 class CategoryController extends Controller
 {
@@ -15,6 +18,28 @@ class CategoryController extends Controller
     {
         $categories = Category::latest()->get();
         return view('categories.index', compact('categories'));
+    }
+
+    /**
+     */
+    public function export()
+    {
+        return Excel::download(new CategoriesExport, 'categories.xlsx');
+    }
+
+    /**
+     *
+     */
+    public function import(Request $request)
+    {
+        // Validate incoming request data
+        $request->validate([
+            'file' => 'required|max:2048',
+        ]);
+
+        Excel::import(new CategoriesImport, $request->file('file'));
+
+        return back()->with('success', 'Categories imported successfully.');
     }
 
     /**

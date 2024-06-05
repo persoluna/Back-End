@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\BlogsExport;
+use App\Imports\BlogsImport;
 use App\Models\blog;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Maatwebsite\Excel\Facades\Excel;
 
 class BlogController extends Controller
 {
@@ -15,6 +18,28 @@ class BlogController extends Controller
     {
         $blogs = blog::latest()->get();
         return view('blogs.index', compact('blogs'));
+    }
+
+    /**
+     */
+    public function export()
+    {
+        return Excel::download(new BlogsExport, 'blogs.xlsx');
+    }
+
+    /**
+     *
+     */
+    public function import(Request $request)
+    {
+        // Validate incoming request data
+        $request->validate([
+            'file' => 'required|max:2048',
+        ]);
+
+        Excel::import(new BlogsImport, $request->file('file'));
+
+        return back()->with('success', 'Blogs imported successfully.');
     }
 
     /**

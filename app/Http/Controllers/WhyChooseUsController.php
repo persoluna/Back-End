@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\WhyChooseUsExport;
+use App\Imports\WhyChooseUsImport;
 use App\Models\WhyChooseUs;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Maatwebsite\Excel\Facades\Excel;
 
 class WhyChooseUsController extends Controller
 {
@@ -15,6 +18,29 @@ class WhyChooseUsController extends Controller
     {
         $whyChooseUsItems = WhyChooseUs::latest()->get();
         return view('whychooseus.index');
+    }
+
+    /**
+     */
+    public function export()
+    {
+        return Excel::download(new WhyChooseUsExport, 'whychooseus.xlsx');
+    }
+
+    /**
+     *
+     */
+
+    public function import(Request $request)
+    {
+        // Validate incoming request data
+        $request->validate([
+            'file' => 'required|max:2048',
+        ]);
+
+        Excel::import(new WhyChooseUsImport, $request->file('file'));
+
+        return back()->with('success', 'Why choose us imported successfully.');
     }
 
     /**

@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\ProductsExport;
+use App\Imports\ProductsImport;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\Subcategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ProductController extends Controller
 {
@@ -17,6 +20,28 @@ class ProductController extends Controller
     {
         $products = Product::latest()->get();
         return view('products.index', compact('products'));
+    }
+
+    /**
+     */
+    public function export()
+    {
+        return Excel::download(new ProductsExport, 'products.xlsx');
+    }
+
+    /**
+     *
+     */
+    public function import(Request $request)
+    {
+        // Validate incoming request data
+        $request->validate([
+            'file' => 'required|max:2048',
+        ]);
+
+        Excel::import(new ProductsImport, $request->file('file'));
+
+        return back()->with('success', 'Products imported successfully.');
     }
 
     /**

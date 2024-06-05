@@ -38,7 +38,8 @@ class HeaderController extends Controller
      */
     public function show(Header $header)
     {
-        //
+        $header = Header::find(1);
+        return view('headers.edit', compact('header'));
     }
 
     /**
@@ -46,7 +47,8 @@ class HeaderController extends Controller
      */
     public function edit(Header $header)
     {
-        //
+        $header = Header::find(1);
+        return view('headers.edit', compact('header'));
     }
 
     /**
