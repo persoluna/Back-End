@@ -31,7 +31,6 @@ class BlogsImport implements ToModel, WithHeadingRow, WithValidation
             'meta_description' => $row['meta_description'],
             'meta_keywords' => $row['meta_keywords'],
             'meta_canonical' => $row['meta_canonical'],
-            'status' => $row['status'],
         ]);
     }
 
@@ -57,7 +56,6 @@ class BlogsImport implements ToModel, WithHeadingRow, WithValidation
             'meta_description' => 'nullable',
             'meta_keywords' => 'nullable',
             'meta_canonical' => 'nullable',
-            'status' => 'required',
         ];
     }
 }

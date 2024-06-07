@@ -1,10 +1,46 @@
 <x-app-layout>
     <x-slot name="header">
+         <div class="font-semibold text-gray-800 leading-tight pt-[60px] sm:pl-[150px] flex items-center">
+            <div class="w-full h-[30px] flex justify-start items-center">
+                <h1 id="typewriter" class="lg:text-3xl text-2xl font-bold truncate"></h1>
+            </div>
+            <script>
+                const words = ["   Hello !!           ", "Welcome to the dashboard !!                "];
+                let i = 0;
+                let j = 0;
+                let currentWord = "";
+                let isDeleting = false;
 
+                function type() {
+                  currentWord = words[i];
+                      if (isDeleting) {
+                        document.getElementById("typewriter").textContent = currentWord.substring(0, j-1);
+                        j--;
+                            if (j == 0) {
+                              isDeleting = false;
+                              i++;
+                              if (i == words.length) {
+                                i = 0;
+                              }
+                            }
+                      } else {
+                            document.getElementById("typewriter").textContent = currentWord.substring(0, j+1);
+                            j++;
+                            if (j == currentWord.length) {
+                              isDeleting = true;
+                            }
+                          }
+                      setTimeout(type, 150);
+                    }
+                type();
+            </script>
+        </div>
     </x-slot>
+
+
     <div class="pl-12 pr-12 pb-12">
 
-      <div class="container mx-auto pb-12 pt-12">
+      <div class="container mx-auto pb-12">
       <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 m-3">
           <div class="div-container bg-gradient-to-b from-white to-gray-100 hover:from-white hover:to-gray-100 hover:via-gray-200 transition duration-800 rounded-lg shadow-md p-6 relative flex items-center justify-between">
               <div>
@@ -85,6 +121,11 @@
                 </div>
             </div>
         </div>
+    </div>
+
+    {{-- ! Live wire search --}}
+    <div class="py-12 pl-12 pr-12 overflow-scroll">
+        @livewire('search-inquiry')
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>

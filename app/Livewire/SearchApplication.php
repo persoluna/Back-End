@@ -25,6 +25,7 @@ class SearchApplication extends Component
 
         $application->update(['status' => $this->applicationStatus]);
     }
+
     public function render()
     {
         $applications = Application::query()

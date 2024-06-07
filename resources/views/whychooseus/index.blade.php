@@ -97,7 +97,7 @@
                 </div>
             </div>
         </div>
-        <div class="grid justify-end">
+        <div class="grid justify-end pr-12">
             <form action="{{ route('whychooseus.import') }}" method="POST" enctype="multipart/form-data">
                 @csrf
 
@@ -110,7 +110,7 @@
 
                 <button type="submit" id="importButton"
                     class="items-center px-4 py-2 bg-gray-400 text-white rounded-md hover:bg-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 hidden">
-                    <i class="mr-2"></i> Import Whychooseus Data
+                    <i class="mr-2">Confirm</i>
                 </button>
             </form>
             <script>

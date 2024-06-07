@@ -17,12 +17,10 @@ class WhyChooseUsImport implements ToModel, WithHeadingRow, WithValidation
     public function model(array $row)
     {
         return new WhyChooseUs([
-            'id' => $row['id'],
             'why_title' => $row['why_title'],
             'why_description' => $row['why_description'],
             'why_image' => $row['why_image'],
             'alt_tag' => $row['alt_tag'],
-            'status' => $row['status'],
         ]);
     }
 
@@ -34,12 +32,10 @@ class WhyChooseUsImport implements ToModel, WithHeadingRow, WithValidation
     public function rules(): array
     {
         return [
-            'id' => 'nullable|integer',
             'why_title' => 'required',
             'why_description' => 'nullable',
             'why_image' => 'nullable',
             'alt_tag' => 'nullable',
-            'status' => 'nullable',
         ];
     }
 }

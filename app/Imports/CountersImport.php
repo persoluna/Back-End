@@ -21,7 +21,6 @@ class CountersImport implements ToModel, WithHeadingRow, WithValidation
             'number' => $row['number'],
             'icon' => $row['icon'],
             'alt_tag' => $row['alt_tag'],
-            'status' => $row['status'],
         ]);
     }
 
@@ -38,7 +37,6 @@ class CountersImport implements ToModel, WithHeadingRow, WithValidation
             'number' => 'nullable',
             'icon' => 'nullable',
             'alt_tag' => 'nullable',
-            'status' => 'required',
         ];
     }
 

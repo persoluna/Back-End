@@ -91,7 +91,7 @@
             </div>
         </div>
 
-        <div class="grid justify-end">
+        <div class="grid justify-end pr-12">
             <form action="{{ route('products.import') }}" method="POST" enctype="multipart/form-data">
                 @csrf
 

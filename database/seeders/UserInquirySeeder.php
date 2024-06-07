@@ -17,12 +17,12 @@ class UserInquirySeeder extends Seeder
         $faker = Faker::create();
 
         // Define a list of years and months
-        $years = ['2018', '2019', '2020', '2021', '2022'];
+        $years = ['2024', '2023', '2022', '2021', '2020', '2019', '2018'];
         $months = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'];
 
         foreach ($years as $year) {
             // Determine a random number of inquiries for each year
-            $numInquiries = rand(100, 500); // Adjust the range as needed
+            $numInquiries = rand(10, 90); // Adjust the range as needed
 
             for ($i = 0; $i < $numInquiries; $i++) {
                 // Pick a random month from the list

@@ -8,13 +8,34 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
     <style>
-        .active {
-            background-color: rgb(105, 106, 211);
-        }
+      .active {
+              background: linear-gradient(270deg, #2b2e3a, #4c515b, #422456, #4f4673, #536878, #2b2e3a);
+              background-size: 800% 800%;
+              /* Combine both animations into one with separate keyframes */
+              animation: gradientAnimation 20s ease infinite alternate;
+            }
 
-        .parent-active {
-            border-bottom: 2px solid #ffffff;
-        }
+            @keyframes gradientAnimation {
+              /* First half: 0% to 100% - Moves from left to right */
+                  0% {
+                    background-position: 0% 50%;
+              }
+                  50% {
+                    background-position: 100% 50%;
+              }
+
+              /* Second half: 50% to 100% - Moves from right to left (opposite direction) */
+                  50% {
+                    background-position: 100% 50%;
+              }
+                  100% {
+                    background-position: 0% 50%;
+              }
+            }
+
+            .parent-active {
+                border-bottom: 2px solid #ffffff;
+            }
     </style>
 
 

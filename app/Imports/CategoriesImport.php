@@ -28,7 +28,6 @@ class CategoriesImport implements ToModel, WithHeadingRow, WithValidation
             'meta_description' => $row['meta_description'],
             'meta_keyword' => $row['meta_keyword'],
             'meta_canonical' => $row['meta_canonical'],
-            'status' => $row['status'],
         ]);
     }
 
@@ -51,7 +50,6 @@ class CategoriesImport implements ToModel, WithHeadingRow, WithValidation
             'meta_description' => 'nullable',
             'meta_keyword' => 'nullable',
             'meta_canonical' => 'nullable',
-            'status' => 'nullable',
         ];
     }
 }

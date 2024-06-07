@@ -21,7 +21,6 @@ class ApplicationsImport implements ToModel, WithHeadingRow, WithValidation
             'application_description' => $row['application_description'],
             'application_image' => $row['application_image'],
             'alt_tag' => $row['alt_tag'],
-            'status' => $row['status'],
         ]);
     }
 
@@ -38,7 +37,6 @@ class ApplicationsImport implements ToModel, WithHeadingRow, WithValidation
             'application_description' => 'nullable',
             'application_image' => 'nullable',
             'alt_tag' => 'nullable',
-            'status' => 'nullable',
         ];
     }
 }

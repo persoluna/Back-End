@@ -21,7 +21,6 @@ class TestimonialsImport implements ToModel, WithHeadingRow, WithValidation
             'description' => $row['description'],
             'profile_image' => $row['profile_image'],
             'alt_tag' => $row['alt_tag'],
-            'status' => $row['status'],
         ]);
     }
 
@@ -38,7 +37,6 @@ class TestimonialsImport implements ToModel, WithHeadingRow, WithValidation
             'description' => 'nullable',
             'profile_image' => 'nullable',
             'alt_tag' => 'nullable',
-            'status' => 'required',
         ];
     }
 }

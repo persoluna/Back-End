@@ -21,6 +21,9 @@
             </div>
             <div class="flex items-center">
                 <div class="flex items-center ms-3">
+                     <span class="self-center text-lg font-semibold whitespace-nowrap dark:text-white me-2 pr-4 mt-2 truncate">
+                            ~ {{ Auth::user()->name }}
+                    </span>
                     <div>
                         <button type="button" class="flex text-sm bg-gray-800 rounded-full dark:focus:ring-gray-600"
                             aria-expanded="false" data-dropdown-toggle="dropdown-user">

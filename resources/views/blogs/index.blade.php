@@ -96,7 +96,7 @@
             </div>
         </div>
 
-        <div class="grid justify-end">
+        <div class="grid justify-end pr-12">
             <form action="{{ route('blogs.import') }}" method="POST" enctype="multipart/form-data">
                 @csrf
 

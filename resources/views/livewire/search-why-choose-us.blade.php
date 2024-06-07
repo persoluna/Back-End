@@ -34,7 +34,7 @@
         <tbody>
             @forelse ($whychooseuses as $whychooseus)
                 <tr class="font-medium">
-                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm truncate">
                         {{ $whychooseus->why_title }}
                     </td>
                     <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">

@@ -10,10 +10,11 @@
                         New
                         Counter 🔄</a>
                 </div>
-                <a href="{{ route('counters.export') }}"
+                 <a href="{{ route('counters.export') }}"
                     class="inline-flex items-center px-4 py-2 bg-yellow-400 text-white rounded-md hover:bg-yellow-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 float-right">
                     <i class="fas fa-download mr-2"></i> Export Counters Data
                 </a>
+
                 @if (session('success'))
                     <div id="success-message"
                         class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative opacity-0 transition-opacity duration-500"
@@ -86,7 +87,8 @@
             </div>
         </div>
 
-        <div class="grid justify-end">
+
+        <div class="grid justify-start pl-12">
             <form action="{{ route('counters.import') }}" method="POST" enctype="multipart/form-data">
                 @csrf
 
@@ -115,5 +117,7 @@
                 });
             </script>
         </div>
+
+
     </div>
 </x-app-layout>
