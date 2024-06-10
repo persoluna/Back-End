@@ -203,7 +203,7 @@
             </li>
             <li>
                 <a href="{{ route('blogs.index') }}"
-                    class="{{ Route::currentRouteNamed('blogs.index') || Route::currentRouteNamed('blogs.create') || Route::currentRouteNamed('headings.edit', 5) ? 'active' : '' }} flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"><svg
+                    class="{{ Route::currentRouteNamed('blogs.index') || Route::currentRouteNamed('blogs.create') ? 'active' : '' }} flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"><svg
                         xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                         fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round">

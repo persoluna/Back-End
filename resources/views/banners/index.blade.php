@@ -1,20 +1,15 @@
 <x-app-layout>
     <div class="note-container py-12">
         <x-breadcrumb :breadcrumbs="[['name' => 'Banners', 'url' => route('banners.index')]]" />
-        <div class="m-4 py-4 overflow-x-auto">
+        <div class="m-4 py-8 overflow-x-auto">
             <div class="inline-block min-w-full shadow rounded-lg overflow-hidden flex-col">
                 <div class="sm:flex justify-start sm:justify-between items-center mb-4">
-                    <h1 class="sm:text-4xl text-3xl font-semibold  sm:pb-4 pb-8">Banners</h1>
+                    <h1 class="sm:text-4xl text-3xl font-semibold sm:pb-4 pb-8">Banners</h1>
                     <a href="{{ route('banners.create') }}"
-                        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Create
+                        class="rounded-tr-2xl rounded-bl-2xl text-white bg-gradient-to-tl from-indigo-400 from-30% to-indigo-600 to-100% hover:bg-gradient-to-br hover:from-indigo-600 hover:from-30% hover:to-indigo-400 hover:to-100% font-bold py-2 px-4 rounded">Create
                         New
                         Banner ⭐</a>
                 </div>
-
-                <a href="{{ route('banners.export') }}"
-                    class="inline-flex items-center px-4 py-2 bg-yellow-400 text-white rounded-md hover:bg-yellow-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                    <i class="fas fa-download mr-2"></i> Export Banners Data
-                </a>
 
                 @if (session('success'))
                     <div id="success-message"
@@ -61,21 +56,21 @@
                 @endif
 
                 {{-- Live wire search --}}
-                <div class="py-12">
+                <div class="py-20">
                     @livewire('search-banner')
                 </div>
             </div>
         </div>
 
         <!-- Arrow Icon -->
-        <div class="fixed top-1/2 right-4 transform -translate-y-1/2 cursor-pointer" id="arrow-icon">
+        <div class="absolute right-4 cursor-pointer" id="arrow-icon" style="top: 35%;">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-gray-500 transform transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path id="arrow-path" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
             </svg>
         </div>
 
         <!-- Container with File Selection -->
-        <div class="fixed top-1/2 right-0 mr-8 transform -translate-y-1/2 hidden" id="file-container">
+        <div class="fixed right-0 transform transition-all duration-500 ease-in-out translate-x-full opacity-0 pr-6 pt-4" id="file-container" style="top: 30%;">
             <div class="bg-white rounded-lg shadow-md p-6 w-96">
                 <h5 class="text-xl font-bold mb-4">Import Banners Data</h5>
                 <div class="flex justify-end mb-4">
@@ -97,6 +92,11 @@
                                 <i class="mr-2"></i> Import Banners Data
                             </button>
                         </form>
+                        <br>
+                        <a href="{{ route('banners.export') }}"
+                            class="inline-flex items-center px-4 py-2 bg-yellow-400 text-white rounded-md hover:bg-yellow-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                            <i class="fas fa-download mr-2"></i> Export Banners Data
+                        </a>
                         <script>
                             const fileInput = document.getElementById('file');
                             const importButton = document.getElementById('importButton');
@@ -127,10 +127,12 @@
             arrowIcon.addEventListener('click', function() {
                 isContainerOpen = !isContainerOpen;
                 if (isContainerOpen) {
-                    fileContainer.classList.remove('hidden');
+                    fileContainer.classList.remove('translate-x-full', 'opacity-0');
+                    fileContainer.classList.add('translate-x-0', 'opacity-100');
                     arrowPath.style.transform = 'rotate(180deg)';
                 } else {
-                    fileContainer.classList.add('hidden');
+                    fileContainer.classList.remove('translate-x-0', 'opacity-100');
+                    fileContainer.classList.add('translate-x-full', 'opacity-0');
                     arrowPath.style.transform = 'rotate(0deg)';
                 }
             });
@@ -138,7 +140,8 @@
             document.addEventListener('click', function(event) {
                 const target = event.target;
                 if (!arrowIcon.contains(target) && !fileContainer.contains(target)) {
-                    fileContainer.classList.add('hidden');
+                    fileContainer.classList.remove('translate-x-0', 'opacity-100');
+                    fileContainer.classList.add('translate-x-full', 'opacity-0');
                     arrowPath.style.transform = 'rotate(0deg)';
                     isContainerOpen = false;
                 }

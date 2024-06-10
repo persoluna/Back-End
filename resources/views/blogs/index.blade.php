@@ -10,20 +10,17 @@
                     <div class="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-4">
 
                         <a href="{{ route('blogs.create') }}"
-                            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded sm:max-w-[200px]">Create
+                            class="rounded-tr-2xl rounded-bl-2xl text-white bg-gradient-to-tl from-indigo-400 from-30% to-indigo-600 to-100% hover:bg-gradient-to-br hover:from-indigo-600 hover:from-60% hover:to-indigo-400 hover:to-100% font-bold py-2 px-4 rounded">Create
                             New
                             Blog</a>
                         <a href="{{ route('headings.edit', 5) }}"
-                            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded sm:max-w-[200px] max-w-[130px]">
+                            class="rounded-tr-2xl rounded-bl-2xl text-white bg-gradient-to-tl from-indigo-400 from-30% to-indigo-600 to-100% hover:bg-gradient-to-br hover:from-indigo-600 hover:from-60% hover:to-indigo-400 hover:to-100% font-bold py-2 px-4 rounded">
                             Update Title
                         </a>
                     </div>
                 </div>
 
-                <a href="{{ route('blogs.export') }}"
-                    class="inline-flex items-center px-4 py-2 bg-yellow-400 text-white rounded-md hover:bg-yellow-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 float-right">
-                    <i class="fas fa-download mr-2"></i> Export Blogs Data
-                </a>
+
                 @if (session('success'))
                     <div id="success-message"
                         class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative opacity-0 transition-opacity duration-500"
@@ -89,42 +86,99 @@
                         }, 3000); // Hide after 3 seconds
                     });
                 </script>
-                {{-- ! Live wire search for Application --}}
+                {{-- ! Live wire search for Blogs --}}
                 <div class="py-12">
                     @livewire('search-blog')
                 </div>
             </div>
         </div>
 
-        <div class="grid justify-end pr-12">
-            <form action="{{ route('blogs.import') }}" method="POST" enctype="multipart/form-data">
-                @csrf
-
-                <div class="mb-3">
-                    <label for="file" class="form-label block text-sm font-medium text-gray-700">Import Blogs
-                        Data</label>
-                    <input type="file" name="file" id="file"
-                        class="form-control block w-fit px-3 rounded-md border border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
-                </div>
-
-                <button type="submit" id="importButton"
-                    class="items-center px-4 py-2 bg-gray-400 text-white rounded-md hover:bg-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 hidden">
-                    <i class="mr-2"></i> Import Blogs Data
-                </button>
-            </form>
-            <script>
-                const fileInput = document.getElementById('file');
-                const importButton = document.getElementById('importButton');
-
-                fileInput.addEventListener('change', function() {
-                    if (this.files.length > 0) {
-                        importButton.classList.remove('hidden');
-                    } else {
-                        importButton.classList.add('hidden');
-                    }
-                });
-            </script>
+        <!-- Arrow Icon -->
+        <div class="absolute right-4 cursor-pointer" id="arrow-icon" style="top: 35%;">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-gray-500 transform transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path id="arrow-path" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+            </svg>
         </div>
+
+        <!-- Container with File Selection -->
+        <div class="fixed right-0 transform transition-all duration-500 ease-in-out translate-x-full opacity-0 pr-6 pt-4" id="file-container" style="top: 30%;">
+            <div class="bg-white rounded-lg shadow-md p-6 w-96">
+                <h5 class="text-xl font-bold mb-4">Import Blogs Data</h5>
+                <div class="flex justify-end mb-4">
+                    <div class="w-full pr-6 pl-12">
+                        <form action="{{ route('blogs.import') }}" method="POST" enctype="multipart/form-data">
+                            @csrf
+                            <div class="mb-3">
+                                <label for="file" class="flex items-center justify-center w-full h-24 px-4 transition bg-white border-2 border-gray-300 border-dashed rounded-md appearance-none cursor-pointer hover:border-gray-400 focus:outline-none">
+                                    <span class="flex items-center space-x-2">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
+                                        </svg>
+                                        <span id="file-name" class="font-medium text-sm text-gray-600">Drop files to Attach, or<span class="text-blue-600 underline ml-[4px]">browse</span></span>
+                                    </span>
+                                    <input type="file" name="file" id="file" class="hidden" accept=".csv,.xls,.xlsx">
+                                </label>
+                            </div>
+                            <button type="submit" id="importButton" class="items-center px-3 py-2 bg-gray-400 text-white rounded-md text-sm hover:bg-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 hidden">
+                                <i class="mr-2"></i> Import Blogs Data
+                            </button>
+                        </form>
+                        <br>
+                       <a href="{{ route('blogs.export') }}"
+                           class="inline-flex items-center px-4 py-2 bg-yellow-400 text-white rounded-md hover:bg-yellow-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 float-right">
+                        <i class="fas fa-download mr-2"></i> Export Blogs Data
+                        </a>
+                        <script>
+                            const fileInput = document.getElementById('file');
+                            const importButton = document.getElementById('importButton');
+                            const fileNameSpan = document.getElementById('file-name');
+                            fileInput.addEventListener('change', function() {
+                                if (this.files.length > 0) {
+                                    importButton.classList.remove('hidden');
+                                    fileNameSpan.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    </svg> ${this.files[0].name}`;
+                                } else {
+                                    importButton.classList.add('hidden');
+                                    fileNameSpan.innerHTML = 'Drop files to Attach, or<span class="text-blue-600 underline ml-[4px]">browse</span>';
+                                }
+                            });
+                        </script>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            const arrowIcon = document.getElementById('arrow-icon');
+            const arrowPath = document.getElementById('arrow-path');
+            const fileContainer = document.getElementById('file-container');
+            let isContainerOpen = false;
+
+            arrowIcon.addEventListener('click', function() {
+                isContainerOpen = !isContainerOpen;
+                if (isContainerOpen) {
+                    fileContainer.classList.remove('translate-x-full', 'opacity-0');
+                    fileContainer.classList.add('translate-x-0', 'opacity-100');
+                    arrowPath.style.transform = 'rotate(180deg)';
+                } else {
+                    fileContainer.classList.remove('translate-x-0', 'opacity-100');
+                    fileContainer.classList.add('translate-x-full', 'opacity-0');
+                    arrowPath.style.transform = 'rotate(0deg)';
+                }
+            });
+
+            document.addEventListener('click', function(event) {
+                const target = event.target;
+                if (!arrowIcon.contains(target) && !fileContainer.contains(target)) {
+                    fileContainer.classList.remove('translate-x-0', 'opacity-100');
+                    fileContainer.classList.add('translate-x-full', 'opacity-0');
+                    arrowPath.style.transform = 'rotate(0deg)';
+                    isContainerOpen = false;
+                }
+            });
+        </script>
+
 
     </div>
 </x-app-layout>
