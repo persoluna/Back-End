@@ -21,7 +21,7 @@
             </div>
             <div class="flex items-center">
                 <div class="flex items-center ms-3">
-                     <span class="self-center text-lg font-semibold whitespace-nowrap dark:text-white me-2 pr-4 mt-2 truncate">
+                     <span class="hidden sm:block self-center text-lg font-semibold whitespace-nowrap dark:text-white me-2 pr-4 mt-2 truncate">
                             ~ {{ Auth::user()->name }}
                     </span>
                     <div>
@@ -211,6 +211,13 @@
                         <path d="M14 3v5h5M16 13H8M16 17H8M10 9H8" />
                     </svg>
                     <span class="ms-3">Blogs</span>
+                </a>
+            </li>
+            <li>
+                <a href="{{ route('faqs.index') }}"
+                    class="{{ Route::currentRouteNamed('faqs.index') || Route::currentRouteNamed('faqs.create') ? 'active' : '' }} flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg>
+                    <span class="ms-3">FAQs</span>
                 </a>
             </li>
             <li>

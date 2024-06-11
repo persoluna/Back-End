@@ -1,0 +1,61 @@
+<x-app-layout>
+    <div class="bg-white min-h-[1200px] pt-12">
+        <x-breadcrumb :breadcrumbs="[
+            ['name' => 'FAQs', 'url' => route('faqs.index')],
+            ['name' => 'Edit FAQ', 'url' => route('faqs.edit', $faq)],
+        ]" />
+
+        <!-- FAQ edit title and description -->
+        <div class="mb-8 space-y-3">
+            <h1 class="text-3xl sm:text-4xl font-semibold text-center pt-[90px]">Edit FAQ</h1>
+            <p class="text-gray-500 text-center text-xl">Update the FAQ details.</p>
+        </div>
+
+        <!-- FAQ form -->
+        <form action="{{ route('faqs.update', $faq) }}" method="POST" class="w-full" enctype="multipart/form-data">
+            @csrf
+            @method('PUT')
+            <div class="mb-10 items-center grid lg:grid-cols-2 gap-6 m-[80px] justify-center">
+
+                <!-- Question input field -->
+                <div class="lg:col-span-1">
+                    <label
+                        class="text-base font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                        for="question">Question</label>
+                    <input
+                        class="border-input bg-background ring-offset-background placeholder:text-muted-foreground focus-visible:ring-ring flex h-10 w-full rounded-md border px-3 py-2 text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                        id="question" placeholder="Enter the Question" type="text" name="question"
+                        value="{{ $faq->question }}">
+                    @error('question')
+                        <div class="text-red-500 mt-2 text-sm">
+                            {{ $message }}
+                        </div>
+                    @enderror
+                </div>
+
+                <!-- Answer input field -->
+                <div class="lg:col-span-1">
+                    <label
+                        class="text-base font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                        for="answer">Answer</label>
+                    <input
+                        class="border-input bg-background ring-offset-background placeholder:text-muted-foreground focus-visible:ring-ring flex h-10 w-full rounded-md border px-3 py-2 text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                        id="answer" placeholder="Enter the Answer" type="text" name="answer"
+                        value="{{ $faq->answer }}">
+                    @error('answer')
+                        <div class="text-red-500 mt-2 text-sm">
+                            {{ $message }}
+                        </div>
+                    @enderror
+                </div>
+            </div>
+            <div class="pt-8 lg:pl-[80px] flex justify-center sm:w-fit lg:col-span-2 pb-12">
+                <button
+                    class="rounded-tr-2xl rounded-bl-2xl ring-offset-background focus-visible:ring-ring flex h-10 w-full items-center justify-center whitespace-nowrap rounded-md bg-black px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-black/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50"
+                    type="submit">
+                    Confirm
+                </button>
+            </div>
+        </form>
+    </div>
+</x-app-layout>

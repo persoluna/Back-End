@@ -23,6 +23,7 @@ use App\Http\Controllers\SubcategoryController;
 use App\Http\Controllers\TestimonialController;
 use App\Http\Controllers\TruncateTablesController;
 use App\Http\Controllers\WhyChooseUsController;
+use App\Http\Controllers\FAQController;
 use App\Livewire\SearchApplication;
 use App\Livewire\SearchBanner;
 use App\Livewire\SearchCounter;
@@ -90,6 +91,8 @@ Route::resource('counters', CounterController::class);
 Route::resource('banners', BannerController::class);
 
 Route::resource('subcategories', SubcategoryController::class);
+
+Route::resource('faqs', FAQController::class);
 
 Route::get('/dashboard', [DashboardController::class, 'index'])
 ->middleware(['auth', 'verified'])->name('dashboard');
