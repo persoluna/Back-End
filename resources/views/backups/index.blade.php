@@ -24,11 +24,11 @@
                                 <p class="text-gray-600 mb-4">Download the current database schema.</p>
                                 <button id="schemaDumpButton"
                                     class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-xl"
-                                    onclick="confirmDownload()">
+                                    onclick="confirmDownload001()">
                                     Download Database
                                 </button>
                                 <script>
-                                    function confirmDownload() {
+                                    function confirmDownload001() {
                                         if (confirm('Are you sure you want to download the current database schema?')) {
                                             window.location.href = "{{ route('schema.dump') }}";
                                         }
@@ -57,7 +57,6 @@
                 @endforeach
             </div>
         </div>
-
         <script>
             function confirmDownload(index) {
                 if (confirm('Are you sure you want to download this backup file?')) {
@@ -66,5 +65,4 @@
             }
         </script>
     </div>
-
 </x-app-layout>

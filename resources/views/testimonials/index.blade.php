@@ -124,8 +124,10 @@
                             </button>
                         </form>
                         <br>
+                            <h5 class="text-xl font-bold mb-4">Or</h5>
+                        <br>
                        <a href="{{ route('testimonials.export') }}"
-                        class="inline-flex items-center px-4 py-2 bg-yellow-400 text-white rounded-md hover:bg-yellow-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 float-right">
+                        class="rounded-tr-2xl rounded-bl-2xl text-white bg-gradient-to-tl from-yellow-400 from-30% to-yellow-600 to-100% hover:bg-gradient-to-br hover:from-yellow-600 hover:from-30% hover:to-yellow-400 hover:to-100% font-bold py-2 px-4 rounded">
                         <i class="fas fa-download mr-2"></i> Export Testimonials Data
                         </a>
                         <script>

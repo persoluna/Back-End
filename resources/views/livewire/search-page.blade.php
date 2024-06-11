@@ -39,12 +39,12 @@
                     </td>
                     <td class="px-5 py-8 border-b border-gray-200 bg-white flex text-sm gap-3">
                         <a href="{{ route('menus.edit', $menu->id) }}"
-                            class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">Edit</a>
+                            class="rounded-full bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">Edit</a>
                         <form action="{{ route('menus.destroy', $menu->id) }}" method="POST" class="inline-block">
                             @csrf
                             @method('DELETE')
                             <button type="submit"
-                                class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+                                class="rounded-full bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
                                 onclick="return confirm('Are you sure you want to delete this page?')">Delete</button>
                         </form>
                     </td>

@@ -1,7 +1,7 @@
 <?php
+
 namespace App\Http\Controllers;
 
-use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
 
 class BackupfiledownloadController extends Controller
@@ -13,7 +13,11 @@ class BackupfiledownloadController extends Controller
 
         $backups = [];
         foreach ($files as $index => $file) {
-            $monthName = Carbon::createFromTimestamp(Storage::disk('public')->lastModified($file))->format('F Y');
+            // Extract date from the filename
+            preg_match('/\d{4}-\d{2}-\d{2}/', $file, $matches);
+            $date = $matches[0];
+            $monthName = date('F Y', strtotime($date));
+
             $backups[$index] = [
                 'file' => $file,
                 'month' => $monthName,

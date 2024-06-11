@@ -38,7 +38,7 @@ Route::get('/schema-dump', [SchemaDumpController::class, 'dumpSchema'])->name('s
 Route::get('/tables', function () {
     return response()->json(config('database.schema.tables'));
 });
-Route::get('/back-upppppppppppp', [BackupController::class, 'createBackup'])->name('back.up');
+Route::get('/back-up', [BackupController::class, 'createBackup'])->name('back.up');
 
 // TODO LiveWire Search Components
 Route::get('/search-application', SearchApplication::class);

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Storage;
 use Symfony\Component\Process\Exception\ProcessFailedException;
 use Symfony\Component\Process\Process;
+use App\Mail\BackupMail;
+use Illuminate\Support\Facades\Mail;
 
 class BackupController extends Controller
 {
@@ -51,6 +53,8 @@ class BackupController extends Controller
         if (count($files) > 3) {
             Storage::disk('public')->delete($files[3]);
         }
+
+        Mail::to('ruksar.saiyed@rndtechnosoft.in')->send(new BackupMail);
 
         return response()->json(['message' => 'Backup created successfully.', 'filename' => $filename]);
     }

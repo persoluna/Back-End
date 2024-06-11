@@ -50,15 +50,15 @@
                     </td>
                     <td class="px-5 py-8 border-b border-gray-200 bg-white text-sm flex gap-3">
                         <a href="{{ route('counters.show', $counter->id) }}"
-                            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">View</a>
+                            class="rounded-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">View</a>
                         <a href="{{ route('counters.edit', $counter->id) }}"
-                            class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">Edit</a>
+                            class="rounded-full bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">Edit</a>
                         <form action="{{ route('counters.destroy', $counter->id) }}" method="POST"
                             class="inline-block">
                             @csrf
                             @method('DELETE')
                             <button type="submit"
-                                class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+                                class="rounded-full bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
                                 onclick="return confirm('Are you sure you want to delete this counter?')">Delete</button>
                         </form>
                     </td>
