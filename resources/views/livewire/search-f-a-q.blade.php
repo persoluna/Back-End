@@ -26,14 +26,14 @@
         </thead>
         <tbody>
             @forelse ($faqs as $faq)
-                <tr class="font-medium">
-                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                        {{ $faq->question }}
+                <tr class="font-medium bg-white hover:bg-gray-100">
+                    <td class="px-5 py-5 border-b border-gray-200 text-sm truncate">
+                        {{ Str::limit($faq->question, 25) }}
                     </td>
-                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                        {{ $faq->answer }}
+                    <td class="px-5 py-5 border-b border-gray-200 text-sm truncate">
+                        {{ Str::limit($faq->answer, 25) }}
                     </td>
-                    <td class="px-5 py-8 border-b border-gray-200 bg-white text-sm flex gap-3">
+                    <td class="px-5 py-8 border-b border-gray-200 text-sm flex gap-3">
                         <a href="{{ route('faqs.edit', $faq->id) }}"
                             class="rounded-full bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">Edit</a>
                         <form action="{{ route('faqs.destroy', $faq->id) }}" method="POST"
@@ -45,7 +45,7 @@
                                 onclick="return confirm('Are you sure you want to delete this FAQ?')">Delete</button>
                         </form>
                     </td>
-                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                    <td class="px-5 py-5 border-b border-gray-200 text-sm">
                         <label class="inline-flex items-center cursor-pointer">
                             <input type="checkbox" wire:model="$faq.status"
                                 wire:change="updateFAQStatus({{ $faq->id }})" class="sr-only peer"
@@ -60,7 +60,7 @@
                 </tr>
             @empty
                 <tr>
-                    <td colspan="3" class="text-center text-gray-500 font-bold">No FAQ found for
+                    <td colspan="4" class="text-center text-gray-500 font-bold">No FAQ found for
                         "{{ $search }}"!</td>
                 </tr>
             @endforelse

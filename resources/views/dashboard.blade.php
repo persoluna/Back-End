@@ -2,10 +2,12 @@
     <x-slot name="header">
          <div class="font-semibold text-gray-800 leading-tight pt-[60px] sm:pl-[150px] flex items-center">
             <div class="w-full h-[30px] flex justify-start items-center">
-                <h1 id="typewriter" class="lg:text-3xl text-2xl font-bold truncate"></h1>
+                <h1 id="typewriter" class="lg:text-3xl text-2xl font-bold truncate md:pl-20">
+
+                </h1>
             </div>
             <script>
-                const words = ["   Hello !!           ", "Welcome to the dashboard !!                "];
+                const words = ["   Welcome !!           "];
                 let i = 0;
                 let j = 0;
                 let currentWord = "";

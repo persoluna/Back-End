@@ -23,6 +23,7 @@ use App\Http\Controllers\SubcategoryController;
 use App\Http\Controllers\TestimonialController;
 use App\Http\Controllers\TruncateTablesController;
 use App\Http\Controllers\WhyChooseUsController;
+use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\FAQController;
 use App\Livewire\SearchApplication;
 use App\Livewire\SearchBanner;
@@ -48,9 +49,13 @@ Route::get('/search-counter', SearchCounter::class);
 Route::get('/search-whychooseus', SearchWhyChooseUs::class);
 Route::get('/search-subcategory', SearchSubcategory::class);
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [WelcomeController::class, 'index']);
+
+Route::get('/seo', function() {
+    return view('SEO.index');
+})->name('SEO.index');
+
+Route::get('/user-counts', [WelcomeController::class, 'getUserCounts']);
 
 Route::get('/whychooseus', [WhyChooseUsController::class, 'index'])->name('whychooseus.index');
 Route::get('/whychooseus/create', [WhyChooseUsController::class, 'create'])->name('whychooseus.create');
