@@ -91,5 +91,24 @@
                 </div>
             </div>
         </div>
+
+        <div class="m-6">
+            <div class="grid gap-6 justify-start sm:justify-between lg:grid-cols-1 items-center mb-4">
+                <h1 class="sm:text-4xl text-3xl font-semibold  sm:pb-4 pb-8 dark:text-white mt-6">About Us Points</h1>
+
+                <div class="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-4">
+
+                    <a href="{{ route('aboutpoints.create') }}"
+                        class="rounded-tr-2xl rounded-bl-2xl text-white bg-gradient-to-tl from-indigo-400 from-30% to-indigo-600 to-100% hover:bg-gradient-to-br hover:from-indigo-600 hover:from-60% hover:to-indigo-400 hover:to-100% font-bold py-2 px-4 rounded">Create
+                        Point</a>
+                </div>
+            </div>
+        </div>
+         {{-- ! Live wire search for about point --}}
+        <div class="pb-12 m-4">
+            @livewire('search-about-point')
+        </div>
     </div>
+
+
 </x-app-layout>

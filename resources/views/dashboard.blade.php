@@ -1,47 +1,8 @@
 <x-app-layout>
     <x-slot name="header">
-         <div class="font-semibold text-gray-800 leading-tight pt-[60px] sm:pl-[150px] flex items-center">
-            <div class="w-full h-[30px] flex justify-start items-center">
-                <h1 id="typewriter" class="lg:text-3xl text-2xl font-bold truncate md:pl-20">
-
-                </h1>
-            </div>
-            <script>
-                const words = ["   Welcome !!           "];
-                let i = 0;
-                let j = 0;
-                let currentWord = "";
-                let isDeleting = false;
-
-                function type() {
-                  currentWord = words[i];
-                      if (isDeleting) {
-                        document.getElementById("typewriter").textContent = currentWord.substring(0, j-1);
-                        j--;
-                            if (j == 0) {
-                              isDeleting = false;
-                              i++;
-                              if (i == words.length) {
-                                i = 0;
-                              }
-                            }
-                      } else {
-                            document.getElementById("typewriter").textContent = currentWord.substring(0, j+1);
-                            j++;
-                            if (j == currentWord.length) {
-                              isDeleting = true;
-                            }
-                          }
-                      setTimeout(type, 150);
-                    }
-                type();
-            </script>
-        </div>
     </x-slot>
 
-
     <div class="pl-12 pr-12 pb-12">
-
       <div class="container mx-auto pb-12">
       <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 m-3">
           <div class="div-container bg-gradient-to-b from-white to-gray-100 hover:from-white hover:to-gray-100 hover:via-gray-200 transition duration-800 rounded-lg shadow-md p-6 relative flex items-center justify-between">
@@ -84,17 +45,16 @@
                   <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
               </svg>
           </div>
-      </div>
-  </div>
+     </div>
+    </div>
 
-
-        <div class="max-w-6xl w-full bg-white rounded-lg shadow dark:bg-gray-800 p-4 md:p-6">
+        <div class="max-w-7xl w-full bg-white rounded-lg shadow dark:bg-stone-200 p-4 md:p-6">
             <div class="flex justify-between mb-5">
                 <div>
-                    <h5 class="leading-none text-3xl font-bold text-gray-900 dark:text-white pb-2">{{ $yearlyInquiries }}</h5>
-                    <p class="text-base font-normal text-gray-500 dark:text-gray-400">Total Inquiries for {{ $selectedYear }}</p>
+                    <h5 class="leading-none text-3xl font-bold text-gray-900 dark:text-black pb-2">{{ $yearlyInquiries }}</h5>
+                    <p class="text-base font-normal text-gray-500 dark:text-gray-600">Total Inquiries for {{ $selectedYear }}</p>
                 </div>
-                <div class="flex items-center px-2.5 py-0.5 text-base font-semibold text-green-500 dark:text-green-500 text-center">
+                <div class="flex items-center px-2.5 py-0.5 text-base font-semibold text-green-500 dark:text-slate-600 text-center">
                     {{ number_format($inquiryPercentage, 2) }}%
                 </div>
             </div>
@@ -132,89 +92,121 @@
             </div>
     </section>
 
-    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
-    <script>
-        let chartData = @json($userInquiries->toArray());
-        let totalInquiries = @json($yearlyInquiries);
-        let inquiryPercentage = @json($inquiryPercentage);
 
-        const options = {
-            tooltip: {
-                enabled: true,
-                x: {
-                    show: true,
-                },
-                y: {
-                    show: true,
-                },
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+<script>
+    let chartData = @json($userInquiries->toArray());
+    let totalInquiries = @json($yearlyInquiries);
+    let inquiryPercentage = @json($inquiryPercentage);
+
+    function getThemeBasedColors() {
+        const isDarkMode = document.documentElement.classList.contains('dark');
+        return isDarkMode ? '#FFFFFF' : '#000000'; // Adjust colors as needed
+    }
+
+    const options = {
+        tooltip: {
+            enabled: true,
+            x: {
+                show: true,
             },
-            grid: {
-                show: false,
-                strokeDashArray: 4,
-                padding: {
-                    left: 2,
-                    right: 2,
-                    top: -26
-                },
+            y: {
+                show: true,
             },
-            series: [{
-                name: 'Inquiries',
-                data: chartData.map(data => data.inquiry_count)
-            }],
-            chart: {
-                height: "100%",
-                maxWidth: "100%",
-                type: "area",
-                fontFamily: "Inter, sans-serif",
-                dropShadow: {
-                    enabled: false,
-                },
-                toolbar: {
-                    show: false,
-                },
+        },
+        grid: {
+            show: false,
+            strokeDashArray: 4,
+            padding: {
+                left: 2,
+                right: 2,
+                top: -26
             },
-            legend: {
-                show: true
-            },
-            fill: {
-                type: "gradient",
-                gradient: {
-                    opacityFrom: 0.55,
-                    opacityTo: 0,
-                    shade: "#1C64F2",
-                    gradientToColors: ["#1C64F2"],
-                },
-            },
-            dataLabels: {
+        },
+        series: [{
+            name: 'Inquiries',
+            data: chartData.map(data => data.inquiry_count)
+        }],
+        chart: {
+            height: "100%",
+            maxWidth: "100%",
+            type: "area",
+            fontFamily: "Inter, sans-serif",
+            dropShadow: {
                 enabled: false,
             },
-            stroke: {
-                width: 4,
+            toolbar: {
+                show: false,
             },
+        },
+        legend: {
+            show: true
+        },
+        fill: {
+            type: "gradient",
+            gradient: {
+                opacityFrom: 0.55,
+                opacityTo: 0,
+                shade: "#1C64F2",
+                gradientToColors: ["#1C64F2"],
+            },
+        },
+        dataLabels: {
+            enabled: false,
+        },
+        stroke: {
+            width: 4,
+        },
+        xaxis: {
+            categories: chartData.map(data => data.formatted_month),
+            labels: {
+                style: {
+                    colors: getThemeBasedColors()
+                }
+            }
+        },
+        yaxis: {
+            show: true,
+            labels: {
+                formatter: function (value) {
+                    return value;
+                },
+                style: {
+                    colors: getThemeBasedColors()
+                }
+            }
+        },
+    };
+
+    if (document.getElementById("tooltip-chart") && typeof ApexCharts !== 'undefined') {
+        const chart = new ApexCharts(document.getElementById("tooltip-chart"), options);
+        chart.render();
+    }
+
+    // Add event listener to update chart colors on theme change
+    const observer = new MutationObserver(() => {
+        const newColors = getThemeBasedColors();
+        chart.updateOptions({
             xaxis: {
-                categories: chartData.map(data => data.formatted_month),
                 labels: {
                     style: {
-                        colors: '#F0F8FF'
+                        colors: newColors
                     }
                 }
             },
             yaxis: {
-                show: true,
                 labels: {
-                    formatter: function (value) {
-                        return value;
-                    },
                     style: {
-                        colors: '#F0F8FF'
+                        colors: newColors
                     }
                 }
-            },
-        };
+            }
+        });
+    });
 
-        if (document.getElementById("tooltip-chart") && typeof ApexCharts !== 'undefined') {
-            const chart = new ApexCharts(document.getElementById("tooltip-chart"), options);
-            chart.render();
-        }
-    </script>
+    observer.observe(document.documentElement, {
+        attributes: true,
+        attributeFilter: ['class']
+    });
+</script>
 </x-app-layout>

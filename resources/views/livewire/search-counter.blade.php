@@ -7,27 +7,27 @@
         <thead>
             <tr>
                 <th
-                    class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-nowrap text-left text-[13px] sm:text-[15px] font-bold text-gray-600 uppercase tracking-wider">
+                    class="px-5 py-3 bg-gray-100 text-nowrap text-left text-[13px] sm:text-[15px] font-bold text-gray-600 uppercase tracking-wider dark:bg-slate-600 dark:text-white">
                     Title
                 </th>
                 <th
-                    class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-nowrap text-left text-[13px] sm:text-[15px] font-semibold text-gray-600 uppercase tracking-wider">
+                    class="px-5 py-3 bg-gray-100 text-nowrap text-left text-[13px] sm:text-[15px] font-semibold text-gray-600 uppercase tracking-wider dark:bg-slate-600 dark:text-white">
                     Number
                 </th>
                 <th
-                    class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-nowrap text-left text-[13px] sm:text-[15px] font-semibold text-gray-600 uppercase tracking-wider">
+                    class="px-5 py-3 bg-gray-100 text-nowrap text-left text-[13px] sm:text-[15px] font-semibold text-gray-600 uppercase tracking-wider dark:bg-slate-600 dark:text-white">
                     Icon
                 </th>
                 <th
-                    class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-nowrap text-left text-[13px] sm:text-[15px] font-semibold text-gray-600 uppercase tracking-wider">
+                    class="px-5 py-3 bg-gray-100 text-nowrap text-left text-[13px] sm:text-[15px] font-semibold text-gray-600 uppercase tracking-wider dark:bg-slate-600 dark:text-white">
                     Alt Tag
                 </th>
                 <th
-                    class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-nowrap text-left text-[13px] sm:text-[15px] font-semibold text-gray-600 uppercase tracking-wider">
+                    class="px-5 py-3 bg-gray-100 text-nowrap text-left text-[13px] sm:text-[15px] font-semibold text-gray-600 uppercase tracking-wider dark:bg-slate-600 dark:text-white">
                     Actions
                 </th>
                 <th
-                    class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-nowrap text-left text-[13px] sm:text-[15px] font-semibold text-gray-600 uppercase tracking-wider">
+                    class="px-5 py-3 bg-gray-100 text-nowrap text-left text-[13px] sm:text-[15px] font-semibold text-gray-600 uppercase tracking-wider dark:bg-slate-600 dark:text-white">
                     Status
                 </th>
             </tr>
@@ -35,20 +35,20 @@
         <tbody>
             @forelse ($counters as $counter)
                 <tr class="font-medium">
-                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                    <td class="px-5 py-5 border-b border-gray-200 dark:border-gray-600 bg-white text-sm dark:bg-gray-800 dark:text-white">
                         {{ $counter->title }}
                     </td>
-                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm dark:bg-gray-800 dark:text-white dark:border-gray-600">
                         {{ $counter->number }}
                     </td>
-                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm dark:bg-gray-800 dark:text-white dark:border-gray-600">
                         <img src="{{ asset('storage/counters/' . $counter->icon) }}" alt="{{ $counter->alt_tag }}"
-                            class="w-[100px] h-12">
+                            class="w-24 h-24 object-cover">
                     </td>
-                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm dark:bg-gray-800 dark:text-white dark:border-gray-600">
                         {{ $counter->alt_tag }}
                     </td>
-                    <td class="px-5 py-8 border-b border-gray-200 bg-white text-sm flex gap-3">
+                    <td class="px-5 py-8 border-b border-gray-200 bg-white text-sm flex gap-3 dark:bg-gray-800 dark:text-white dark:border-gray-600">
                         <a href="{{ route('counters.show', $counter->id) }}"
                             class="rounded-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">View</a>
                         <a href="{{ route('counters.edit', $counter->id) }}"
@@ -62,7 +62,7 @@
                                 onclick="return confirm('Are you sure you want to delete this counter?')">Delete</button>
                         </form>
                     </td>
-                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm dark:bg-gray-800 dark:text-white dark:border-gray-600">
                         <label class="inline-flex items-center cursor-pointer">
                             <input type="checkbox" wire:model="$counter.status"
                                 wire:change="updateCounterStatus({{ $counter->id }})" class="sr-only peer"
@@ -89,12 +89,4 @@
         <div class="mt-4">
             {{ $counters->links() }} </div>
     @endif
-
-    @push('scripts')
-        <script>
-            window.addEventListener('counter-status-updated', event => {
-                alert(event.detail.message);
-            });
-        </script>
-    @endpush
 </div>

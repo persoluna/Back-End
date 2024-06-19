@@ -79,6 +79,13 @@ class HeadingController extends Controller
                     ['name' => 'Update Blog Title', 'url' => route('headings.edit', 5)],
                 ];
                 break;
+
+            case 6:
+                $breadcrumbs = [
+                    ['name' => 'Achievements', 'url' => route('achievements.index')],
+                    ['name' => 'Update Achievements Title', 'url' => route('headings.edit', 6)],
+                ];
+                break;
         }
         return view('heading.edit', compact('heading', 'breadcrumbs'));
     }

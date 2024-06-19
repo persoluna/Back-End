@@ -8,23 +8,23 @@
         <thead>
             <tr>
                 <th
-                    class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-nowrap text-left text-[13px] sm:text-[15px] font-bold text-gray-600 uppercase tracking-wider">
+                    class="px-5 py-3 bg-gray-100 text-nowrap text-left text-[13px] sm:text-[15px] font-bold text-gray-600 uppercase tracking-wider dark:bg-slate-600 dark:text-white">
                     Title
                 </th>
                 <th
-                    class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-nowrap text-left text-[13px] sm:text-[15px] font-semibold text-gray-600 uppercase tracking-wider">
+                    class="px-5 py-3 bg-gray-100 text-nowrap text-left text-[13px] sm:text-[15px] font-semibold text-gray-600 uppercase tracking-wider dark:bg-slate-600 dark:text-white">
                     Why Choose us Image
                 </th>
                 <th
-                    class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-nowrap text-left text-[13px] sm:text-[15px] font-semibold text-gray-600 uppercase tracking-wider">
+                    class="px-5 py-3 bg-gray-100 text-nowrap text-left text-[13px] sm:text-[15px] font-semibold text-gray-600 uppercase tracking-wider dark:bg-slate-600 dark:text-white">
                     Alt Tag
                 </th>
                 <th
-                    class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-nowrap text-left text-[13px] sm:text-[15px] font-semibold text-gray-600 uppercase tracking-wider">
+                    class="px-5 py-3 bg-gray-100 text-nowrap text-left text-[13px] sm:text-[15px] font-semibold text-gray-600 uppercase tracking-wider dark:bg-slate-600 dark:text-white">
                     Actions
                 </th>
                 <th
-                    class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-nowrap text-left text-[13px] sm:text-[15px] font-semibold text-gray-600 uppercase tracking-wider">
+                    class="px-5 py-3 bg-gray-100 text-nowrap text-left text-[13px] sm:text-[15px] font-semibold text-gray-600 uppercase tracking-wider dark:bg-slate-600 dark:text-white">
                     Status
                 </th>
             </tr>
@@ -34,10 +34,10 @@
         <tbody>
             @forelse ($whychooseuses as $whychooseus)
                 <tr class="font-medium">
-                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm truncate">
+                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm truncate dark:bg-gray-800 dark:text-white">
                         {{ $whychooseus->why_title }}
                     </td>
-                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm dark:bg-gray-800 dark:text-white">
                         <div class="w-[100px] h-12 overflow-hidden">
                             <img src="{{ asset('storage/whychooseus/' . $whychooseus->why_image) }}"
                                 alt="{{ $whychooseus->alt_tag }}" class="object-cover w-full h-full">
@@ -45,10 +45,10 @@
                     </td>
 
 
-                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm dark:bg-gray-800 dark:text-white">
                         {{ $whychooseus->alt_tag }}
                     </td>
-                    <td class="px-5 py-8 border-b border-gray-200 bg-white flex text-sm gap-3">
+                    <td class="px-5 py-8 border-b border-gray-200 bg-white flex text-sm gap-3 dark:bg-gray-800 dark:text-white">
                         <a href="{{ route('whychooseus.show', $whychooseus->id) }}"
                             class="rounded-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">View</a>
                         <a href="{{ route('whychooseus.edit', $whychooseus->id) }}"
@@ -62,7 +62,7 @@
                                 onclick="return confirm('Are you sure you want to delete this whychooseus?')">Delete</button>
                         </form>
                     </td>
-                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm dark:bg-gray-800 dark:text-white">
                         <label class="inline-flex items-center cursor-pointer">
                             <input type="checkbox" wire:model="whychooseus.status"
                                 wire:change="updateWhychooseusStatus({{ $whychooseus->id }})" class="sr-only peer"

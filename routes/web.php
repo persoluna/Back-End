@@ -20,11 +20,15 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SchemaDumpController;
 use App\Http\Controllers\StaticseoController;
 use App\Http\Controllers\SubcategoryController;
+use App\Http\Controllers\SeoController;
 use App\Http\Controllers\TestimonialController;
 use App\Http\Controllers\TruncateTablesController;
 use App\Http\Controllers\WhyChooseUsController;
 use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\FAQController;
+use App\Http\Controllers\AchievementController;
+use App\Http\Controllers\AboutPointController;
+use App\Http\Controllers\GalleryController;
 use App\Livewire\SearchApplication;
 use App\Livewire\SearchBanner;
 use App\Livewire\SearchCounter;
@@ -49,11 +53,11 @@ Route::get('/search-counter', SearchCounter::class);
 Route::get('/search-whychooseus', SearchWhyChooseUs::class);
 Route::get('/search-subcategory', SearchSubcategory::class);
 
-Route::get('/', [WelcomeController::class, 'index']);
+Route::get('/', function () {
+    return view('welcome');
+});
 
-Route::get('/seo', function() {
-    return view('SEO.index');
-})->name('SEO.index');
+Route::get('/seo', [SeoController::class, 'index'])->name('SEO.index');
 
 Route::get('/user-counts', [WelcomeController::class, 'getUserCounts']);
 
@@ -98,6 +102,14 @@ Route::resource('banners', BannerController::class);
 Route::resource('subcategories', SubcategoryController::class);
 
 Route::resource('faqs', FAQController::class);
+
+Route::resource('achievements', AchievementController::class);
+
+Route::resource('aboutpoints', AboutPointController::class);
+
+Route::resource('galleries', GalleryController::class);
+
+Route::post('/galleries/delete-image', [GalleryController::class, 'deleteImage'])->name('galleries.delete-image');
 
 Route::get('/dashboard', [DashboardController::class, 'index'])
 ->middleware(['auth', 'verified'])->name('dashboard');

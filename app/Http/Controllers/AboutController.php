@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\About;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use App\Models\AboutPoint;
 
 class AboutController extends Controller
 {
@@ -13,8 +14,9 @@ class AboutController extends Controller
      */
     public function index()
     {
+        $AboutPoints =  AboutPoint::latest()->get();
         $about = About::find(1);
-        return view('abouts.show', compact('about'));
+        return view('abouts.show', compact('about', 'AboutPoints'));
     }
 
     /**

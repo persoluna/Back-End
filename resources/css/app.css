@@ -1,3 +1,116 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.logo {
+    fill: var(--tw-logo-light); /* default color */
+}
+
+.dark .logo {
+    fill: var(--tw-logo-dark); /* color for dark mode */
+}
+
+@layer base {
+            :root {
+                --color-text-base: 255, 255, 255;
+                --color-text-muted: 199, 210, 254;
+                --color-text-inverted: 79, 70, 229;
+                --color-fill: 67, 56, 202;
+                --color-button-accent: 255, 255, 255;
+                --color-button-accent-hover: 238, 242, 255;
+                --color-button-muted: 99, 102, 241;
+            }
+            .theme-swiss {
+                --color-text-base: 255, 255, 255;
+                --color-text-muted: 254, 202, 202;
+                --color-text-inverted: 220, 38, 38;
+                --color-fill: 185, 28, 28;
+                --color-button-accent: 255, 255, 255;
+                --color-button-accent-hover: 254, 242, 242;
+                --color-button-muted: 239, 68, 68;
+            }
+            .theme-neon {
+                --color-text-base: 17, 24, 2;
+                --color-text-muted: 47, 67, 6;
+                --color-text-inverted: 235, 250, 204;
+                --color-fill: 179, 255, 23;
+                --color-button-accent: 36, 52, 3;
+                --color-button-accent-hover: 55, 79, 5;
+                --color-button-muted: 212, 255, 122;
+            }
+        }
+
+        .sidebar-item {
+            /* Light mode styles */
+            color: #000000;
+            background-color: #FFFFFF;
+        }
+
+        .dark .sidebar-item {
+            /* Dark mode styles */
+            color: #FFFFFF;
+            background-color: #1F2937;
+        }
+
+        .sidebar-item.active {
+            /* Active styles for light mode */
+            background: linear-gradient(270deg, #F3F4F6, #E5E7EB, #D1D5DB, #324AB2, #E5E7EB, #F3F4F6);
+            background-size: 800% 800%;
+            animation: gradientAnimationLight 20s ease infinite alternate;
+        }
+
+        .dark .sidebar-item.active {
+            /* Active styles for dark mode */
+            background: linear-gradient(270deg, #2b2e3a, #4c515b, #422456, #4f4673, #536878, #2b2e3a);
+            background-size: 800% 800%;
+            animation: gradientAnimationDark 20s ease infinite alternate;
+        }
+
+        @keyframes gradientAnimationLight {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        @keyframes gradientAnimationDark {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .parent-active {
+            border-bottom: 2px solid #7393B3;
+        }
+
+          .remove-image-button {
+                @apply relative;
+                @apply absolute top-0 right-0; /* Position the button in the top right corner */
+                @apply mt-2 mr-2; /* Add some margin for better positioning */
+            }
+
+        .remove-image-button::after {
+            content: attr(data-tooltip);
+            @apply absolute top-full pr-16 left-1/2 -translate-x-1/2 bg-gray-800 text-white px-2 py-1 rounded opacity-0 transition-opacity duration-300;
+        }
+
+        .remove-image-button:hover::after {
+            @apply opacity-100;
+        }

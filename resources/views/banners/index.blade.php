@@ -4,7 +4,7 @@
         <div class="m-4 py-8 overflow-x-auto">
             <div class="inline-block min-w-full shadow rounded-lg overflow-hidden flex-col">
                 <div class="sm:flex justify-start sm:justify-between items-center mb-4">
-                    <h1 class="sm:text-4xl text-3xl font-semibold sm:pb-4 pb-8">Banners</h1>
+                    <h1 class="sm:text-4xl text-3xl font-semibold sm:pb-4 pb-8 dark:text-white">Banners</h1>
                     <a href="{{ route('banners.create') }}"
                         class="rounded-tr-2xl rounded-bl-2xl text-white bg-gradient-to-tl from-indigo-400 from-30% to-indigo-600 to-100% hover:bg-gradient-to-br hover:from-indigo-600 hover:from-30% hover:to-indigo-400 hover:to-100% font-bold py-2 px-4 rounded">Create
                         New

@@ -5,7 +5,7 @@
             <div class="inline-block min-w-full shadow rounded-lg overflow-hidden flex-col">
 
                 <div class="grid gap-6 justify-start sm:justify-between lg:grid-cols-1 items-center mb-4">
-                    <h1 class="sm:text-4xl text-3xl font-semibold  sm:pb-4 pb-8">Why Choose Us</h1>
+                    <h1 class="sm:text-4xl text-3xl font-semibold  sm:pb-4 pb-8 dark:text-white mt-6">Why Choose Us</h1>
 
                     <div class="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-4">
 
