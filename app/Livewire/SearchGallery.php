@@ -22,7 +22,7 @@ class SearchGallery extends Component
     {
         $galleries = Gallery::query()
         ->when($this->search, function ($query) {
-            $query->Where('alt_tag', 'like', '%' . $this->search . '%');
+            $query->where('alt_tag', 'like', '%' . $this->search . '%');
         })
         ->latest()
         ->paginate($this->perPage);

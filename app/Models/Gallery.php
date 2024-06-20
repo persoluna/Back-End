@@ -2,21 +2,23 @@
 
 namespace App\Models;
 
+use App\Models\GalleryCategory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Gallery extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'image_names',
         'alt_tag',
+        'image',
+        'category_id',
     ];
 
-    public function getFirstImageAttribute()
+    public function gallerycategory(): BelongsTo
     {
-        $images = json_decode($this->image_names, true);
-        return $images ? $images[0] : null;
+        return $this->belongsTo(GalleryCategory::class, 'category_id');
     }
 }

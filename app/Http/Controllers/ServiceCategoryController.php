@@ -32,15 +32,15 @@ class ServiceCategoryController extends Controller
     {
         $validatedData = $request->validate([
             'name' =>'required|max:255',
-           'slug' =>'required|unique:service_categories|max:255',
+            'slug' =>'required|unique:service_categories|max:255',
             'image' =>'required',
             'alt_tag' =>'required|max:255',
             'icon' =>'required',
             'icon_alt_tag' =>'required|max:255',
-           'meta_title' =>'required|max:255',
-           'meta_description' =>'required',
-           'meta_keyword' =>'required',
-           'meta_canonical' =>'required|url',
+            'meta_title' =>'required|max:255',
+            'meta_description' =>'required',
+            'meta_keyword' =>'required',
+            'meta_canonical' =>'required|url',
         ]);
 
         $serviceCategoryImagePath = $request->file('image')->store('public/service_category_images');
@@ -119,7 +119,7 @@ class ServiceCategoryController extends Controller
     public function destroy(ServiceCategory $servicecategory)
     {
         // Update associated services to have a null service category value
-        // $serviceCategory->services()->update(['service_category_id' => null]);
+        $servicecategory->services()->update(['category_id' => null]);
 
         // Delete the image from the 'public/service_category_images/' directory
         Storage::delete('public/service_category_images/'. $servicecategory->image);

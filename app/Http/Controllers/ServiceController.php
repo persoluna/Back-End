@@ -81,7 +81,7 @@ class ServiceController extends Controller
     public function update(Request $request, Service $service)
     {
         $validatedData = $request->validate([
-            'category_id' => 'required',
+            'category_id' => 'nullable',
             'name' => 'nullable|max:255',
             'slug' => 'nullable|max:255|unique:services,slug,' . $service->id,
             'description' => 'nullable',
@@ -112,7 +112,10 @@ class ServiceController extends Controller
      */
     public function destroy(Service $service)
     {
-        Storage::delete('public/service_images/' . $service->image);
+        if ($service->image) {
+                Storage::delete('public/service_images/' . $service->image);
+        }
+
         $service->delete();
         return redirect()->route('services.index')->with('success', 'Service deleted successfully.');
     }

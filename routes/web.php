@@ -31,6 +31,7 @@ use App\Http\Controllers\AboutPointController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\ServiceCategoryController;
 use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\GalleryCategoryController;
 use App\Livewire\SearchApplication;
 use App\Livewire\SearchBanner;
 use App\Livewire\SearchCounter;
@@ -111,11 +112,11 @@ Route::resource('aboutpoints', AboutPointController::class);
 
 Route::resource('galleries', GalleryController::class);
 
-Route::post('/galleries/delete-image', [GalleryController::class, 'deleteImage'])->name('galleries.delete-image');
-
 Route::resource('servicecategories', ServiceCategoryController::class);
 
 Route::resource('services', ServiceController::class);
+
+Route::resource('gallerycategories', GalleryCategoryController::class);
 
 Route::get('/dashboard', [DashboardController::class, 'index'])
 ->middleware(['auth', 'verified'])->name('dashboard');

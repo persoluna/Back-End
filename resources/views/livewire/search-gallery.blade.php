@@ -25,8 +25,8 @@
                     {{ $gallery->alt_tag }}
                 </td>
                 <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm dark:bg-gray-800 dark:text-white dark:border-gray-600">
-                    @if ($gallery->first_image)
-                        <img src="{{ asset('storage/galleries/' . $gallery->first_image) }}" alt="{{ $gallery->alt_tag }}" class="w-24 h-14 object-cover">
+                    @if ($gallery->image)
+                        <img src="{{ asset('storage/galleries/' . $gallery->image) }}" alt="{{ $gallery->alt_tag }}" class="w-24 h-14 object-cover">
                     @else
                         No Image
                     @endif

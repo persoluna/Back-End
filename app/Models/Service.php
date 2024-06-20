@@ -4,6 +4,7 @@ namespace App\Models;
 use App\Models\ServiceCategory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Service extends Model
 {
@@ -23,7 +24,7 @@ class Service extends Model
         'status',
     ];
 
-    public function servicecategory()
+    public function servicecategory(): BelongsTo
     {
         return $this->belongsTo(ServiceCategory::class, 'category_id');
     }

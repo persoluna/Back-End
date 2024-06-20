@@ -7,8 +7,8 @@
 
         <!-- Gallery creation title and description -->
         <div class="mb-8 space-y-3">
-            <h1 class="text-3xl sm:text-4xl font-semibold text-center pt-[90px]">Create Gallery</h1>
-            <p class="text-gray-500 text-center text-xl">Enter the Gallery details.</p>
+            <h1 class="text-3xl sm:text-4xl font-semibold text-start pt-[90px] ml-20">Create Gallery</h1>
+            <p class="text-gray-500 text-start text-xl ml-20">Enter the Gallery details.</p>
         </div>
 
         <!-- Gallery form -->
@@ -16,13 +16,13 @@
             @csrf
             <div class="mb-10 items-center grid lg:grid-cols-2 gap-6 m-[80px] justify-center">
 
-                <!-- Gallery images Alt tag input field -->
-                <div class="lg:col-span-1">
+                <!-- Gallery image Alt tag input field -->
+                <div class="lg:col-span-1 mt-2">
                     <label
                         class="text-base font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                         for="alt_tag">Gallery Title</label>
                     <input
-                        class="border-input bg-background ring-offset-background placeholder:text-muted-foreground focus-visible:ring-ring flex h-10 w-full rounded-md border px-3 py-2 text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                        class="border-input bg-background ring-offset-background placeholder:text-muted-foreground focus-visible:ring-ring flex h-10 w-fit min-w-[400px] rounded-md border px-3 py-2 text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                         id="alt_tag" placeholder="Enter the Gallery title" type="text"
                         name="alt_tag" value="{{ old('alt_tag') }}">
                     @error('alt_tag')
@@ -31,16 +31,39 @@
                         </div>
                     @enderror
                 </div>
-                <br>
+
+                <!-- Category dropdown -->
+                <div class="lg:col-span-1">
+                    <div class="space-y-2">
+                        <label
+                            class="text-base font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                            for="category_id">Category</label>
+                        <select
+                            class="border-input bg-background ring-offset-background placeholder:text-muted-foreground focus-visible:ring-ring flex h-10 w-fit min-w-[220px] rounded-md border px-3 py-2 text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                            id="category_id" name="category_id">
+                            @foreach ($galleryCategories as $gallerycategory)
+                                <option value="{{ $gallerycategory->id }}"
+                                    {{ old('category_id') == $gallerycategory->id ? 'selected' : '' }}>{{ $gallerycategory->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                        @error('category_id')
+                            <div class="text-red-500 mt-2 text-sm">
+                                {{ $message }}
+                            </div>
+                        @enderror
+                    </div>
+                </div>
+
                 <!-- Gallery image input field -->
                 <div class="lg:col-span-1">
-                    <label class="text-base font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70" for="image_names">Images</label>
-                    <input class="border-input bg-background ring-offset-background placeholder:text-muted-foreground focus-visible:ring-ring flex h-10 w-full rounded-md border px-3 text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-                           id="image_names" type="file" name="image_names[]" multiple>
-                    <div id="image-preview-container" class="flex flex-wrap gap-2 pt-2">
-                        <!-- Image previews will be inserted here -->
+                    <label class="text-base font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70" for="image">Image</label>
+                    <input class="border-input bg-background ring-offset-background placeholder:text-muted-foreground focus-visible:ring-ring flex h-10 w-fit rounded-md border px-3 text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                           id="image" type="file" name="image" accept="image/*">
+                    <div id="image-preview" class="flex flex-wrap gap-2 pt-2">
+                        <!-- Image preview will be inserted here -->
                     </div>
-                    @error('image_names')
+                    @error('image')
                     <div class="text-red-500 mt-2 text-sm">
                         {{ $message }}
                     </div>
@@ -58,68 +81,27 @@
         </form>
     </div>
 
- <script>
+    <script>
         const galleryForm = document.querySelector('form');
-        const imageInput = document.getElementById('image_names');
-        const imagePreviewContainer = document.getElementById('image-preview-container');
-        let selectedFiles = [];
+        const imageInput = document.getElementById('image');
+        const imagePreview = document.getElementById('image-preview');
 
         imageInput.addEventListener('change', function() {
-            const newFiles = Array.from(this.files);
-            selectedFiles = selectedFiles.concat(newFiles);
-
-            displayPreviews();
-        });
-
-        function displayPreviews() {
-            imagePreviewContainer.innerHTML = ''; // Clear existing previews
-
-            selectedFiles.forEach((file, index) => {
+            if (this.files && this.files[0]) {
                 const reader = new FileReader();
 
                 reader.onload = function(event) {
-                    const imgContainer = document.createElement('div');
-                    imgContainer.classList.add('relative', 'w-24', 'h-24', 'overflow-hidden', 'flex', 'items-center', 'justify-center');
-
-                    const img = document.createElement('img');
-                    img.src = event.target.result;
-                    img.alt = 'Gallery Image Preview';
-                    img.classList.add('object-cover', 'h-full', 'w-full');
-
-                    const removeButton = document.createElement('button');
-                    removeButton.classList.add('absolute', 'top-0', 'right-0', 'bg-red-600', 'text-white', 'rounded-full', 'p-1', 'focus:outline-none');
-                    removeButton.innerHTML = '&times;'; // Cross symbol
-
-                    removeButton.addEventListener('click', function() {
-                        selectedFiles.splice(index, 1);
-                        displayPreviews();
-                    });
-
-                    imgContainer.appendChild(img);
-                    imgContainer.appendChild(removeButton);
-                    imagePreviewContainer.appendChild(imgContainer);
+                    imagePreview.innerHTML = `
+                        <div class="relative w-24 h-24 overflow-hidden flex items-center justify-center">
+                            <img src="${event.target.result}" alt="Gallery Image Preview" class="object-cover h-full w-full">
+                        </div>
+                    `;
                 };
 
-                reader.readAsDataURL(file);
-            });
-        }
-
-        galleryForm.addEventListener('submit', function(event) {
-            const formData = new FormData();
-            selectedFiles.forEach((file, index) => {
-                formData.append('image_names[]', file);
-            });
-
-            if (selectedFiles.length > 0) {
-                for (const [key, value] of formData.entries()) {
-                    const hiddenField = document.createElement('input');
-                    hiddenField.type = 'hidden';
-                    hiddenField.name = key;
-                    hiddenField.value = value;
-                    galleryForm.appendChild(hiddenField);
-                }
+                reader.readAsDataURL(this.files[0]);
+            } else {
+                imagePreview.innerHTML = '';
             }
         });
     </script>
-
 </x-app-layout>
