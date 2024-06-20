@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Exports\BannersExport;
 use App\Imports\BannersImport;
 use App\Models\Banner;
+use App\Models\BannerCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Maatwebsite\Excel\Facades\Excel;
@@ -47,7 +48,8 @@ class BannerController extends Controller
      */
     public function create()
     {
-        return view('banners.create');
+        $bannercategories = BannerCategory::all();
+        return view('banners.create', compact('bannercategories'));
     }
 
     /**
@@ -56,6 +58,7 @@ class BannerController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
+            'category_id' => 'required',
             'title' => 'required|max:255',
             'sub_title' => 'nullable|max:255',
             'description' => 'nullable',
@@ -91,7 +94,8 @@ class BannerController extends Controller
      */
     public function edit(Banner $banner)
     {
-        return view('banners.edit', compact('banner'));
+        $bannercategories = BannerCategory::get();
+        return view('banners.edit', compact('banner', 'bannercategories'));
     }
 
     /**
@@ -100,6 +104,7 @@ class BannerController extends Controller
     public function update(Request $request, Banner $banner)
     {
         $validatedData = $request->validate([
+            'category_id' => 'nullable',
             'title' => 'required|max:255',
             'sub_title' => 'nullable|max:255',
             'description' => 'nullable',

@@ -22,6 +22,32 @@
             @method('PUT')
             <div class="mb-10 items-center grid lg:grid-cols-2 gap-6 m-[80px] justify-center">
 
+                <!-- Category dropdown -->
+                <div class="lg:col-span-1">
+                    <div class="space-y-2">
+                        <label
+                            class="text-base font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                            for="category_id">
+                            Category
+                        </label>
+                        <select
+                            class="border-input bg-background ring-offset-background placeholder:text-muted-foreground focus-visible:ring-ring flex h-10 w-full rounded-md border px-3 py-2 text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                            id="category_id" name="category_id">
+                            @foreach ($bannercategories as $category)
+                                <option value="{{ $category->id }}"
+                                    {{ $banner->category_id == $category->id ? 'selected' : '' }}>
+                                    {{ $category->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                        @error('category_id')
+                            <div class="text-red-500 mt-2 text-sm">
+                                {{ $message }}
+                            </div>
+                        @enderror
+                    </div>
+                </div>
+                <br>
                 <!-- Banner Title input field -->
                 <div class="lg:col-span-1">
                     <label
@@ -91,7 +117,7 @@
                         class="text-base font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                         for="banner_image">Banner Image</label>
                     <input
-                        class="border-input bg-background ring-offset-background placeholder:text-muted-foreground focus-visible:ring-ring flex h-10 w-80 rounded-md border px-3 text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                        class="border-input bg-background ring-offset-background placeholder:text-muted-foreground focus-visible:ring-ring flex h-10 w-80 mb-2 rounded-md border px-3 text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                         id="banner_image" type="file" name="banner_image" onchange="previewImage(event)">
 
                     <div id="image-container">

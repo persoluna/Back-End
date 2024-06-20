@@ -5,6 +5,7 @@ namespace App\Livewire;
 use App\Models\Banner;
 use Livewire\Component;
 use Livewire\WithPagination;
+use App\Models\BannerCategory;
 
 class SearchBanner extends Component
 {
@@ -14,8 +15,8 @@ class SearchBanner extends Component
 
     public $perPage = 5; // Number of items per page (default value)
 
-    // ! For Status filed change functionallity
     public $bannerId;
+
     public $bannerStatus;
 
     public function updateBannerStatus(Banner $banner)

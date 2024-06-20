@@ -43,8 +43,8 @@
                     {{ $banner->description }}
                 </td>
                 <td class="px-5 py-5 border-b border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 text-sm">
-                    <img src="{{ asset('storage/banners/' . $banner->banner_image) }}" alt="{{ $banner->alt_tag }}"
-                        class="pt-4 w-[100px] h-12 dark:text-gray-300">
+                    <img src="{{ asset('storage/banners/'. $banner->banner_image) }}" alt="{{ $banner->alt_tag }}"
+                        class="pt-4 max-w-full h-14 object-cover object-center">
                 </td>
                 <td class="px-5 py-5 border-b border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 text-sm text-gray-900 dark:text-gray-300">
                     {{ $banner->alt_tag }}

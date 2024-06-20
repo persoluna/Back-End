@@ -17,7 +17,7 @@
             <div class="mb-10 items-center grid lg:grid-cols-2 gap-6 m-[80px] justify-center">
 
                 <!-- Banner Title input field -->
-                <div class="lg:col-span-1">
+                <div class="lg:col-span-1 mt-2">
                     <label
                         class="text-base font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                         for="title">Banner Title</label>
@@ -30,6 +30,29 @@
                             {{ $message }}
                         </div>
                     @enderror
+                </div>
+
+                <!-- Category dropdown -->
+                <div class="lg:col-span-1">
+                    <div class="space-y-2">
+                        <label
+                            class="text-base font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                            for="category_id">Category</label>
+                        <select
+                            class="border-input bg-background ring-offset-background placeholder:text-muted-foreground focus-visible:ring-ring flex h-10 w-full rounded-md border px-3 py-2 text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                            id="category_id" name="category_id">
+                            @foreach ($bannercategories as $bannercategory)
+                                <option value="{{ $bannercategory->id }}"
+                                    {{ old('category_id') == $bannercategory->id ? 'selected' : '' }}>{{ $bannercategory->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                        @error('category_id')
+                            <div class="text-red-500 mt-2 text-sm">
+                                {{ $message }}
+                            </div>
+                        @enderror
+                    </div>
                 </div>
 
                 <!-- Banner Sub Title input field -->
@@ -47,7 +70,7 @@
                         </div>
                     @enderror
                 </div>
-
+                <br>
                 <!-- Banner Description input field -->
                 <div class="lg:col-span-1">
                     <label
@@ -62,7 +85,7 @@
                         </div>
                     @enderror
                 </div>
-
+                <br>
                 <!-- Banner Alt Tag input field -->
                 <div class="lg:col-span-1">
                     <label
@@ -78,7 +101,7 @@
                         </div>
                     @enderror
                 </div>
-
+                <br>
                 <!-- Banner Image input field -->
                 <div class="lg:col-span-1">
                     <label
