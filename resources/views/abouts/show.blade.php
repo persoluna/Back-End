@@ -56,17 +56,11 @@
                 });
             </script>
         @endif
-
         <div class="m-[80px] justify-center items-start">
             <div class="grid md:grid-cols-12 gap-6">
-                <div class="md:col-span-6">
-                    <img src="{{ asset('storage/abouts/' . $about->image1) }}" alt="{{ $about->alt_tag1 }}"
-                        class="img-fluid w-full">
-                </div>
-                <br>
-                <div class="md:col-span-6">
-                    <img src="{{ asset('storage/abouts/' . $about->image2) }}" alt="{{ $about->alt_tag2 }}"
-                        class="img-fluid w-full">
+                <div class="md:col-span-6 relative">
+                    <img src="{{ asset('storage/abouts/'. $about->image1) }}" alt="{{ $about->alt_tag1 }}" class="img-fluid w-full">
+                    <img src="{{ asset('storage/abouts/'. $about->image2) }}" alt="{{ $about->alt_tag2 }}" class="absolute bottom-0 right-0 w-1/4">
                 </div>
                 <div class="md:col-span-6">
                     <div class="space-y-4">
@@ -77,16 +71,11 @@
                         <p class="text-xl font-semibold">{{ $about->owner_name }}</p>
                         <p class="text-xl font-semibold">{{ $about->owner_designation }}</p>
                         <div class="md:col-span-6">
-                            <img src="{{ asset('storage/abouts/' . $about->owner_signature) }}"
-                                alt="{{ $about->alt_tag3 }}" class="img-fluid w-full">
+                            <img src="{{ asset('storage/abouts/'. $about->owner_signature) }}" alt="{{ $about->alt_tag3 }}" class="img-fluid w-full">
                         </div>
                     </div>
                     <div class="mt-8 flex justify-start gap-4">
-                        <a href="{{ route('abouts.edit', $about->id) }}"
-                            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Edit
-                            About
-                            Us
-                            🖱️</a>
+                        <a href="{{ route('abouts.edit', $about->id) }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Edit About Us 🖱️</a>
                     </div>
                 </div>
             </div>

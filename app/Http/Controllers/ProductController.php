@@ -65,7 +65,8 @@ class ProductController extends Controller
             'product_name' => 'required|max:255',
             'slug' => 'required|unique:products|max:255',
             'description' => 'required',
-            'image' => 'required',
+            'image' => 'required|array',
+            'image.*' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
             'alt_tag' => 'required|max:255',
             'meta_title' => 'required|max:255',
             'meta_description' => 'required',
@@ -77,8 +78,16 @@ class ProductController extends Controller
             return back()->withInput()->withErrors(['category_id' => 'Please select a category']);
         }
 
-        $productImagePath = $request->file('image')->store('public/product_images');
-        $validatedData['image'] = basename($productImagePath);
+        $imageNames = [];
+        if ($request->hasFile('image')) {
+            foreach ($request->file('image') as $image) {
+                $filename = time() . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
+                $image->storeAs('public/product_images', $filename);
+                $imageNames[] = $filename;
+            }
+        }
+
+        $validatedData['image'] = json_encode($imageNames);
 
         $product = Product::create($validatedData);
 
@@ -106,7 +115,7 @@ class ProductController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Product $product)
+     public function update(Request $request, Product $product)
     {
         if (!$request->has('category_id')) {
             return back()->withInput()->withErrors(['category_id' => 'Please select a category']);
@@ -118,7 +127,9 @@ class ProductController extends Controller
             'product_name' => 'nullable|max:255',
             'slug' => 'nullable|max:255|unique:products,slug,' . $product->id,
             'description' => 'nullable',
-            'image' => 'nullable',
+            'image' => 'nullable|array',
+            'image.*' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'existing_images' => 'nullable|array',
             'alt_tag' => 'nullable|max:255',
             'meta_title' => 'nullable|max:255',
             'meta_description' => 'nullable',
@@ -126,10 +137,31 @@ class ProductController extends Controller
             'meta_canonical' => 'nullable|url',
         ]);
 
-        Storage::delete('public/product_images/' . $product->image);
+        // Start with existing images that weren't removed
+        $currentImages = $request->input('existing_images', []);
 
-        $productImagePath = $request->file('image')->store('public/product_images');
-        $validatedData['image'] = basename($productImagePath);
+        // Handle new images
+        if ($request->hasFile('image')) {
+            foreach ($request->file('image') as $newImage) {
+                $filename = time() . '_' . uniqid() . '.' . $newImage->getClientOriginalExtension();
+                $newImage->storeAs('public/product_images', $filename);
+                $currentImages[] = $filename;
+            }
+        }
+
+        // Remove old images that are no longer in use
+        $oldImages = json_decode($product->image, true) ?? [];
+        foreach ($oldImages as $oldImage) {
+            if (!in_array($oldImage, $currentImages)) {
+                Storage::delete('public/product_images/' . $oldImage);
+            }
+        }
+
+        // Update the image field with the new array of images
+        $validatedData['image'] = json_encode($currentImages);
+
+        // Remove the 'existing_images' key from validatedData as it's not a field in the products table
+        unset($validatedData['existing_images']);
 
         $product->update($validatedData);
 
@@ -141,8 +173,17 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        Storage::delete('public/product_images/' . $product->image);
+        // Decode the JSON string to get an array of image filenames
+        $images = json_decode($product->image, true) ?? [];
+
+        // Delete each image file
+        foreach ($images as $image) {
+            Storage::delete('public/product_images/' . $image);
+        }
+
+        // Delete the product
         $product->delete();
+
         return redirect()->route('products.index')->with('success', 'Product deleted successfully.');
     }
 }

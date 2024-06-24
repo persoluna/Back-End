@@ -117,24 +117,29 @@
                 </div>
 
                 <!-- Product image input field -->
-                <div class="lg:col-span-1">
-                    <label
-                        class="text-base font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                        for="image">Product Image</label>
-                    <input
-                        class="border-input bg-background ring-offset-background placeholder:text-muted-foreground focus-visible:ring-ring flex h-10 w-full rounded-md border px-3 text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-                        id="image" type="file" name="image">
-                    <img id="image-preview" src="{{ asset('storage/product_images/' . $product->image) }}"
-                        alt="Product Image Preview" class="min-h-[100px] w-auto pt-2 text-base">
+                <div class="lg:col-span-2">
+                    <label class="text-base font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70" for="image">Product Images</label>
+                    <div id="drop-zone" class="border-2 border-dashed border-gray-300 rounded-md p-4 text-center cursor-pointer">
+                        <p>Drag & Drop images here or</p>
+                        <button id="select-button" type="button" class="mt-2 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">Select Files</button>
+                    </div>
+                    <input id="file-input" type="file" multiple accept="image/*" class="hidden" name="image[]">
+                    <div id="selected-images" class="mt-4 flex flex-wrap">
+                        @foreach(json_decode($product->image, true) as $image)
+                            <div class="image-wrapper relative mx-2 mb-2" data-image="{{ $image }}">
+                                <img src="{{ asset('storage/product_images/' . $image) }}" alt="Product Image" class="w-32 h-32 object-cover rounded-lg">
+                                <button type="button" class="remove-image absolute top-1 right-1 h-6 w-6 bg-gray-700 text-white text-xs rounded-full flex items-center justify-center opacity-50 hover:opacity-100 transition-opacity focus:outline-none">&times;</button>
+                                <input type="hidden" name="existing_images[]" value="{{ $image }}">
+                            </div>
+                        @endforeach
+                    </div>
+                    <p id="selected-files-count" class="mt-2 text-sm text-gray-600"></p>
                     @error('image')
                         <div class="text-red-500 mt-2 text-sm">
                             {{ $message }}
                         </div>
                     @enderror
                 </div>
-
-                <br>
-
                 <!-- Alt Tag input field -->
                 <div class="lg:col-span-1">
                     <label
@@ -233,13 +238,116 @@
 
     <!-- JS to handle image preview -->
     <script>
-        document.getElementById('image').addEventListener('change', function(event) {
-            var reader = new FileReader();
-            reader.onload = function() {
-                var output = document.getElementById('image-preview');
-                output.src = reader.result;
-            }
-            reader.readAsDataURL(event.target.files[0]);
+        const fileInput = document.getElementById("file-input");
+        const dropZone = document.getElementById("drop-zone");
+        const selectedImages = document.getElementById("selected-images");
+        const selectButton = document.getElementById("select-button");
+        const selectedFilesCount = document.getElementById("selected-files-count");
+        let newFiles = new DataTransfer();
+
+        selectButton.addEventListener("click", () => {
+            fileInput.click();
         });
+
+        fileInput.addEventListener("change", handleFiles);
+        dropZone.addEventListener("dragover", handleDragOver);
+        dropZone.addEventListener("dragleave", handleDragLeave);
+        dropZone.addEventListener("drop", handleDrop);
+
+        function handleFiles(event) {
+            const fileList = event.target.files;
+            displayImages(fileList, false);
+        }
+
+        function handleDragOver(event) {
+            event.preventDefault();
+            dropZone.classList.add("border-blue-500", "text-blue-500");
+        }
+
+        function handleDragLeave(event) {
+            event.preventDefault();
+            dropZone.classList.remove("border-blue-500", "text-blue-500");
+        }
+
+        function handleDrop(event) {
+            event.preventDefault();
+            const fileList = event.dataTransfer.files;
+            displayImages(fileList, false);
+            dropZone.classList.remove("border-blue-500", "text-blue-500");
+        }
+
+        function displayImages(fileList, isExisting) {
+            for (const file of fileList) {
+                const imageWrapper = createImageWrapper(file, isExisting);
+                selectedImages.appendChild(imageWrapper);
+                if (!isExisting) {
+                    newFiles.items.add(file);
+                }
+            }
+            updateFileInput();
+            updateSelectedFilesCount();
+        }
+
+        function createImageWrapper(file, isExisting) {
+            const imageWrapper = document.createElement("div");
+            imageWrapper.classList.add("relative", "mx-2", "mb-2");
+
+            const image = document.createElement("img");
+            image.src = isExisting ? file : URL.createObjectURL(file);
+            image.classList.add("w-32", "h-32", "object-cover", "rounded-lg");
+
+            const removeButton = document.createElement("button");
+            removeButton.innerHTML = "&times;";
+            removeButton.classList.add(
+                "absolute", "top-1", "right-1", "h-6", "w-6", "bg-gray-700", "text-white",
+                "text-xs", "rounded-full", "flex", "items-center", "justify-center",
+                "opacity-50", "hover:opacity-100", "transition-opacity", "focus:outline-none"
+            );
+            removeButton.addEventListener("click", () => removeImage(imageWrapper, file, isExisting));
+
+            imageWrapper.appendChild(image);
+            imageWrapper.appendChild(removeButton);
+
+            if (isExisting) {
+                const input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = 'existing_images[]';
+                input.value = file;
+                imageWrapper.appendChild(input);
+            }
+
+            return imageWrapper;
+        }
+
+        function removeImage(imageWrapper, file, isExisting) {
+            imageWrapper.remove();
+            if (!isExisting) {
+                const newFilesList = Array.from(newFiles.files).filter(f => f !== file);
+                newFiles = new DataTransfer();
+                newFilesList.forEach(f => newFiles.items.add(f));
+                updateFileInput();
+            }
+            updateSelectedFilesCount();
+        }
+
+        function updateFileInput() {
+            fileInput.files = newFiles.files;
+        }
+
+        function updateSelectedFilesCount() {
+            const count = selectedImages.children.length;
+            selectedFilesCount.textContent = count > 0 ? `${count} file${count === 1 ? "" : "s"} selected` : "";
+        }
+
+        // Initialize existing images
+        document.querySelectorAll('.image-wrapper[data-image]').forEach(wrapper => {
+            const imageName = wrapper.dataset.image;
+            const removeButton = wrapper.querySelector('button');
+            removeButton.addEventListener('click', () => removeImage(wrapper, imageName, true));
+        });
+
+        // Initial count update
+        updateSelectedFilesCount();
     </script>
+
 </x-app-layout>

@@ -68,12 +68,22 @@
                     <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                         {{ $product->subcategory ? $product->subcategory->name : 'N/A' }}
                     </td>
-                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                   <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                         <div class="w-[100px] h-12 overflow-hidden">
-                            <img src="{{ asset('storage/product_images/' . $product->image) }}"
-                                alt="{{ $product->alt_tag }}" class="object-cover w-full h-full">
+                            @php
+                                $images = json_decode($product->image, true);
+                                $firstImage = $images[0] ?? null;
+                            @endphp
+                            @if($firstImage)
+                                <img src="{{ asset('storage/product_images/' . $firstImage) }}"
+                                    alt="{{ $product->alt_tag }}" class="object-cover w-full h-full">
+                            @else
+                                <div class="w-full h-full bg-gray-200 flex items-center justify-center text-gray-500">
+                                    No Image
+                                </div>
+                            @endif
                         </div>
-                    </td>
+                   </td>
                     <td class="px-5 py-8 border-b border-gray-200 bg-white flex text-sm gap-3">
                         <a href="{{ route('products.edit', $product->id) }}"
                             class="rounded-full bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">Edit</a>

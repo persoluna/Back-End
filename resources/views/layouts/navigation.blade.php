@@ -161,7 +161,7 @@
 
             <li>
                 <button type="button"
-                    class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ Route::currentRouteNamed('abouts.index') || Route::currentRouteNamed('abouts.edit') || Route::currentRouteNamed('missions.index') || Route::currentRouteNamed('missions.show', 1) || Route::currentRouteNamed('abouts.show', 1) || Route::currentRouteNamed('missions.edit', 1) || Route::currentRouteNamed('abouts.edit', 1) ? 'parent-active' : '' }}"
+                    class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ Route::currentRouteNamed('abouts.index') || Route::currentRouteNamed('abouts.edit') || Route::currentRouteNamed('missions.index') || Route::currentRouteNamed('missions.show', 1) || Route::currentRouteNamed('abouts.show', 1) || Route::currentRouteNamed('missions.edit', 1) || Route::currentRouteNamed('abouts.edit', 1) || Route::currentRouteNamed('staffs.index') || Route::currentRouteNamed('staffs.create') ? 'parent-active' : '' }}"
                     aria-controls="dropdown-about" data-collapse-toggle="dropdown-about">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -178,7 +178,7 @@
                     </svg>
                 </button>
                 <ul id="dropdown-about"
-                    class="{{ Route::currentRouteNamed('abouts.index') || Route::currentRouteNamed('abouts.edit') || Route::currentRouteNamed('missions.index') || Route::currentRouteNamed('missions.show', 1) || Route::currentRouteNamed('abouts.show', 1) || Route::currentRouteNamed('missions.edit', 1) || Route::currentRouteNamed('abouts.edit', 1) ? 'block' : 'hidden' }} py-2 space-y-2">
+                    class="{{ Route::currentRouteNamed('abouts.index') || Route::currentRouteNamed('abouts.edit') || Route::currentRouteNamed('missions.index') || Route::currentRouteNamed('staffs.index') || Route::currentRouteNamed('staffs.create') || Route::currentRouteNamed('missions.show', 1) || Route::currentRouteNamed('abouts.show', 1) || Route::currentRouteNamed('missions.edit', 1) || Route::currentRouteNamed('abouts.edit', 1) ? 'block' : 'hidden' }} py-2 space-y-2">
                     <li>
                         <a href="{{ route('abouts.index') }}"
                             class="{{ Route::currentRouteNamed('abouts.index') ? 'active' : '' }} sidebar-item flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">About
@@ -188,6 +188,11 @@
                         <a href="{{ route('missions.index') }}"
                             class="{{ Route::currentRouteNamed('missions.index') ? 'active' : '' }} sidebar-item flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Mission
                             & Vision</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('staffs.index') }}"
+                            class="{{ Route::currentRouteNamed('staffs.index') || Route::currentRouteNamed('staffs.create') ? 'active' : '' }} sidebar-item flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
+                            Team</a>
                     </li>
                 </ul>
             </li>
@@ -213,15 +218,15 @@
                     class="{{ Route::currentRouteNamed('categories.index') || Route::currentRouteNamed('categories.create') || Route::currentRouteNamed('subcategories.create') || Route::currentRouteNamed('subcategories.index') || Route::currentRouteNamed('products.index') || Route::currentRouteNamed('products.create') ? 'block' : 'hidden' }} py-2 space-y-2">
                     <li>
                         <a href="{{ route('categories.index') }}"
-                            class="{{ Route::currentRouteNamed('categories.index') ? 'active' : '' }} sidebar-item flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Categories</a>
+                            class="{{ Route::currentRouteNamed('categories.index') || Route::currentRouteNamed('categories.create') ? 'active' : '' }} sidebar-item flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Categories</a>
                     </li>
                     <li>
                         <a href="{{ route('subcategories.index') }}"
-                            class="{{ Route::currentRouteNamed('subcategories.index') ? 'active' : '' }} sidebar-item flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Sub-categories</a>
+                            class="{{ Route::currentRouteNamed('subcategories.index') || Route::currentRouteNamed('subcategories.create') ? 'active' : '' }} sidebar-item flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Sub-categories</a>
                     </li>
                     <li>
                         <a href="{{ route('products.index') }}"
-                            class="{{ Route::currentRouteNamed('products.index') ? 'active' : '' }} sidebar-item flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Products</a>
+                            class="{{ Route::currentRouteNamed('products.index') || Route::currentRouteNamed('products.create') ? 'active' : '' }} sidebar-item flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Products</a>
                     </li>
                 </ul>
             </li>

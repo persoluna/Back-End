@@ -111,22 +111,22 @@
                 </div>
 
                 <!-- Product image input field -->
-                <div class="lg:col-span-1">
-                    <label
-                        class="text-base font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                        for="image">Product Image</label>
-                    <input
-                        class="border-input bg-background ring-offset-background placeholder:text-muted-foreground focus-visible:ring-ring flex h-10 w-full rounded-md border px-3 text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-                        id="image" type="file" name="image">
-                    <img id="image-preview" src="" alt="Product Image Preview"
-                        class="min-h-[100px] w-auto pt-2 text-base">
-                    @error('image')
+                <div class="lg:col-span-2">
+                    <label class="text-base font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70" for="file-input">Product Images</label>
+                    <div id="drop-zone" class="border-2 border-dashed border-gray-300 rounded-md p-4 text-center cursor-pointer">
+                        <p>Drag & Drop images here or</p>
+                        <button id="select-button" type="button" class="mt-2 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">Select Files</button>
+                    </div>
+                    <input id="file-input" type="file" multiple accept="image/*" class="hidden" name="image[]">
+                    <div id="selected-images" class="mt-4 flex flex-wrap"></div>
+                    <p id="selected-files-count" class="mt-2 text-sm text-gray-600"></p>
+                    @error('images')
                         <div class="text-red-500 mt-2 text-sm">
                             {{ $message }}
                         </div>
                     @enderror
                 </div>
-                <br>
+
 
                 <!-- Alt Tag input field -->
                 <div class="lg:col-span-1">
@@ -143,7 +143,6 @@
                         </div>
                     @enderror
                 </div>
-                <br>
 
                 {{-- Meta title input field --}}
                 <div class="lg:col-span-1">
@@ -221,14 +220,96 @@
     </div>
 
     <!-- JS to handle image preview -->
-    <script>
-        document.getElementById('image').addEventListener('change', function(event) {
-            var reader = new FileReader();
-            reader.onload = function() {
-                var output = document.getElementById('image-preview');
-                output.src = reader.result;
-            }
-            reader.readAsDataURL(event.target.files[0]);
+     <script>
+        const fileInput = document.getElementById("file-input");
+        const dropZone = document.getElementById("drop-zone");
+        const selectedImages = document.getElementById("selected-images");
+        const selectButton = document.getElementById("select-button");
+        const selectedFilesCount = document.getElementById("selected-files-count");
+        let newFiles = new DataTransfer();
+
+        selectButton.addEventListener("click", () => {
+            fileInput.click();
         });
+
+        fileInput.addEventListener("change", handleFiles);
+        dropZone.addEventListener("dragover", handleDragOver);
+        dropZone.addEventListener("dragleave", handleDragLeave);
+        dropZone.addEventListener("drop", handleDrop);
+
+        function handleFiles(event) {
+            const fileList = event.target.files;
+            displayImages(fileList);
+        }
+
+        function handleDragOver(event) {
+            event.preventDefault();
+            dropZone.classList.add("border-blue-500", "text-blue-500");
+        }
+
+        function handleDragLeave(event) {
+            event.preventDefault();
+            dropZone.classList.remove("border-blue-500", "text-blue-500");
+        }
+
+        function handleDrop(event) {
+            event.preventDefault();
+            const fileList = event.dataTransfer.files;
+            displayImages(fileList);
+            dropZone.classList.remove("border-blue-500", "text-blue-500");
+        }
+
+        function displayImages(fileList) {
+            for (const file of fileList) {
+                const imageWrapper = createImageWrapper(file);
+                selectedImages.appendChild(imageWrapper);
+                newFiles.items.add(file);
+            }
+            updateFileInput();
+            updateSelectedFilesCount();
+        }
+
+        function createImageWrapper(file) {
+            const imageWrapper = document.createElement("div");
+            imageWrapper.classList.add("relative", "mx-2", "mb-2");
+
+            const image = document.createElement("img");
+            image.src = URL.createObjectURL(file);
+            image.classList.add("w-32", "h-32", "object-cover", "rounded-lg");
+
+            const removeButton = document.createElement("button");
+            removeButton.innerHTML = "&times;";
+            removeButton.classList.add(
+                "absolute", "top-1", "right-1", "h-6", "w-6", "bg-gray-700", "text-white",
+                "text-xs", "rounded-full", "flex", "items-center", "justify-center",
+                "opacity-50", "hover:opacity-100", "transition-opacity", "focus:outline-none"
+            );
+            removeButton.addEventListener("click", () => removeImage(imageWrapper, file));
+
+            imageWrapper.appendChild(image);
+            imageWrapper.appendChild(removeButton);
+            return imageWrapper;
+        }
+
+        function removeImage(imageWrapper, file) {
+            imageWrapper.remove();
+            const newFilesList = Array.from(newFiles.files).filter(f => f !== file);
+            newFiles = new DataTransfer();
+            newFilesList.forEach(f => newFiles.items.add(f));
+            updateFileInput();
+            updateSelectedFilesCount();
+        }
+
+        function updateFileInput() {
+            fileInput.files = newFiles.files;
+        }
+
+        function updateSelectedFilesCount() {
+            const count = selectedImages.children.length;
+            selectedFilesCount.textContent = count > 0 ? `${count} file${count === 1 ? "" : "s"} selected` : "";
+        }
+
+        // Initial count update
+        updateSelectedFilesCount();
     </script>
 </x-app-layout>
