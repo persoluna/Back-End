@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Exports\BlogsExport;
 use App\Imports\BlogsImport;
 use App\Models\blog;
+use App\Models\BlogCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Maatwebsite\Excel\Facades\Excel;
@@ -47,7 +48,8 @@ class BlogController extends Controller
      */
     public function create()
     {
-        return view('blogs.create');
+        $blogcategories = BlogCategory::all();
+        return view('blogs.create', compact('blogcategories'));
     }
 
     /**
@@ -56,6 +58,7 @@ class BlogController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
+            'category_id' => 'required',
             'blog_title' => 'required|max:255',
             'blog_slug' => 'required|unique:blogs|max:255',
             'short_description' => 'required',
@@ -97,7 +100,8 @@ class BlogController extends Controller
      */
     public function edit(blog $blog)
     {
-        return view('blogs.edit', compact('blog'));
+        $blogcategories = BlogCategory::get();
+        return view('blogs.edit', compact('blog', 'blogcategories'));
     }
 
     /**
@@ -106,6 +110,7 @@ class BlogController extends Controller
     public function update(Request $request, Blog $blog)
     {
         $validatedData = $request->validate([
+            'category_id' => 'nullable',
             'blog_title' => 'nullable|max:255',
             'blog_slug' => 'nullable',
             'short_description' => 'nullable',

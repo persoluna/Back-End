@@ -12,7 +12,7 @@ class SearchBlog extends Component
 
     public $search = '';
 
-    public $perPage = 5; // Number of items per page (default value)
+    public $perPage = 3; // Number of items per page (default value)
 
     public $blogId;
     public $blogStatus;

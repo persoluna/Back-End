@@ -34,6 +34,7 @@ use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\GalleryCategoryController;
 use App\Http\Controllers\BannerCategoryController;
 use App\Http\Controllers\StaffController;
+use App\Http\Controllers\BlogCategoryController;
 use App\Livewire\SearchApplication;
 use App\Livewire\SearchBanner;
 use App\Livewire\SearchCounter;
@@ -123,6 +124,8 @@ Route::resource('gallerycategories', GalleryCategoryController::class);
 Route::resource('bannercategories', BannerCategoryController::class);
 
 Route::resource('staffs', StaffController::class);
+
+Route::resource('blogcategories', BlogCategoryController::class);
 
 Route::get('/dashboard', [DashboardController::class, 'index'])
 ->middleware(['auth', 'verified'])->name('dashboard');

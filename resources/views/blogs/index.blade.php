@@ -91,7 +91,25 @@
                     @livewire('search-blog')
                 </div>
             </div>
+
+        <div class="grid gap-6 justify-start sm:justify-between lg:grid-cols-1 items-center mb-4 mt-20">
+            <h1 class="sm:text-4xl text-3xl font-semibold  sm:pb-4 pb-8">Blog Categories</h1>
+
+            <div class="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-4">
+
+                <a href="{{ route('blogcategories.create') }}"
+                    class="rounded-tr-2xl rounded-bl-2xl text-white bg-gradient-to-tl from-indigo-400 from-30% to-indigo-600 to-100% hover:bg-gradient-to-br hover:from-indigo-600 hover:from-60% hover:to-indigo-400 hover:to-100% font-bold py-2 px-4 rounded">Create
+                    Category</a>
+            </div>
         </div>
+
+        <div class="py-12">
+            @livewire('search-blog-category')
+        </div>
+
+        </div>
+
+
 
         <!-- Arrow Icon -->
         <div class="absolute right-4 cursor-pointer" id="arrow-icon" style="top: 35%;">
@@ -180,7 +198,5 @@
                 }
             });
         </script>
-
-
     </div>
 </x-app-layout>

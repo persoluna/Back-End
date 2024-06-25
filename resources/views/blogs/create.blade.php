@@ -1,5 +1,5 @@
 <x-app-layout>
-    <div class="bg-white min-h-[1800px] pt-12">
+    <div class="bg-white min-h-[1800px] pt-12 pb-12">
         <x-breadcrumb :breadcrumbs="[
             ['name' => 'Blogs', 'url' => route('blogs.index')],
             ['name' => 'Create Blog', 'url' => route('blogs.create')],
@@ -17,7 +17,7 @@
             <div class="mb-10 items-center grid lg:grid-cols-2 gap-6 m-[80px] justify-center">
 
                 <!-- Blog Title input field -->
-                <div class="lg:col-span-1">
+                <div class="lg:col-span-1 mt-2">
                     <label
                         class="text-base font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                         for="blog_title">Blog Title</label>
@@ -30,6 +30,29 @@
                             {{ $message }}
                         </div>
                     @enderror
+                </div>
+
+                <!-- Category dropdown -->
+                <div class="lg:col-span-1">
+                    <div class="space-y-2">
+                        <label
+                            class="text-base font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                            for="category_id">Category</label>
+                        <select
+                            class="border-input bg-background ring-offset-background placeholder:text-muted-foreground focus-visible:ring-ring flex h-10 w-full rounded-md border px-3 py-2 text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                            id="category_id" name="category_id">
+                            @foreach ($blogcategories as $blogcategory)
+                                <option value="{{ $blogcategory->id }}"
+                                    {{ old('category_id') == $blogcategory->id ? 'selected' : '' }}>{{ $blogcategory->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                        @error('category_id')
+                            <div class="text-red-500 mt-2 text-sm">
+                                {{ $message }}
+                            </div>
+                        @enderror
+                    </div>
                 </div>
 
                 <!-- Blog Slug input field -->

@@ -2,14 +2,17 @@
 
 namespace App\Models;
 
+use App\Models\BlogCategory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class blog extends Model
 {
     use HasFactory;
 
     protected $fillable = [
+        'category_id',
         'blog_title',
         'blog_slug',
         'short_description',
@@ -25,4 +28,9 @@ class blog extends Model
         'meta_canonical',
         'status',
     ];
+
+    public function blogcategory(): BelongsTo
+    {
+        return $this->belongsTo(BlogCategory::class, 'category_id');
+    }
 }
