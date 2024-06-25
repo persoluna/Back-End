@@ -36,6 +36,7 @@ use App\Http\Controllers\BannerCategoryController;
 use App\Http\Controllers\StaffController;
 use App\Http\Controllers\BlogCategoryController;
 use App\Http\Controllers\CareerController;
+use App\Http\Controllers\CareerInquiryController;
 use App\Livewire\SearchApplication;
 use App\Livewire\SearchBanner;
 use App\Livewire\SearchCounter;
@@ -129,6 +130,12 @@ Route::resource('staffs', StaffController::class);
 Route::resource('blogcategories', BlogCategoryController::class);
 
 Route::resource('careers', CareerController::class);
+
+Route::resource('careerinquiries', CareerInquiryController::class);
+
+Route::get('/careerinquiries/{id}/download', [CareerInquiryController::class, 'downloadResume'])->name('careerinquiries.download');
+
+Route::get('/careerinquiries/{id}/view', [CareerInquiryController::class, 'viewResume'])->name('careerinquiries.view');
 
 Route::get('/dashboard', [DashboardController::class, 'index'])
 ->middleware(['auth', 'verified'])->name('dashboard');
