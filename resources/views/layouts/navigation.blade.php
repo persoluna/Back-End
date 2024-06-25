@@ -230,6 +230,32 @@
                     </li>
                 </ul>
             </li>
+
+            <li>
+                <button type="button"
+                    class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ Route::currentRouteNamed('careers.index') || Route::currentRouteNamed('careers.create') ? 'parent-active' : '' }}"
+                    aria-controls="dropdown-career" data-collapse-toggle="dropdown-career">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="dark:stroke-white">
+                  <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
+                  <path d="M6 12v5c3 3 9 3 12 0v-5"></path>
+                </svg>
+                    <span class="flex-1 ms-3 text-left rtl:text-right whitespace-nowrap">Career</span>
+                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                        viewBox="0 0 10 6">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="m1 1 4 4 4-4" />
+                    </svg>
+                </button>
+                <ul id="dropdown-career"
+                    class="{{ Route::currentRouteNamed('careers.index') || Route::currentRouteNamed('careers.create') ? 'block' : 'hidden' }} py-2 space-y-2">
+                    <li>
+                        <a href="{{ route('careers.index') }}"
+                            class="{{ Route::currentRouteNamed('careers.index') || Route::currentRouteNamed('careers.create') ? 'active' : '' }} sidebar-item flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Careers</a>
+                    </li>
+
+                </ul>
+            </li>
+
             <li>
                 <a href="{{ route('blogs.index') }}"
                     class="{{ Route::currentRouteNamed('blogs.index') || Route::currentRouteNamed('blogs.create') ? 'active' : '' }} sidebar-item flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"><svg
