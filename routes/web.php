@@ -37,6 +37,8 @@ use App\Http\Controllers\StaffController;
 use App\Http\Controllers\BlogCategoryController;
 use App\Http\Controllers\CareerController;
 use App\Http\Controllers\CareerInquiryController;
+use App\Http\Controllers\GlobalPresenceController;
+use App\Http\Controllers\SmtpSettingController;
 use App\Livewire\SearchApplication;
 use App\Livewire\SearchBanner;
 use App\Livewire\SearchCounter;
@@ -136,6 +138,14 @@ Route::resource('careerinquiries', CareerInquiryController::class);
 Route::get('/careerinquiries/{id}/download', [CareerInquiryController::class, 'downloadResume'])->name('careerinquiries.download');
 
 Route::get('/careerinquiries/{id}/view', [CareerInquiryController::class, 'viewResume'])->name('careerinquiries.view');
+
+Route::resource('globalpresences', GlobalPresenceController::class);
+
+Route::get('/smtp-settings', [SmtpSettingController::class, 'index'])->name('smtp-settings.index');
+Route::put('/smtp-settings/{smtpSetting}', [SmtpSettingController::class, 'update'])->name('smtp-settings.update');
+
+// For email test button on the SMTP setting page-
+Route::post('/smtp-settings/test', [SmtpSettingController::class, 'testEmail'])->name('smtp-settings.test');
 
 Route::get('/dashboard', [DashboardController::class, 'index'])
 ->middleware(['auth', 'verified'])->name('dashboard');

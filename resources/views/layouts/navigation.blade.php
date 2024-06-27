@@ -77,7 +77,7 @@
         <ul class="space-y-2 font-medium">
             <li>
                 <a href="{{ route('dashboard') }}"
-                        class="{{ Route::currentRouteNamed('dashboard') ? 'active' : '' }} sidebar-item flex items-center w-full p-2 mt-3 text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
+                    class="{{ request()->routeIs('dashboard*') ? 'active' : '' }} sidebar-item flex items-center w-full p-2 mt-3 text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                         class="dark:stroke-white">
@@ -89,7 +89,7 @@
             </li>
             <li>
                 <button type="button"
-                    class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ Route::currentRouteNamed('banners.index') || Route::currentRouteNamed('counters.create') || Route::currentRouteNamed('banners.create') || Route::currentRouteNamed('counters.index') || Route::currentRouteNamed('applications.index') || Route::currentRouteNamed('applications.create') || Route::currentRouteNamed('whychooseus.index') || Route::currentRouteNamed('whychooseus.create') || Route::currentRouteNamed('clients.index') || Route::currentRouteNamed('clients.create') || Route::currentRouteNamed('testimonials.index') || Route::currentRouteNamed('testimonials.create') || Route::currentRouteNamed('headings.edit', 6) || Route::currentRouteNamed('achievements.index') || Route::currentRouteNamed('achievements.create') || Route::currentRouteNamed('galleries.index') || Route::currentRouteNamed('galleries.create') || Route::currentRouteNamed('servicecategories.index') || Route::currentRouteNamed('servicecategories.create') || Route::currentRouteNamed('services.index') || Route::currentRouteNamed('services.create') || Route::currentRouteNamed('gallerycategories.index') || Route::currentRouteNamed('gallerycategories.create') || Route::currentRouteNamed('bannercategories.index') || Route::currentRouteNamed('bannercategories.create') ? 'parent-active' : '' }}"
+                    class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->routeIs(['banners.*', 'counters.*', 'applications.*', 'whychooseus.*', 'clients.*', 'testimonials.*', 'achievements.*', 'galleries.*', 'servicecategories.*', 'services.*', 'gallerycategories.*', 'bannercategories.*']) ? 'parent-active' : '' }}"
                     aria-controls="dropdown-example" data-collapse-toggle="dropdown-example">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -105,55 +105,54 @@
                     </svg>
                 </button>
                 <ul id="dropdown-example"
-                    class="space-y-2 {{ Route::currentRouteNamed('banners.index') || Route::currentRouteNamed('counters.index') || Route::currentRouteNamed('counters.create') || Route::currentRouteNamed('banners.create') || Route::currentRouteNamed('applications.index') || Route::currentRouteNamed('applications.create') || Route::currentRouteNamed('whychooseus.index') || Route::currentRouteNamed('whychooseus.create') || Route::currentRouteNamed('clients.index') || Route::currentRouteNamed('clients.create') || Route::currentRouteNamed('testimonials.index') || Route::currentRouteNamed('testimonials.create') || Route::currentRouteNamed('achievements.index') || Route::currentRouteNamed('achievements.create') || Route::currentRouteNamed('headings.edit', 6) || Route::currentRouteNamed('galleries.index') || Route::currentRouteNamed('galleries.create') || Route::currentRouteNamed('servicecategories.index') || Route::currentRouteNamed('servicecategories.create') || Route::currentRouteNamed('services.index') || Route::currentRouteNamed('services.create') || Route::currentRouteNamed('gallerycategories.index') || Route::currentRouteNamed('gallerycategories.create') || Route::currentRouteNamed('bannercategories.index') || Route::currentRouteNamed('bannercategories.create') ? 'block' : 'hidden' }}">
+                    class="space-y-2 {{ request()->routeIs(['banners.*', 'counters.*', 'applications.*', 'whychooseus.*', 'clients.*', 'testimonials.*', 'achievements.*', 'galleries.*', 'servicecategories.*', 'services.*', 'gallerycategories.*', 'bannercategories.*']) ? 'block' : 'hidden' }}">
                     <li>
                         <a href="{{ route('banners.index') }}"
-                            class="{{ Route::currentRouteNamed('banners.index') || Route::currentRouteNamed('banners.create') ? 'active' : '' }} sidebar-item flex items-center w-full p-2 mt-3 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Banner</a>
+                            class="{{ request()->routeIs('banners.*') ? 'active' : '' }} sidebar-item flex items-center w-full p-2 mt-3 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Banner</a>
                     </li>
                     <li>
                         <a href="{{ route('bannercategories.index') }}"
-                            class="{{ Route::currentRouteNamed('bannercategories.index') || Route::currentRouteNamed('bannercategories.create') ? 'active' : '' }} sidebar-item flex items-center w-full p-2 mt-3 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Banner Category</a>
+                            class="{{ request()->routeIs('bannercategories.*') ? 'active' : '' }} sidebar-item flex items-center w-full p-2 mt-3 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Banner Category</a>
                     </li>
                     <li>
                         <a href="{{ route('counters.index') }}"
-                            class="{{ Route::currentRouteNamed('counters.index') || Route::currentRouteNamed('counters.create') ? 'active' : '' }} sidebar-item flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Counter</a>
+                            class="{{ request()->routeIs('counters.*') ? 'active' : '' }} sidebar-item flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Counter</a>
                     </li>
                     <li>
                         <a href="{{ route('applications.index') }}"
-                            class="{{ Route::currentRouteNamed('applications.index') || Route::currentRouteNamed('applications.create') ? 'active' : '' }} sidebar-item flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Application</a>
+                            class="{{ request()->routeIs('applications.*') ? 'active' : '' }} sidebar-item flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Application</a>
                     </li>
                     <li>
                         <a href="{{ route('whychooseus.index') }}"
-                            class="{{ Route::currentRouteNamed('whychooseus.index') || Route::currentRouteNamed('whychooseus.create') ? 'active' : '' }} sidebar-item flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Why
-                            Choose Us</a>
+                            class="{{ request()->routeIs('whychooseus.*') ? 'active' : '' }} sidebar-item flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Why Choose Us</a>
                     </li>
                     <li>
                         <a href="{{ route('clients.index') }}"
-                            class="{{ Route::currentRouteNamed('clients.index') || Route::currentRouteNamed('clients.create') ? 'active' : '' }} sidebar-item flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Client</a>
+                            class="{{ request()->routeIs('clients.*') ? 'active' : '' }} sidebar-item flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Client</a>
                     </li>
                     <li>
                         <a href="{{ route('testimonials.index') }}"
-                            class="{{ Route::currentRouteNamed('testimonials.index') || Route::currentRouteNamed('testimonials.create') ? 'active' : '' }} sidebar-item flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Testimonial</a>
+                            class="{{ request()->routeIs('testimonials.*') ? 'active' : '' }} sidebar-item flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Testimonial</a>
                     </li>
                     <li>
                         <a href="{{ route('achievements.index') }}"
-                            class="{{ Route::currentRouteNamed('achievements.index') || Route::currentRouteNamed('achievements.create') || Route::currentRouteNamed('headings.edit', 6) ? 'active' : '' }} sidebar-item flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Achievement</a>
+                            class="{{ request()->routeIs(['achievements.*']) ? 'active' : '' }} sidebar-item flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Achievement</a>
                     </li>
                     <li>
                         <a href="{{ route('gallerycategories.index') }}"
-                            class="{{ Route::currentRouteNamed('gallerycategories.index') || Route::currentRouteNamed('gallerycategories.create') ? 'active' : '' }} sidebar-item flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Gallery category</a>
+                            class="{{ request()->routeIs('gallerycategories.*') ? 'active' : '' }} sidebar-item flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Gallery category</a>
                     </li>
                     <li>
                         <a href="{{ route('galleries.index') }}"
-                            class="{{ Route::currentRouteNamed('galleries.index') || Route::currentRouteNamed('galleries.create') ? 'active' : '' }} sidebar-item flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Gallery</a>
+                            class="{{ request()->routeIs('galleries.*') ? 'active' : '' }} sidebar-item flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Gallery</a>
                     </li>
                     <li>
                         <a href="{{ route('servicecategories.index') }}"
-                            class="{{ Route::currentRouteNamed('servicecategories.index') || Route::currentRouteNamed('servicecategories.create') ? 'active' : '' }} sidebar-item flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Service Category</a>
+                            class="{{ request()->routeIs('servicecategories.*') ? 'active' : '' }} sidebar-item flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Service Category</a>
                     </li>
                     <li>
                         <a href="{{ route('services.index') }}"
-                            class="{{ Route::currentRouteNamed('services.index') || Route::currentRouteNamed('services.create') ? 'active' : '' }} sidebar-item flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Service</a>
+                            class="{{ request()->routeIs('services.*') ? 'active' : '' }} sidebar-item flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Service</a>
                     </li>
                 </ul>
             </li>
@@ -161,7 +160,7 @@
 
             <li>
                 <button type="button"
-                    class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ Route::currentRouteNamed('abouts.index') || Route::currentRouteNamed('abouts.edit') || Route::currentRouteNamed('missions.index') || Route::currentRouteNamed('missions.show', 1) || Route::currentRouteNamed('abouts.show', 1) || Route::currentRouteNamed('missions.edit', 1) || Route::currentRouteNamed('abouts.edit', 1) || Route::currentRouteNamed('staffs.index') || Route::currentRouteNamed('staffs.create') ? 'parent-active' : '' }}"
+                    class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->routeIs(['abouts.*', 'aboutpoints.*', 'missions.*', 'staffs.*', 'faqs.*']) ? 'parent-active' : '' }}"
                     aria-controls="dropdown-about" data-collapse-toggle="dropdown-about">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -178,21 +177,26 @@
                     </svg>
                 </button>
                 <ul id="dropdown-about"
-                    class="{{ Route::currentRouteNamed('abouts.index') || Route::currentRouteNamed('abouts.edit') || Route::currentRouteNamed('missions.index') || Route::currentRouteNamed('staffs.index') || Route::currentRouteNamed('staffs.create') || Route::currentRouteNamed('missions.show', 1) || Route::currentRouteNamed('abouts.show', 1) || Route::currentRouteNamed('missions.edit', 1) || Route::currentRouteNamed('abouts.edit', 1) ? 'block' : 'hidden' }} py-2 space-y-2">
+                    class="{{ request()->routeIs(['abouts.*', 'aboutpoints.*', 'missions.*', 'staffs.*', 'faqs.*']) ? 'block' : 'hidden' }} py-2 space-y-2">
                     <li>
                         <a href="{{ route('abouts.index') }}"
-                            class="{{ Route::currentRouteNamed('abouts.index') ? 'active' : '' }} sidebar-item flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">About
+                            class="{{ request()->routeIs('abouts.*', 'aboutpoints.*') ? 'active' : '' }} sidebar-item flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">About
                             Us</a>
                     </li>
                     <li>
                         <a href="{{ route('missions.index') }}"
-                            class="{{ Route::currentRouteNamed('missions.index') ? 'active' : '' }} sidebar-item flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Mission
+                            class="{{ request()->routeIs('missions.*') ? 'active' : '' }} sidebar-item flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Mission
                             & Vision</a>
                     </li>
                     <li>
                         <a href="{{ route('staffs.index') }}"
-                            class="{{ Route::currentRouteNamed('staffs.index') || Route::currentRouteNamed('staffs.create') ? 'active' : '' }} sidebar-item flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
+                            class="{{ request()->routeIs('staffs.*') ? 'active' : '' }} sidebar-item flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
                             Team</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('faqs.index') }}"
+                            class="{{ request()->routeIs('faqs.*') ? 'active' : '' }} sidebar-item flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
+                            FAQs</a>
                     </li>
                 </ul>
             </li>
@@ -261,7 +265,7 @@
 
             <li>
                 <a href="{{ route('blogs.index') }}"
-                    class="{{ Route::currentRouteNamed('blogs.index') || Route::currentRouteNamed('blogs.create') ? 'active' : '' }} sidebar-item flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"><svg
+                    class="{{ request()->routeIs('blogs.*', 'blogcategories.*') ? 'active' : '' }} sidebar-item flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"><svg
                         xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round" class="dark:stroke-white">
@@ -272,15 +276,19 @@
                 </a>
             </li>
             <li>
-                <a href="{{ route('faqs.index') }}"
-                    class="{{ Route::currentRouteNamed('faqs.index') || Route::currentRouteNamed('faqs.create') ? 'active' : '' }} sidebar-item flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                   <svg class="dark:stroke-white" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg>
-                    <span class="ms-3">FAQs</span>
+                <a href="{{ route('globalpresences.index') }}"
+                    class="{{ request()->routeIs('globalpresences.*') ? 'active' : '' }} sidebar-item flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                    <svg class="dark:stroke-white" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <line x1="2" y1="12" x2="22" y2="12"></line>
+                        <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                    </svg>
+                    <span class="ms-3">Global Presence</span>
                 </a>
             </li>
             <li>
                 <button type="button"
-                    class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ Route::currentRouteNamed('headers.index') || Route::currentRouteNamed('footers.index') || Route::currentRouteNamed('menus.index') || Route::currentRouteNamed('menus.create') || Route::currentRouteNamed('staticseos.index') ? 'parent-active' : '' }}"
+                    class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ Route::currentRouteNamed('headers.index') || Route::currentRouteNamed('footers.index') || request()->routeIs('menus.*') || Route::currentRouteNamed('staticseos.index') || Route::currentRouteNamed('smtp-settings.index') ? 'parent-active' : '' }}"
                     aria-controls="dropdown-settings" data-collapse-toggle="dropdown-settings">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -303,7 +311,7 @@
                     </svg>
                 </button>
                 <ul id="dropdown-settings"
-                    class="{{ Route::currentRouteNamed('headers.index') || Route::currentRouteNamed('footers.index') || Route::currentRouteNamed('menus.index') || Route::currentRouteNamed('menus.create') || Route::currentRouteNamed('staticseos.index') ? 'block' : 'hidden' }} py-2 space-y-2">
+                    class="{{ Route::currentRouteNamed('headers.index') || Route::currentRouteNamed('footers.index') || request()->routeIs('menus.*') || Route::currentRouteNamed('staticseos.index') || Route::currentRouteNamed('smtp-settings.index') ? 'block' : 'hidden' }} py-2 space-y-2">
                     <li>
                         <a href="{{ route('headers.index') }}"
                             class="{{ Route::currentRouteNamed('headers.index') ? 'active' : '' }} sidebar-item flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Update
@@ -316,8 +324,13 @@
                     </li>
                     <li>
                         <a href="{{ route('menus.index') }}"
-                            class="{{ Route::currentRouteNamed('menus.index') || Route::currentRouteNamed('staticseos.index') || Route::currentRouteNamed('menus.create') ? 'active' : '' }} sidebar-item flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Update
+                            class="{{ request()->routeIs('menus.*') || Route::currentRouteNamed('staticseos.index') ? 'active' : '' }} sidebar-item flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Update
                             Menu</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('smtp-settings.index') }}"
+                            class="{{ Route::currentRouteNamed('smtp-settings.index') ? 'active' : '' }} sidebar-item flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Update
+                            Mail</a>
                     </li>
                 </ul>
             </li>
