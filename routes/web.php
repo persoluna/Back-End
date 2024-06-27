@@ -39,6 +39,7 @@ use App\Http\Controllers\CareerController;
 use App\Http\Controllers\CareerInquiryController;
 use App\Http\Controllers\GlobalPresenceController;
 use App\Http\Controllers\SmtpSettingController;
+use App\Http\Controllers\OtherSettingController;
 use App\Livewire\SearchApplication;
 use App\Livewire\SearchBanner;
 use App\Livewire\SearchCounter;
@@ -144,8 +145,10 @@ Route::resource('globalpresences', GlobalPresenceController::class);
 Route::get('/smtp-settings', [SmtpSettingController::class, 'index'])->name('smtp-settings.index');
 Route::put('/smtp-settings/{smtpSetting}', [SmtpSettingController::class, 'update'])->name('smtp-settings.update');
 
-// For email test button on the SMTP setting page-
+// For email test button on the SMTP setting edit page-
 Route::post('/smtp-settings/test', [SmtpSettingController::class, 'testEmail'])->name('smtp-settings.test');
+
+Route::resource('othersettings', OtherSettingController::class);
 
 Route::get('/dashboard', [DashboardController::class, 'index'])
 ->middleware(['auth', 'verified'])->name('dashboard');
