@@ -100,6 +100,13 @@ class HeadingController extends Controller
                     ['name' => 'Update Infrastructures Title', 'url' => route('headings.edit', 8)],
                 ];
                 break;
+
+            case 9:
+                $breadcrumbs = [
+                    ['name' => 'Quality Controls', 'url' => route('qualitycontrols.index')],
+                    ['name' => 'Update Qualitycontrols Title', 'url' => route('headings.edit', 9)],
+                ];
+                break;
         }
         return view('heading.edit', compact('heading', 'breadcrumbs'));
     }

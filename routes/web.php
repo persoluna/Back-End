@@ -42,6 +42,7 @@ use App\Http\Controllers\SmtpSettingController;
 use App\Http\Controllers\OtherSettingController;
 use App\Http\Controllers\WhatsappSettingController;
 use App\Http\Controllers\InfrastructureController;
+use App\Http\Controllers\QualityControlController;
 use App\Livewire\SearchApplication;
 use App\Livewire\SearchBanner;
 use App\Livewire\SearchCounter;
@@ -155,6 +156,8 @@ Route::resource('othersettings', OtherSettingController::class);
 Route::resource('whatsappsettings', WhatsappSettingController::class);
 
 Route::resource('infrastructures', InfrastructureController::class);
+
+Route::resource('qualitycontrols', QualityControlController::class);
 
 Route::get('/dashboard', [DashboardController::class, 'index'])
 ->middleware(['auth', 'verified'])->name('dashboard');

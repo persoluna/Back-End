@@ -245,6 +245,38 @@
                 </ul>
             </li>
 
+            <!-- Manufacturing section -->
+            <li>
+                <button type="button"
+                    class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->routeIs('manufacturing.*') || request()->routeIs('infrastructures.*') || request()->routeIs('qualitycontrols.*') ? 'parent-active' : '' }}"
+                    aria-controls="dropdown-manufacturing" data-collapse-toggle="dropdown-manufacturing">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" class="dark:stroke-white">
+                        <path d="M2 20a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8l-7-7H4a2 2 0 0 0-2 2v17Z"></path>
+                        <path d="M12 10v10"></path>
+                        <path d="m16 16-4-4-4 4"></path>
+                    </svg>
+                    <span class="flex-1 ms-3 text-left rtl:text-right whitespace-nowrap">Manufacturing</span>
+                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                        viewBox="0 0 10 6">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="m1 1 4 4 4-4" />
+                    </svg>
+                </button>
+                <ul id="dropdown-manufacturing"
+                    class="{{ request()->routeIs('manufacturing.*') || request()->routeIs('infrastructures.*') || request()->routeIs('qualitycontrols.*') ? 'block' : 'hidden' }} py-2 space-y-2">
+                    <li>
+                        <a href="{{ route('infrastructures.index') }}"
+                            class="{{ request()->routeIs('infrastructures.*') ? 'active' : '' }} sidebar-item flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Infrastructures</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('qualitycontrols.index') }}"
+                            class="{{ request()->routeIs('qualitycontrols.*') ? 'active' : '' }} sidebar-item flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Quality Controls</a>
+                    </li>
+                </ul>
+            </li>
+
             <!-- Gallery dropdown -->
             <li>
                 <button type="button"
