@@ -93,6 +93,13 @@ class HeadingController extends Controller
                     ['name' => 'Update service Category Title', 'url' => route('headings.edit', 7)],
                 ];
                 break;
+
+            case 8:
+                $breadcrumbs = [
+                    ['name' => 'Infrastructures', 'url' => route('infrastructures.index')],
+                    ['name' => 'Update Infrastructures Title', 'url' => route('headings.edit', 8)],
+                ];
+                break;
         }
         return view('heading.edit', compact('heading', 'breadcrumbs'));
     }
