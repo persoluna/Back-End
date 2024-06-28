@@ -2,7 +2,7 @@
     <x-slot name="header">
     </x-slot>
 
-    <div class="pl-12 pr-12 pb-12">
+    <div class="pl-12 pr-12 pb-12 pt-12">
       <div class="container mx-auto pb-12">
       <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 m-3">
           <div class="div-container bg-gradient-to-b from-white to-gray-100 hover:from-white hover:to-gray-100 hover:via-gray-200 transition duration-800 rounded-lg shadow-md p-6 relative flex items-center justify-between">

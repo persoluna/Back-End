@@ -19,5 +19,6 @@ class Menu extends Model
         'meta_description',
         'meta_canonical',
         'status',
+        'priority',
     ];
 }

@@ -40,6 +40,7 @@ use App\Http\Controllers\CareerInquiryController;
 use App\Http\Controllers\GlobalPresenceController;
 use App\Http\Controllers\SmtpSettingController;
 use App\Http\Controllers\OtherSettingController;
+use App\Http\Controllers\WhatsappSettingController;
 use App\Livewire\SearchApplication;
 use App\Livewire\SearchBanner;
 use App\Livewire\SearchCounter;
@@ -149,6 +150,8 @@ Route::put('/smtp-settings/{smtpSetting}', [SmtpSettingController::class, 'updat
 Route::post('/smtp-settings/test', [SmtpSettingController::class, 'testEmail'])->name('smtp-settings.test');
 
 Route::resource('othersettings', OtherSettingController::class);
+
+Route::resource('whatsappsettings', WhatsappSettingController::class);
 
 Route::get('/dashboard', [DashboardController::class, 'index'])
 ->middleware(['auth', 'verified'])->name('dashboard');

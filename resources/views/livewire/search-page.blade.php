@@ -9,6 +9,10 @@
             <tr>
                 <th
                     class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-nowrap text-left text-[13px] sm:text-[15px] font-bold text-gray-600 uppercase tracking-wider">
+                    Priority
+                </th>
+                <th
+                    class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-nowrap text-left text-[13px] sm:text-[15px] font-bold text-gray-600 uppercase tracking-wider">
                     Page Name
                 </th>
                 <th
@@ -28,6 +32,9 @@
         <tbody>
             @forelse ($menus as $menu)
                 <tr class="font-medium">
+                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-3sm">
+                        {{ $menu->priority }}
+                    </td>
                     <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                         {{ $menu->page_name }}
                     </td>

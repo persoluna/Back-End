@@ -98,7 +98,24 @@
                     @enderror
                 </div>
 
-                <br>
+                <!-- Priority dropdown -->
+                <div class="lg:col-span-1">
+                    <label class="text-base font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70" for="priority">
+                        Priority
+                    </label>
+                    <select name="priority" id="priority" class="border-input bg-background ring-offset-background placeholder:text-muted-foreground focus-visible:ring-ring flex h-10 w-full rounded-md border px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 appearance-none">
+                        @foreach($priorities as $priority)
+                            <option value="{{ $priority }}" {{ $menu->priority == $priority ? 'selected' : '' }}>
+                                {{ $priority }}
+                            </option>
+                        @endforeach
+                    </select>
+                    @error('priority')
+                        <div class="text-red-500 mt-2 text-sm">
+                            {{ $message }}
+                        </div>
+                    @enderror
+                </div>
 
                 <!-- meta title input field -->
                 <div class="lg:col-span-1">
@@ -201,5 +218,30 @@
                 }
             }
         }
+
+                // Style the priority dropdown
+        const prioritySelect = document.getElementById('priority');
+        prioritySelect.style.backgroundImage = "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3E%3Cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3E%3C/svg%3E\")";
+        prioritySelect.style.backgroundRepeat = 'no-repeat';
+        prioritySelect.style.backgroundPosition = 'right 0.5rem center';
+        prioritySelect.style.backgroundSize = '1.5em 1.5em';
+
+        prioritySelect.addEventListener('mouseover', function() {
+            this.style.borderColor = '#000';
+        });
+
+        prioritySelect.addEventListener('mouseout', function() {
+            this.style.borderColor = '';
+        });
+
+        prioritySelect.addEventListener('focus', function() {
+            this.style.borderColor = '#000';
+            this.style.boxShadow = '0 0 0 2px rgba(0, 0, 0, 0.2)';
+        });
+
+        prioritySelect.addEventListener('blur', function() {
+            this.style.borderColor = '';
+            this.style.boxShadow = '';
+        });
     </script>
 </x-app-layout>

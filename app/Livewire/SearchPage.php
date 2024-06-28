@@ -33,7 +33,7 @@ class SearchPage extends Component
                 $query->where('page_name', 'like', '%' . $this->search . '%')
                     ->orWhere('slug', 'like', '%' . $this->search . '%');
             })
-            ->latest()
+            ->orderBy('priority', 'asc')
             ->paginate($this->perPage);
         return view('livewire.search-page', compact('menus'));
     }

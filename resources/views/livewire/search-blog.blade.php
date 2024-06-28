@@ -9,6 +9,10 @@
             <tr>
                 <th
                     class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-nowrap text-left text-[13px] sm:text-[15px] font-bold text-gray-600 uppercase tracking-wider">
+                    User Visits
+                </th>
+                <th
+                    class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-nowrap text-left text-[13px] sm:text-[15px] font-bold text-gray-600 uppercase tracking-wider">
                     Title
                 </th>
                 <th
@@ -32,6 +36,9 @@
         <tbody>
             @forelse ($blogs as $blog)
                 <tr class="font-medium">
+                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                        {{ $blog->user_visits }}
+                    </td>
                     <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                         {{ $blog->blog_title }}
                     </td>
