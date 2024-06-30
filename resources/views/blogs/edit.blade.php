@@ -100,14 +100,13 @@
                 </div>
 
                 <!-- long Description input field -->
-                <div class="lg:col-span-1">
+                <div class="lg:col-span-2">
                     <label
                         class="text-base font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                        for="long_description">long Description</label>
-                    <input
-                        class="border-input bg-background ring-offset-background placeholder:text-muted-foreground focus-visible:ring-ring flex h-10 w-full rounded-md border px-3 py-2 text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-                        id="long_description" placeholder="Enter the long description" type="text"
-                        name="long_description" value="{{ old('long_description', $blog->long_description) }}">
+                        for="long_description">Long Description</label>
+                    <textarea
+                        class="textarea border-input bg-background ring-offset-background placeholder:text-muted-foreground focus-visible:ring-ring flex h-40 w-full rounded-md border px-3 py-2 text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                        id="editor" placeholder="Enter the long description" name="long_description">{{ old('long_description', $blog->long_description) }}</textarea>
                     @error('long_description')
                         <div class="text-red-500 mt-2 text-sm">
                             {{ $message }}
@@ -344,5 +343,16 @@
                 }
             }
         }
+    </script>
+    <script src="https://cdn.ckeditor.com/ckeditor5/34.2.0/classic/ckeditor.js"></script>
+    <script>
+        ClassicEditor
+            .create( document.querySelector( '#editor' ),{
+                ckfinder: {
+                    uploadUrl: '{{route('ckeditor.upload').'?_token='.csrf_token()}}',
+                }
+            })
+            .catch( error => {
+            } );
     </script>
 </x-app-layout>

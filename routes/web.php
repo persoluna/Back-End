@@ -99,6 +99,8 @@ Route::resource('headers', HeaderController::class);
 
 Route::resource('blogs', BlogController::class);
 
+Route::post('ckeditor/upload', [BlogController::class, 'upload'])->name('ckeditor.upload');
+
 Route::resource('missions', MissionController::class);
 
 Route::resource('abouts', AboutController::class);

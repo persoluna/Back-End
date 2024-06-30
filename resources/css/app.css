@@ -114,3 +114,7 @@
         .remove-image-button:hover::after {
             @apply opacity-100;
         }
+
+        .ck-editor__editable_inline {
+            min-height: 300px;
+        }

@@ -12,7 +12,7 @@
         </div>
 
         <!-- Blog form -->
-        <form action="{{ route('blogs.store') }}" method="POST" class="w-full" enctype="multipart/form-data">
+        <form id="blogForm" method="POST" action="{{ route('blogs.store') }}" class="w-full" enctype="multipart/form-data">
             @csrf
             <div class="mb-10 items-center grid lg:grid-cols-2 gap-6 m-[80px] justify-center">
 
@@ -94,14 +94,15 @@
                         class="text-base font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                         for="long_description">Long Description</label>
                     <textarea
-                        class="border-input bg-background ring-offset-background placeholder:text-muted-foreground focus-visible:ring-ring flex h-20 w-full rounded-md border px-3 py-2 text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-                        id="long_description" placeholder="Enter a long description of your blog" name="long_description">{{ old('long_description') }}</textarea>
+                        class="textarea border-input bg-background ring-offset-background placeholder:text-muted-foreground focus-visible:ring-ring flex h-20 w-full rounded-md border px-3 py-2 text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                        id="editor" placeholder="Enter a long description of your blog" name="long_description">{{ old('long_description') }}</textarea>
                     @error('long_description')
                         <div class="text-red-500 mt-2 text-sm">
                             {{ $message }}
                         </div>
                     @enderror
                 </div>
+                <input type="hidden" name="uploadedImages" id="uploadedImages">
 
                 <!-- Blog image input field -->
                 <div class="lg:col-span-1">
@@ -289,4 +290,67 @@
             reader.readAsDataURL(event.target.files[0]);
         });
     </script>
+    <script src="https://cdn.ckeditor.com/ckeditor5/34.2.0/classic/ckeditor.js"></script>
+    <script>
+    let uploadedImageUrls = [];
+    ClassicEditor
+        .create(document.querySelector('#editor'), {
+            ckfinder: {
+                uploadUrl: '{{ route('ckeditor.upload') . '?_token=' . csrf_token() }}',
+            }
+        })
+        .then(editor => {
+            editor.plugins.get('FileRepository').createUploadAdapter = (loader) => {
+                return new MyUploadAdapter(loader);
+            };
+        })
+        .catch(error => {
+            console.error(error);
+        });
+
+    class MyUploadAdapter {
+        constructor(loader) {
+            this.loader = loader;
+        }
+
+        upload() {
+            return this.loader.file
+                .then(file => new Promise((resolve, reject) => {
+                    const data = new FormData();
+                    data.append('upload', file);
+                    data.append('_token', '{{ csrf_token() }}');
+
+                    fetch('{{ route('ckeditor.upload') }}', {
+                        method: 'POST',
+                        body: data,
+                    })
+                    .then(response => response.json())
+                    .then(response => {
+                        if (response.uploaded) {
+                            const imageUrl = response.url;
+                            uploadedImageUrls.push(imageUrl);
+                            resolve({
+                                default: imageUrl
+                            });
+                        } else {
+                            reject('Upload failed');
+                        }
+                    })
+                    .catch(error => {
+                        reject(error);
+                    });
+                }));
+        }
+
+        abort() {
+            // Handle abort if necessary
+        }
+    }
+
+    // Populate the hidden input with the list of uploaded image URLs before form submission
+    document.getElementById('blogForm').addEventListener('submit', function(event) {
+        document.getElementById('uploadedImages').value = JSON.stringify(uploadedImageUrls);
+    });
+</script>
+
 </x-app-layout>

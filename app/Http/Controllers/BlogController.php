@@ -9,6 +9,8 @@ use App\Models\BlogCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Http\JsonResponse;
+use Illuminate\View\View;
 
 class BlogController extends Controller
 {
@@ -52,6 +54,24 @@ class BlogController extends Controller
         return view('blogs.create', compact('blogcategories'));
     }
 
+
+    public function upload(Request $request): JsonResponse
+    {
+        if ($request->hasFile('upload')) {
+            $originName = $request->file('upload')->getClientOriginalName();
+            $fileName = pathinfo($originName, PATHINFO_FILENAME);
+            $extension = $request->file('upload')->getClientOriginalExtension();
+            $fileName = $fileName . '_' . time() . '.' . $extension;
+            $request->file('upload')->move(public_path('media'), $fileName);
+            $url = asset('media/' . $fileName);
+            return response()->json(['fileName' => $fileName, 'uploaded' => 1, 'url' => $url]);
+        }
+
+        return response()->json(['uploaded' => 0], 400);
+    }
+
+
+
     /**
      * Store a newly created resource in storage.
      */
@@ -63,9 +83,9 @@ class BlogController extends Controller
             'blog_slug' => 'required|unique:blogs|max:255',
             'short_description' => 'required',
             'long_description' => 'required',
-            'blog_image' => 'required|image|max:2048',
+            'blog_image' => 'required|image',
             'alt_tag' => 'required|max:255',
-            'banner_image' => 'required|image|max:2048',
+            'banner_image' => 'required|image',
             'banner_alt_tag' => 'required|max:255',
             'posted_by' => 'required|max:255',
             'meta_title' => 'required|max:255',
@@ -73,6 +93,15 @@ class BlogController extends Controller
             'meta_keywords' => 'required',
             'meta_canonical' => 'required|url',
         ]);
+
+        // Retrieve the list of uploaded image URLs
+        $uploadedImageUrls = json_decode($request->input('uploadedImages'), true);
+
+        // Detect image URLs in long_description
+        $imageUrls = $this->detectImages($validatedData['long_description']);
+
+        // Delete unused images
+        $this->deleteUnusedImages($uploadedImageUrls, $imageUrls);
 
         // Store the blog image in the 'public/blogs' directory
         $blogImagePath = $request->file('blog_image')->store('public/blogs');
@@ -84,6 +113,7 @@ class BlogController extends Controller
 
         $blog = Blog::create($validatedData);
 
+        // Return JSON response with detected image URLs
         return redirect()->route('blogs.index')->with('success', 'Blog created successfully.');
     }
 
@@ -164,5 +194,29 @@ class BlogController extends Controller
         $blog->delete();
 
         return redirect()->route('blogs.index')->with('success', 'Blog deleted successfully.');
+    }
+
+    // Helper method to detect image URLs in the long description
+    private function detectImages($longDescription)
+    {
+        preg_match_all('/<img[^>]+src="([^">]+)"/', $longDescription, $matches);
+        return $matches[1]; // Return the URLs of the detected images
+    }
+
+    public function deleteUnusedImages(array $uploadedImageUrls, array $detectedImageUrls)
+    {
+        // Get the URLs that are in uploadedImageUrls but not in detectedImageUrls
+        $unusedImageUrls = array_diff($uploadedImageUrls, $detectedImageUrls);
+
+        foreach ($unusedImageUrls as $url) {
+            // Extract the file path from the URL
+            $filePath = parse_url($url, PHP_URL_PATH);
+            $fullPath = public_path($filePath);
+
+            // Check if the file exists and delete it
+            if (file_exists($fullPath)) {
+                unlink($fullPath);
+            }
+        }
     }
 }
