@@ -70,8 +70,6 @@ class BlogController extends Controller
         return response()->json(['uploaded' => 0], 400);
     }
 
-
-
     /**
      * Store a newly created resource in storage.
      */
@@ -128,51 +126,61 @@ class BlogController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(blog $blog)
+    public function edit(Blog $blog)
     {
-        $blogcategories = BlogCategory::get();
-        return view('blogs.edit', compact('blog', 'blogcategories'));
+        $blogcategories = BlogCategory::all();
+        $detectedImageUrls = $this->detectImages($blog->long_description);
+
+        return view('blogs.edit', compact('blog', 'blogcategories', 'detectedImageUrls'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Blog $blog)
+    public function update(Request $request, $id)
     {
         $validatedData = $request->validate([
-            'category_id' => 'nullable',
-            'blog_title' => 'nullable|max:255',
-            'blog_slug' => 'nullable',
-            'short_description' => 'nullable',
-            'long_description' => 'nullable',
-            'blog_image' => 'nullable|image|max:2048',
-            'alt_tag' => 'nullable|max:255',
-            'banner_image' => 'nullable|image|max:2048',
-            'banner_alt_tag' => 'nullable|max:255',
-            'posted_by' => 'nullable|max:255',
-            'meta_title' => 'nullable|max:255',
-            'meta_description' => 'nullable',
-            'meta_keywords' => 'nullable',
+            'category_id' => 'required',
+            'blog_title' => 'required|max:255',
+            'blog_slug' => 'required|unique:blogs,blog_slug,' . $id . '|max:255',
+            'short_description' => 'required',
+            'long_description' => 'required',
+            'blog_image' => 'nullable|image',
+            'alt_tag' => 'required|max:255',
+            'banner_image' => 'nullable|image',
+            'banner_alt_tag' => 'required|max:255',
+            'posted_by' => 'required|max:255',
+            'meta_title' => 'required|max:255',
+            'meta_description' => 'required',
+            'meta_keywords' => 'required',
+            'meta_canonical' => 'required|url',
         ]);
 
-        // Check if a new blog image is uploaded
-        if ($request->hasFile('blog_image')) {
-            // Delete the old blog image from the 'public/blogs/' directory
-            Storage::delete('public/blogs/' . $blog->blog_image);
+        $blog = Blog::findOrFail($id);
 
-            // Store the new blog image in the 'public/blogs' directory
+        // Retrieve the list of uploaded image URLs
+        $uploadedImageUrls = json_decode($request->input('uploadedImages'), true);
+
+        // Detect image URLs in long_description
+        $imageUrls = $this->detectImages($validatedData['long_description']);
+
+        // Delete unused images
+        $this->deleteUnusedImages($uploadedImageUrls, $imageUrls);
+
+        // Update the blog image if a new one was uploaded
+        if ($request->hasFile('blog_image')) {
             $blogImagePath = $request->file('blog_image')->store('public/blogs');
             $validatedData['blog_image'] = basename($blogImagePath);
+        } else {
+            unset($validatedData['blog_image']);
         }
 
-        // Check if a new banner image is uploaded
+        // Update the banner image if a new one was uploaded
         if ($request->hasFile('banner_image')) {
-            // Delete the old banner image from the 'public/blog_banners/' directory
-            Storage::delete('public/blog_banners/' . $blog->banner_image);
-
-            // Store the new banner image in the 'public/blogs/banners' directory
             $bannerImagePath = $request->file('banner_image')->store('public/blog_banners');
             $validatedData['banner_image'] = basename($bannerImagePath);
+        } else {
+            unset($validatedData['banner_image']);
         }
 
         $blog->update($validatedData);
@@ -191,9 +199,18 @@ class BlogController extends Controller
         // Delete the banner image from the 'public/blog_banners' directory
         Storage::delete('public/blog_banners/' . $blog->banner_image);
 
+        // Detect and delete images in the long description
+        $this->deleteImagesFromLongDescription($blog->long_description);
+
         $blog->delete();
 
         return redirect()->route('blogs.index')->with('success', 'Blog deleted successfully.');
+    }
+
+    private function deleteImagesFromLongDescription($longDescription)
+    {
+        $imageUrls = $this->detectImages($longDescription);
+        $this->deleteUnusedImages($imageUrls, []);
     }
 
     // Helper method to detect image URLs in the long description
@@ -219,4 +236,21 @@ class BlogController extends Controller
             }
         }
     }
+
+    public function deleteUnusedImagesOnUnload(Request $request)
+    {
+        $imageUrls = $request->input('imageUrls', []);
+        foreach ($imageUrls as $url) {
+            // Extract the file path from the URL
+            $filePath = parse_url($url, PHP_URL_PATH);
+            $fullPath = public_path($filePath);
+
+            // Check if the file exists and delete it
+            if (file_exists($fullPath)) {
+                unlink($fullPath);
+            }
+        }
+        return response()->json(['status' => 'success']);
+    }
+
 }

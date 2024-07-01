@@ -13,10 +13,6 @@
             </th>
             <th
                 class="px-5 py-3 border-b-2 border-gray-200 dark:border-gray-600 bg-gray-100 dark:bg-gray-700 text-nowrap text-left text-[13px] sm:text-[15px] font-semibold text-gray-600 dark:text-gray-300 uppercase tracking-wider dark:bg-slate-600">
-                Description
-            </th>
-            <th
-                class="px-5 py-3 border-b-2 border-gray-200 dark:border-gray-600 bg-gray-100 dark:bg-gray-700 text-nowrap text-left text-[13px] sm:text-[15px] font-semibold text-gray-600 dark:text-gray-300 uppercase tracking-wider dark:bg-slate-600">
                 Banner Image
             </th>
             <th
@@ -38,9 +34,6 @@
             <tr class="font-medium">
                 <td class="px-5 py-5 border-b border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 text-sm text-gray-900 dark:text-gray-300">
                     {{ $banner->title }}
-                </td>
-                <td class="px-5 py-5 border-b border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 text-sm text-gray-900 dark:text-gray-300">
-                    {{ $banner->description }}
                 </td>
                 <td class="px-5 py-5 border-b border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 text-sm">
                     <img src="{{ asset('storage/banners/'. $banner->banner_image) }}" alt="{{ $banner->alt_tag }}"

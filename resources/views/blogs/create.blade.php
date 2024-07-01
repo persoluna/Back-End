@@ -292,65 +292,97 @@
     </script>
     <script src="https://cdn.ckeditor.com/ckeditor5/34.2.0/classic/ckeditor.js"></script>
     <script>
-    let uploadedImageUrls = [];
-    ClassicEditor
-        .create(document.querySelector('#editor'), {
-            ckfinder: {
-                uploadUrl: '{{ route('ckeditor.upload') . '?_token=' . csrf_token() }}',
+        let uploadedImageUrls = [];
+        let isFormSubmitted = false;  // Flag to check if form is submitted
+
+        ClassicEditor
+            .create(document.querySelector('#editor'), {
+                ckfinder: {
+                    uploadUrl: '{{ route('blog.ckeditor.upload') . '?_token=' . csrf_token() }}',
+                }
+            })
+            .then(editor => {
+                editor.plugins.get('FileRepository').createUploadAdapter = (loader) => {
+                    return new MyUploadAdapter(loader);
+                };
+            })
+            .catch(error => {
+                console.error(error);
+            });
+
+        class MyUploadAdapter {
+            constructor(loader) {
+                this.loader = loader;
             }
-        })
-        .then(editor => {
-            editor.plugins.get('FileRepository').createUploadAdapter = (loader) => {
-                return new MyUploadAdapter(loader);
-            };
-        })
-        .catch(error => {
-            console.error(error);
+
+            upload() {
+                return this.loader.file
+                    .then(file => new Promise((resolve, reject) => {
+                        const data = new FormData();
+                        data.append('upload', file);
+                        data.append('_token', '{{ csrf_token() }}');
+
+                        fetch('{{ route('blog.ckeditor.upload') }}', {
+                            method: 'POST',
+                            body: data,
+                        })
+                        .then(response => response.json())
+                        .then(response => {
+                            if (response.uploaded) {
+                                const imageUrl = response.url;
+                                uploadedImageUrls.push(imageUrl);
+                                resolve({
+                                    default: imageUrl
+                                });
+                            } else {
+                                reject('Upload failed');
+                            }
+                        })
+                        .catch(error => {
+                            reject(error);
+                        });
+                    }));
+            }
+
+            abort() {
+                // Handle abort if necessary
+            }
+        }
+
+        // Populate the hidden input with the list of uploaded image URLs before form submission
+        document.getElementById('blogForm').addEventListener('submit', function(event) {
+            isFormSubmitted = true;
+            document.getElementById('uploadedImages').value = JSON.stringify(uploadedImageUrls);
         });
 
-    class MyUploadAdapter {
-        constructor(loader) {
-            this.loader = loader;
+        // Function to delete unused images
+        async function deleteUnusedImages(imageUrls) {
+            const response = await fetch('{{ route('blog.images.deleteUnused') }}', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                },
+                body: JSON.stringify({ imageUrls })
+            });
+            return response.json();
         }
 
-        upload() {
-            return this.loader.file
-                .then(file => new Promise((resolve, reject) => {
-                    const data = new FormData();
-                    data.append('upload', file);
-                    data.append('_token', '{{ csrf_token() }}');
+        // Warn the user before leaving the page
+        window.addEventListener('beforeunload', function (e) {
+            if (!isFormSubmitted && uploadedImageUrls.length > 0) {
+                const confirmationMessage = 'You have unsaved changes. Are you sure you want to leave?';
 
-                    fetch('{{ route('ckeditor.upload') }}', {
-                        method: 'POST',
-                        body: data,
-                    })
-                    .then(response => response.json())
-                    .then(response => {
-                        if (response.uploaded) {
-                            const imageUrl = response.url;
-                            uploadedImageUrls.push(imageUrl);
-                            resolve({
-                                default: imageUrl
-                            });
-                        } else {
-                            reject('Upload failed');
-                        }
-                    })
-                    .catch(error => {
-                        reject(error);
-                    });
-                }));
-        }
+                e.returnValue = confirmationMessage; // For most browsers
+                return confirmationMessage; // For some older browsers
+            }
+        });
 
-        abort() {
-            // Handle abort if necessary
-        }
-    }
-
-    // Populate the hidden input with the list of uploaded image URLs before form submission
-    document.getElementById('blogForm').addEventListener('submit', function(event) {
-        document.getElementById('uploadedImages').value = JSON.stringify(uploadedImageUrls);
-    });
-</script>
-
+        // Handle the user's decision to leave the page
+        window.addEventListener('unload', function () {
+            if (!isFormSubmitted) {
+                deleteUnusedImages(uploadedImageUrls);
+            }
+        });
+    </script>
 </x-app-layout>

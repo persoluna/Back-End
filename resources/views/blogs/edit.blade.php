@@ -18,7 +18,7 @@
         </div>
 
         <!-- blog form -->
-        <form action="{{ route('blogs.update', $blog->id) }}" method="POST" class="w-full" enctype="multipart/form-data">
+        <form id="editBlogForm" action="{{ route('blogs.update', $blog->id) }}" method="POST" class="w-full" enctype="multipart/form-data">
             @csrf
             @method('PUT')
             <div class="mb-10 items-center grid lg:grid-cols-2 gap-6 m-[80px] justify-center">
@@ -101,18 +101,18 @@
 
                 <!-- long Description input field -->
                 <div class="lg:col-span-2">
-                    <label
-                        class="text-base font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                        for="long_description">Long Description</label>
-                    <textarea
-                        class="textarea border-input bg-background ring-offset-background placeholder:text-muted-foreground focus-visible:ring-ring flex h-40 w-full rounded-md border px-3 py-2 text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-                        id="editor" placeholder="Enter the long description" name="long_description">{{ old('long_description', $blog->long_description) }}</textarea>
+                    <label class="text-base font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                           for="long_description">Long Description</label>
+                    <textarea class="textarea border-input bg-background ring-offset-background placeholder:text-muted-foreground focus-visible:ring-ring flex h-40 w-full rounded-md border px-3 py-2 text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                              id="editor" placeholder="Enter the long description"
+                              name="long_description">{{ old('long_description', $blog->long_description) }}</textarea>
                     @error('long_description')
-                        <div class="text-red-500 mt-2 text-sm">
-                            {{ $message }}
-                        </div>
+                    <div class="text-red-500 mt-2 text-sm">
+                        {{ $message }}
+                    </div>
                     @enderror
                 </div>
+                <input type="hidden" id="uploadedImages" name="uploadedImages" value="[]">
 
                 <!-- Blog Image input field -->
                 <div class="lg:col-span-1">
@@ -346,13 +346,97 @@
     </script>
     <script src="https://cdn.ckeditor.com/ckeditor5/34.2.0/classic/ckeditor.js"></script>
     <script>
+        let uploadedImageUrls = @json($detectedImageUrls);
+        let isFormSubmitted = false;
+
         ClassicEditor
-            .create( document.querySelector( '#editor' ),{
+            .create(document.querySelector('#editor'), {
                 ckfinder: {
-                    uploadUrl: '{{route('ckeditor.upload').'?_token='.csrf_token()}}',
+                    uploadUrl: '{{ route('blog.ckeditor.upload') . '?_token=' . csrf_token() }}',
                 }
             })
-            .catch( error => {
-            } );
+            .then(editor => {
+                editor.plugins.get('FileRepository').createUploadAdapter = (loader) => {
+                    return new MyUploadAdapter(loader);
+                };
+            })
+            .catch(error => {
+                console.error(error);
+            });
+
+        class MyUploadAdapter {
+            constructor(loader) {
+                this.loader = loader;
+            }
+
+            upload() {
+                return this.loader.file
+                    .then(file => new Promise((resolve, reject) => {
+                        const data = new FormData();
+                        data.append('upload', file);
+                        data.append('_token', '{{ csrf_token() }}');
+
+                        fetch('{{ route('blog.ckeditor.upload') }}', {
+                            method: 'POST',
+                            body: data,
+                        })
+                        .then(response => response.json())
+                        .then(response => {
+                            if (response.uploaded) {
+                                const imageUrl = response.url;
+                                uploadedImageUrls.push(imageUrl);
+                                resolve({
+                                    default: imageUrl
+                                });
+                            } else {
+                                reject('Upload failed');
+                            }
+                        })
+                        .catch(error => {
+                            reject(error);
+                        });
+                    }));
+            }
+
+            abort() {
+                // Handle abort if necessary
+            }
+        }
+
+        // Populate the hidden input with the list of uploaded image URLs before form submission
+        document.getElementById('editBlogForm').addEventListener('submit', function(event) {
+            isFormSubmitted = true;
+            document.getElementById('uploadedImages').value = JSON.stringify(uploadedImageUrls);
+        });
+
+        // Function to delete unused images
+        async function deleteUnusedImages(imageUrls) {
+            const response = await fetch('{{ route('blog.images.deleteUnused') }}', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                },
+                body: JSON.stringify({ imageUrls })
+            });
+            return response.json();
+        }
+
+        // Warn the user before leaving the page
+        window.addEventListener('beforeunload', function (e) {
+            if (!isFormSubmitted && uploadedImageUrls.length > 0) {
+                const confirmationMessage = 'You have unsaved changes. Are you sure you want to leave?';
+
+                e.returnValue = confirmationMessage;
+                return confirmationMessage;
+            }
+        });
+
+        // Handle the user's decision to leave the page
+        window.addEventListener('unload', function () {
+            if (!isFormSubmitted) {
+                deleteUnusedImages(uploadedImageUrls);
+            }
+        });
     </script>
 </x-app-layout>

@@ -52,6 +52,25 @@ class BannerController extends Controller
         return view('banners.create', compact('bannercategories'));
     }
 
+    public function upload(Request $request)
+    {
+        $request->validate([
+            'upload' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048'
+        ]);
+
+        // Handle the file upload
+        $file = $request->file('upload');
+        $filename = time() . '.' . $file->getClientOriginalExtension();
+        $file->storeAs('public/banners', $filename);
+
+        $url = asset('storage/banners/' . $filename);
+
+        return response()->json([
+            'uploaded' => true,
+            'url' => $url
+        ]);
+    }
+
     /**
      * Store a newly created resource in storage.
      */
@@ -65,6 +84,15 @@ class BannerController extends Controller
             'banner_image' => 'required|image|max:2048',
             'alt_tag' => 'nullable|max:255',
         ]);
+
+        // Retrieve the list of uploaded image URLs
+        $uploadedImageUrls = json_decode($request->input('uploadedImages'), true);
+
+        // Detect image URLs in description
+        $imageUrls = $this->detectImages($validatedData['description']);
+
+        // Delete unused images
+        $this->deleteUnusedImages($uploadedImageUrls, $imageUrls);
 
         if ($request->hasFile('banner_image')) {
             $bannerImage = $request->file('banner_image');
@@ -94,14 +122,16 @@ class BannerController extends Controller
      */
     public function edit(Banner $banner)
     {
-        $bannercategories = BannerCategory::get();
-        return view('banners.edit', compact('banner', 'bannercategories'));
+        $bannercategories = BannerCategory::all();
+        $detectedImageUrls = $this->detectImages($banner->description);
+
+        return view('banners.edit', compact('banner', 'bannercategories', 'detectedImageUrls'));
     }
 
     /**
      * Update the specified resource in storage.
-     */
-    public function update(Request $request, Banner $banner)
+    */
+    public function update(Request $request, $id)
     {
         $validatedData = $request->validate([
             'category_id' => 'nullable',
@@ -111,6 +141,19 @@ class BannerController extends Controller
             'banner_image' => 'nullable|image|max:2048',
             'alt_tag' => 'nullable|max:255',
         ]);
+
+        $banner = Banner::findOrFail($id);
+
+        // Retrieve the list of uploaded image URLs
+        $uploadedImageUrls = json_decode($request->input('uploadedImages'), true) ?? [];
+
+        // Detect image URLs in long_description
+        $imageUrls = $this->detectImages($validatedData['description']);
+
+        // Delete unused images
+        if (!empty($uploadedImageUrls)) {
+            $this->deleteUnusedImages($uploadedImageUrls, $imageUrls);
+        }
 
         // Check if a new image is uploaded
         if ($request->hasFile('banner_image')) {
@@ -139,8 +182,57 @@ class BannerController extends Controller
         // Delete the associated image file from the "banners" folder
         Storage::delete('public/banners/' . $banner->banner_image);
 
+        // Detect and delete images in the description
+        $this->deleteImagesFromDescription($banner->description);
+
         $banner->delete();
 
         return redirect()->route('banners.index')->with('success', 'Banner deleted successfully.');
+    }
+
+    private function deleteImagesFromDescription($description)
+    {
+        $imageUrls = $this->detectImages($description);
+        $this->deleteUnusedImages($imageUrls, []);
+    }
+
+    // Helper method to detect image URLs in the description
+    private function detectImages($Description)
+    {
+        preg_match_all('/<img[^>]+src="([^">]+)"/', $Description, $matches);
+        return $matches[1]; // Return the URLs of the detected images
+    }
+
+    public function deleteUnusedImages(array $uploadedImageUrls, array $detectedImageUrls)
+    {
+        // Get the URLs that are in uploadedImageUrls but not in detectedImageUrls
+        $unusedImageUrls = array_diff($uploadedImageUrls, $detectedImageUrls);
+
+        foreach ($unusedImageUrls as $url) {
+            // Extract the file path from the URL
+            $filePath = parse_url($url, PHP_URL_PATH);
+            $fullPath = public_path($filePath);
+
+            // Check if the file exists and delete it
+            if (file_exists($fullPath)) {
+                unlink($fullPath);
+            }
+        }
+    }
+
+    public function deleteUnusedImagesOnUnload(Request $request)
+    {
+        $imageUrls = $request->input('imageUrls', []);
+        foreach ($imageUrls as $url) {
+            // Extract the file path from the URL
+            $filePath = parse_url($url, PHP_URL_PATH);
+            $fullPath = public_path($filePath);
+
+            // Check if the file exists and delete it
+            if (file_exists($fullPath)) {
+                unlink($fullPath);
+            }
+        }
+        return response()->json(['status' => 'success']);
     }
 }

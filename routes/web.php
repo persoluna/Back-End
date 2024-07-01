@@ -99,7 +99,9 @@ Route::resource('headers', HeaderController::class);
 
 Route::resource('blogs', BlogController::class);
 
-Route::post('ckeditor/upload', [BlogController::class, 'upload'])->name('ckeditor.upload');
+// For Blog
+Route::post('blog/ckeditor/upload', [BlogController::class, 'upload'])->name('blog.ckeditor.upload');
+Route::post('/blog/images/deleteUnused', [BlogController::class, 'deleteUnusedImagesOnUnload'])->name('blog.images.deleteUnused');
 
 Route::resource('missions', MissionController::class);
 
@@ -114,6 +116,10 @@ Route::resource('applications', ApplicationController::class);
 Route::resource('counters', CounterController::class);
 
 Route::resource('banners', BannerController::class);
+
+// For Banner
+Route::post('banner/ckeditor/upload', [BannerController::class, 'upload'])->name('banner.ckeditor.upload');
+Route::post('/banner/images/deleteUnused', [BannerController::class, 'deleteUnusedImagesOnUnload'])->name('banner.images.deleteUnused');
 
 Route::resource('subcategories', SubcategoryController::class);
 
