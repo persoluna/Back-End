@@ -83,7 +83,7 @@ Route::get('/whychooseus/{whychooseus}/edit', [WhyChooseUsController::class, 'ed
 Route::put('/whychooseus/{whyChooseUsItem}', [WhyChooseUsController::class, 'update'])->name('whychooseus.update');
 Route::delete('/whychooseus/{whyChooseUsItem}', [WhyChooseUsController::class, 'destroy'])->name('whychooseus.destroy');
 
-// For Banner
+// For why choose us
 Route::post('whychooseus/ckeditor/upload', [WhyChooseUsController::class, 'upload'])->name('whychooseus.ckeditor.upload');
 Route::post('/whychooseus/images/deleteUnused', [WhyChooseUsController::class, 'deleteUnusedImagesOnUnload'])->name('whychooseus.images.deleteUnused');
 
@@ -113,7 +113,7 @@ Route::resource('abouts', AboutController::class);
 
 Route::resource('testimonials', TestimonialController::class);
 
-// For Blog
+// For Testimonial
 Route::post('testimonial/ckeditor/upload', [TestimonialController::class, 'upload'])->name('testimonial.ckeditor.upload');
 Route::post('/testimonial/images/deleteUnused', [TestimonialController::class, 'deleteUnusedImagesOnUnload'])->name('testimonial.images.deleteUnused');
 
@@ -147,6 +147,10 @@ Route::resource('servicecategories', ServiceCategoryController::class);
 
 Route::resource('services', ServiceController::class);
 
+// For Service
+Route::post('service/ckeditor/upload', [ServiceController::class, 'upload'])->name('service.ckeditor.upload');
+Route::post('/service/images/deleteUnused', [ServiceController::class, 'deleteUnusedImagesOnUnload'])->name('service.images.deleteUnused');
+
 Route::resource('gallerycategories', GalleryCategoryController::class);
 
 Route::resource('bannercategories', BannerCategoryController::class);
@@ -157,7 +161,7 @@ Route::resource('blogcategories', BlogCategoryController::class);
 
 Route::resource('careers', CareerController::class);
 
-// For Banner
+// For Career
 Route::post('career/ckeditor/upload', [CareerController::class, 'upload'])->name('career.ckeditor.upload');
 Route::post('/career/images/deleteUnused', [CareerController::class, 'deleteUnusedImagesOnUnload'])->name('career.images.deleteUnused');
 

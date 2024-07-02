@@ -199,12 +199,12 @@
                 </button>
                 <ul id="dropdown-service" class="space-y-2 {{ request()->routeIs(['servicecategories.*', 'services.*']) ? 'block' : 'hidden' }}">
                     <li>
-                        <a href="{{ route('servicecategories.index') }}"
-                            class="{{ request()->routeIs('servicecategories.*') ? 'active' : '' }} mt-3 sidebar-item flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Service Category</a>
+                        <a href="{{ route('services.index') }}"
+                            class="{{ request()->routeIs('services.*') ? 'active' : '' }}  mt-3 sidebar-item flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Service</a>
                     </li>
                     <li>
-                        <a href="{{ route('services.index') }}"
-                            class="{{ request()->routeIs('services.*') ? 'active' : '' }} sidebar-item flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Service</a>
+                        <a href="{{ route('servicecategories.index') }}"
+                            class="{{ request()->routeIs('servicecategories.*') ? 'active' : '' }} sidebar-item flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Service Category</a>
                     </li>
                 </ul>
             </li>
