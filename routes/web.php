@@ -157,6 +157,10 @@ Route::resource('blogcategories', BlogCategoryController::class);
 
 Route::resource('careers', CareerController::class);
 
+// For Banner
+Route::post('career/ckeditor/upload', [CareerController::class, 'upload'])->name('career.ckeditor.upload');
+Route::post('/career/images/deleteUnused', [CareerController::class, 'deleteUnusedImagesOnUnload'])->name('career.images.deleteUnused');
+
 Route::resource('careerinquiries', CareerInquiryController::class);
 
 Route::get('/careerinquiries/{id}/download', [CareerInquiryController::class, 'downloadResume'])->name('careerinquiries.download');

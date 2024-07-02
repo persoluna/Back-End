@@ -16,8 +16,7 @@
             <h1 class="text-3xl font-semibold text-center sm:text-left sm:pl-[80px] pt-[90px]">Edit Banner</h1>
         </div>
         <!-- Banner form -->
-        <form id="editBannerForm" action="{{ route('banners.update', $banner->id) }}" method="POST" class="w-full"
-            enctype="multipart/form-data">
+        <form id="editBannerForm" action="{{ route('banners.update', $banner->id) }}" method="POST" class="w-full" enctype="multipart/form-data">
             @csrf
             @method('PUT')
             <div class="mb-10 items-center grid lg:grid-cols-2 gap-6 m-[80px] justify-center">
