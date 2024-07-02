@@ -156,7 +156,7 @@ class BlogController extends Controller
             'meta_canonical' => 'required|url',
         ]);
 
-        $blog = Blog::findOrFail($id);
+        $blog = blog::findOrFail($id);
 
         // Retrieve the list of uploaded image URLs
         $uploadedImageUrls = json_decode($request->input('uploadedImages'), true);
@@ -165,7 +165,9 @@ class BlogController extends Controller
         $imageUrls = $this->detectImages($validatedData['long_description']);
 
         // Delete unused images
-        $this->deleteUnusedImages($uploadedImageUrls, $imageUrls);
+        if (!empty($uploadedImageUrls)) {
+            $this->deleteUnusedImages($uploadedImageUrls, $imageUrls);
+        }
 
         // Update the blog image if a new one was uploaded
         if ($request->hasFile('blog_image')) {
