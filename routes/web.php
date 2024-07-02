@@ -185,6 +185,10 @@ Route::resource('whatsappsettings', WhatsappSettingController::class);
 
 Route::resource('infrastructures', InfrastructureController::class);
 
+// For Career
+Route::post('infrastructure/ckeditor/upload', [InfrastructureController::class, 'upload'])->name('infrastructure.ckeditor.upload');
+Route::post('/infrastructure/images/deleteUnused', [InfrastructureController::class, 'deleteUnusedImagesOnUnload'])->name('infrastructure.images.deleteUnused');
+
 Route::resource('qualitycontrols', QualityControlController::class);
 
 Route::get('/dashboard', [DashboardController::class, 'index'])

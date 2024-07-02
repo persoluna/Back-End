@@ -12,7 +12,7 @@
         </div>
 
         <!-- Infrastructure form -->
-        <form action="{{ route('infrastructures.store') }}" method="POST" class="w-full" enctype="multipart/form-data">
+        <form id="infrastructureForm" action="{{ route('infrastructures.store') }}" method="POST" class="w-full" enctype="multipart/form-data">
             @csrf
             <div class="mb-10 items-center grid lg:grid-cols-2 gap-6 m-[80px] justify-center">
 
@@ -57,13 +57,14 @@
                         for="description">Description</label>
                     <textarea
                         class="border-input bg-background ring-offset-background placeholder:text-muted-foreground focus-visible:ring-ring flex h-20 w-full rounded-md border px-3 py-2 text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-                        id="description" placeholder="Enter a detailed description" name="description">{{ old('description') }}</textarea>
+                        id="editor" placeholder="Enter a detailed description" name="description">{{ old('description') }}</textarea>
                     @error('description')
                         <div class="text-red-500 mt-2 text-sm">
                             {{ $message }}
                         </div>
                     @enderror
                 </div>
+                <input type="hidden" id="uploadedImages" name="uploadedImages" value="">
 
                 <!-- Image input field -->
                 <div class="lg:col-span-1">
@@ -103,6 +104,101 @@
                 output.src = reader.result;
             }
             reader.readAsDataURL(event.target.files[0]);
+        });
+    </script>
+    <script src="https://cdn.ckeditor.com/ckeditor5/34.2.0/classic/ckeditor.js"></script>
+    <script>
+        let uploadedImageUrls = [];
+        let isFormSubmitted = false;  // Flag to check if form is submitted
+
+        ClassicEditor
+            .create(document.querySelector('#editor'), {
+                ckfinder: {
+                    uploadUrl: '{{ route('infrastructure.ckeditor.upload') . '?_token=' . csrf_token() }}',
+                }
+            })
+            .then(editor => {
+                editor.plugins.get('FileRepository').createUploadAdapter = (loader) => {
+                    return new MyUploadAdapter(loader);
+                };
+            })
+            .catch(error => {
+                console.error(error);
+            });
+
+        class MyUploadAdapter {
+            constructor(loader) {
+                this.loader = loader;
+            }
+
+            upload() {
+                return this.loader.file
+                    .then(file => new Promise((resolve, reject) => {
+                        const data = new FormData();
+                        data.append('upload', file);
+                        data.append('_token', '{{ csrf_token() }}');
+
+                        fetch('{{ route('infrastructure.ckeditor.upload') }}', {
+                            method: 'POST',
+                            body: data,
+                        })
+                        .then(response => response.json())
+                        .then(response => {
+                            if (response.uploaded) {
+                                const imageUrl = response.url;
+                                uploadedImageUrls.push(imageUrl);
+                                resolve({
+                                    default: imageUrl
+                                });
+                            } else {
+                                reject('Upload failed');
+                            }
+                        })
+                        .catch(error => {
+                            reject(error);
+                        });
+                    }));
+            }
+
+            abort() {
+                // Handle abort if necessary
+            }
+        }
+
+        // Populate the hidden input with the list of uploaded image URLs before form submission
+        document.getElementById('infrastructureForm').addEventListener('submit', function(event) {
+            isFormSubmitted = true;
+            document.getElementById('uploadedImages').value = JSON.stringify(uploadedImageUrls);
+        });
+
+        // Function to delete unused images
+        async function deleteUnusedImages(imageUrls) {
+            const response = await fetch('{{ route('infrastructure.images.deleteUnused') }}', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                },
+                body: JSON.stringify({ imageUrls })
+            });
+            return response.json();
+        }
+
+        // Warn the user before leaving the page
+        window.addEventListener('beforeunload', function (e) {
+            if (!isFormSubmitted && uploadedImageUrls.length > 0) {
+                const confirmationMessage = 'You have unsaved changes. Are you sure you want to leave?';
+
+                e.returnValue = confirmationMessage; // For most browsers
+                return confirmationMessage; // For some older browsers
+            }
+        });
+
+        // Handle the user's decision to leave the page
+        window.addEventListener('unload', function () {
+            if (!isFormSubmitted) {
+                deleteUnusedImages(uploadedImageUrls);
+            }
         });
     </script>
 </x-app-layout>
