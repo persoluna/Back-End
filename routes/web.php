@@ -191,6 +191,10 @@ Route::post('/infrastructure/images/deleteUnused', [InfrastructureController::cl
 
 Route::resource('qualitycontrols', QualityControlController::class);
 
+// For qualitycontrol
+Route::post('qualitycontrol/ckeditor/upload', [QualityControlController::class, 'upload'])->name('qualitycontrol.ckeditor.upload');
+Route::post('/qualitycontrol/images/deleteUnused', [QualityControlController::class, 'deleteUnusedImagesOnUnload'])->name('qualitycontrol.images.deleteUnused');
+
 Route::get('/dashboard', [DashboardController::class, 'index'])
 ->middleware(['auth', 'verified'])->name('dashboard');
 
