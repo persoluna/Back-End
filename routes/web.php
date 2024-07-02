@@ -83,6 +83,10 @@ Route::get('/whychooseus/{whychooseus}/edit', [WhyChooseUsController::class, 'ed
 Route::put('/whychooseus/{whyChooseUsItem}', [WhyChooseUsController::class, 'update'])->name('whychooseus.update');
 Route::delete('/whychooseus/{whyChooseUsItem}', [WhyChooseUsController::class, 'destroy'])->name('whychooseus.destroy');
 
+// For Banner
+Route::post('whychooseus/ckeditor/upload', [WhyChooseUsController::class, 'upload'])->name('whychooseus.ckeditor.upload');
+Route::post('/whychooseus/images/deleteUnused', [WhyChooseUsController::class, 'deleteUnusedImagesOnUnload'])->name('whychooseus.images.deleteUnused');
+
 Route::resource('headings', HeadingController::class);
 
 Route::resource('products', ProductController::class);
