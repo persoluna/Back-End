@@ -50,6 +50,25 @@ class ApplicationController extends Controller
         return view('applications.create');
     }
 
+    public function upload(Request $request)
+    {
+        $request->validate([
+            'upload' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048'
+        ]);
+
+        // Handle the file upload
+        $file = $request->file('upload');
+        $filename = time() . '.' . $file->getClientOriginalExtension();
+        $file->storeAs('public/applications', $filename);
+
+        $url = asset('storage/applications/' . $filename);
+
+        return response()->json([
+            'uploaded' => true,
+            'url' => $url
+        ]);
+    }
+
     /**
      * Store a newly created resource in storage.
      */
@@ -61,6 +80,15 @@ class ApplicationController extends Controller
             'application_image' => 'required|image|max:2048',
             'alt_tag' => 'required|max:255',
         ]);
+
+        // Retrieve the list of uploaded image URLs
+        $uploadedImageUrls = json_decode($request->input('uploadedImages'), true);
+
+        // Detect image URLs in long_description
+        $imageUrls = $this->detectImages($validatedData['application_description']);
+
+        // Delete unused images
+        $this->deleteUnusedImages($uploadedImageUrls, $imageUrls);
 
         if ($request->hasFile('application_image')) {
             $ApplicationImage = $request->file('application_image');
@@ -90,13 +118,15 @@ class ApplicationController extends Controller
      */
     public function edit(Application $application)
     {
-        return view('applications.edit', compact('application'));
+        $detectedImageUrls = $this->detectImages($application->application_description);
+
+        return view('applications.edit', compact('application', 'detectedImageUrls'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Application $application)
+    public function update(Request $request, $id)
     {
         $validatedData = $request->validate([
             'application_title' => 'required|max:255',
@@ -104,6 +134,19 @@ class ApplicationController extends Controller
             'application_image' => 'nullable|image|max:2048',
             'alt_tag' => 'required|max:255',
         ]);
+
+        $application = Application::findOrFail($id);
+
+        // Retrieve the list of uploaded image URLs
+        $uploadedImageUrls = json_decode($request->input('uploadedImages'), true) ?? [];
+
+        // Detect image URLs in long_description
+        $imageUrls = $this->detectImages($validatedData['application_description']);
+
+        // Delete unused images
+        if (!empty($uploadedImageUrls)) {
+            $this->deleteUnusedImages($uploadedImageUrls, $imageUrls);
+        }
 
         // Check if a new image is uploaded
         if ($request->hasFile('application_image')) {
@@ -132,8 +175,57 @@ class ApplicationController extends Controller
         // Delete the associated image file from the "applications" folder
         Storage::delete('public/applications/' . $application->application_image);
 
+        // Detect and delete images in the description
+        $this->deleteImagesFromDescription($application->application_description);
+
         $application->delete();
 
         return redirect()->route('applications.index')->with('success', 'Application deleted successfully.');
+    }
+
+    private function deleteImagesFromDescription($application_description)
+    {
+        $imageUrls = $this->detectImages($application_description);
+        $this->deleteUnusedImages($imageUrls, []);
+    }
+
+    // Helper method to detect image URLs in the description
+    private function detectImages($application_description)
+    {
+        preg_match_all('/<img[^>]+src="([^">]+)"/', $application_description, $matches);
+        return $matches[1]; // Return the URLs of the detected images
+    }
+
+    public function deleteUnusedImages(array $uploadedImageUrls, array $detectedImageUrls)
+    {
+        // Get the URLs that are in uploadedImageUrls but not in detectedImageUrls
+        $unusedImageUrls = array_diff($uploadedImageUrls, $detectedImageUrls);
+
+        foreach ($unusedImageUrls as $url) {
+            // Extract the file path from the URL
+            $filePath = parse_url($url, PHP_URL_PATH);
+            $fullPath = public_path($filePath);
+
+            // Check if the file exists and delete it
+            if (file_exists($fullPath)) {
+                unlink($fullPath);
+            }
+        }
+    }
+
+    public function deleteUnusedImagesOnUnload(Request $request)
+    {
+        $imageUrls = $request->input('imageUrls', []);
+        foreach ($imageUrls as $url) {
+            // Extract the file path from the URL
+            $filePath = parse_url($url, PHP_URL_PATH);
+            $fullPath = public_path($filePath);
+
+            // Check if the file exists and delete it
+            if (file_exists($fullPath)) {
+                unlink($fullPath);
+            }
+        }
+        return response()->json(['status' => 'success']);
     }
 }

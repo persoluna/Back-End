@@ -113,6 +113,10 @@ Route::resource('clients', ClientController::class);
 
 Route::resource('applications', ApplicationController::class);
 
+// For Application
+Route::post('application/ckeditor/upload', [ApplicationController::class, 'upload'])->name('application.ckeditor.upload');
+Route::post('/application/images/deleteUnused', [ApplicationController::class, 'deleteUnusedImagesOnUnload'])->name('application.images.deleteUnused');
+
 Route::resource('counters', CounterController::class);
 
 Route::resource('banners', BannerController::class);
