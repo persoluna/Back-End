@@ -142,7 +142,7 @@ class BannerController extends Controller
             'alt_tag' => 'nullable|max:255',
         ]);
 
-        $banner = Banner::findOrFail($id);
+        $testimonial = Testimonial::findOrFail($id);
 
         // Retrieve the list of uploaded image URLs
         $uploadedImageUrls = json_decode($request->input('uploadedImages'), true) ?? [];

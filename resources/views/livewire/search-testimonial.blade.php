@@ -12,10 +12,6 @@
                     Name
                 </th>
                 <th
-                    class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-nowrap text-left text-[13px] sm:text-[15px] font-bold text-gray-600 uppercase tracking-wider">
-                    Description
-                </th>
-                <th
                     class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-nowrap text-left text-[13px] sm:text-[15px] font-semibold text-gray-600 uppercase tracking-wider">
                     Testimonial Image
                 </th>
@@ -38,9 +34,6 @@
                 <tr class="font-medium">
                     <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                         {{ $testimonial->name }}
-                    </td>
-                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                        {{ $testimonial->description }}
                     </td>
                     <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                         <div class="w-[100px] h-12 overflow-hidden">

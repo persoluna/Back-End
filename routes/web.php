@@ -113,6 +113,10 @@ Route::resource('abouts', AboutController::class);
 
 Route::resource('testimonials', TestimonialController::class);
 
+// For Blog
+Route::post('testimonial/ckeditor/upload', [TestimonialController::class, 'upload'])->name('testimonial.ckeditor.upload');
+Route::post('/testimonial/images/deleteUnused', [TestimonialController::class, 'deleteUnusedImagesOnUnload'])->name('testimonial.images.deleteUnused');
+
 Route::resource('clients', ClientController::class);
 
 Route::resource('applications', ApplicationController::class);
