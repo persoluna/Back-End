@@ -12,6 +12,18 @@ class SearchInquiry extends Component
     public $search = '';
     public $perPage = 5;
     public $inquiryId;
+    public $sortColumn = 'id'; // Default sort column
+    public $sortDirection = 'desc'; // Default sort direction
+
+    public function sortBy($column)
+    {
+        if ($this->sortColumn === $column) {
+            $this->sortDirection = $this->sortDirection === 'asc' ? 'desc' : 'asc';
+        } else {
+            $this->sortColumn = $column;
+            $this->sortDirection = 'asc';
+        }
+    }
 
     public function render()
     {
@@ -21,7 +33,7 @@ class SearchInquiry extends Component
                     ->orWhere('mobile_number', 'like', '%' . $this->search . '%')
                     ->orWhere('email', 'like', '%' . $this->search . '%');
             })
-            ->latest()
+            ->orderBy($this->sortColumn, $this->sortDirection)
             ->paginate($this->perPage);
 
         return view('livewire.search-inquiry', compact('inquiries'));

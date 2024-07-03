@@ -54,7 +54,7 @@
                     <h5 class="leading-none text-3xl font-bold text-gray-900 dark:text-black pb-2">{{ $yearlyInquiries }}</h5>
                     <p class="text-base font-normal text-gray-500 dark:text-gray-600">Total Inquiries for {{ $selectedYear }}</p>
                 </div>
-                <div class="flex items-center px-2.5 py-0.5 text-base font-semibold text-green-500 dark:text-slate-600 text-center">
+                <div class="flex items-center px-2.5 py-0.5 text-base font-semibold text-red-500 dark:text-red-600 text-center">
                     {{ number_format($inquiryPercentage, 2) }}%
                 </div>
             </div>
@@ -85,6 +85,31 @@
         </div>
     </div>
 
+
+    <!-- Inquiry Modal -->
+    <div id="inquiry-modal" tabindex="-1" aria-hidden="true" class="hidden mt-10 overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+        <div class="relative p-4 w-full max-w-2xl max-h-full">
+            <!-- Modal content -->
+            <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                <!-- Modal header -->
+                <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+                    <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+                        Inquiry Details
+                    </h3>
+                    <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="inquiry-modal">
+                        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                        </svg>
+                        <span class="sr-only">Close modal</span>
+                    </button>
+                </div>
+                <!-- Modal body -->
+                <div id="inquiry-details" class="p-4 md:p-5 space-y-4">
+                    <!-- Inquiry details will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </div>
     <section id="Inquiries">
         {{-- ! Live wire search --}}
             <div class="py-12 pl-12 pr-12 overflow-scroll">
@@ -92,121 +117,148 @@
             </div>
     </section>
 
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <script>
+        let chartData = @json($userInquiries->toArray());
+        let totalInquiries = @json($yearlyInquiries);
+        let inquiryPercentage = @json($inquiryPercentage);
 
-<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
-<script>
-    let chartData = @json($userInquiries->toArray());
-    let totalInquiries = @json($yearlyInquiries);
-    let inquiryPercentage = @json($inquiryPercentage);
+        function getThemeBasedColors() {
+            const isDarkMode = document.documentElement.classList.contains('dark');
+            return isDarkMode ? '#FFFFFF' : '#000000'; // Adjust colors as needed
+        }
 
-    function getThemeBasedColors() {
-        const isDarkMode = document.documentElement.classList.contains('dark');
-        return isDarkMode ? '#FFFFFF' : '#000000'; // Adjust colors as needed
-    }
-
-    const options = {
-        tooltip: {
-            enabled: true,
-            x: {
-                show: true,
+        const options = {
+            tooltip: {
+                enabled: true,
+                x: {
+                    show: true,
+                },
+                y: {
+                    show: true,
+                },
             },
-            y: {
-                show: true,
+            grid: {
+                show: false,
+                strokeDashArray: 4,
+                padding: {
+                    left: 2,
+                    right: 2,
+                    top: -26
+                },
             },
-        },
-        grid: {
-            show: false,
-            strokeDashArray: 4,
-            padding: {
-                left: 2,
-                right: 2,
-                top: -26
+            series: [
+                {
+                    name: 'GPM Inquiries',
+                    data: chartData.map(data => data.gpm_count)
+                },
+                {
+                    name: 'SEO Inquiries',
+                    data: chartData.map(data => data.seo_count)
+                }
+            ],
+            chart: {
+                height: "100%",
+                maxWidth: "100%",
+                type: "area",
+                fontFamily: "Inter, sans-serif",
+                dropShadow: {
+                    enabled: false,
+                },
+                toolbar: {
+                    show: false,
+                },
             },
-        },
-        series: [{
-            name: 'Inquiries',
-            data: chartData.map(data => data.inquiry_count)
-        }],
-        chart: {
-            height: "100%",
-            maxWidth: "100%",
-            type: "area",
-            fontFamily: "Inter, sans-serif",
-            dropShadow: {
+            legend: {
+                show: true
+            },
+            fill: {
+                type: "gradient",
+                gradient: {
+                    opacityFrom: 0.55,
+                    opacityTo: 0,
+                    shade: "#1C64F2",
+                    gradientToColors: ["#1C64F2", "#22C55E"],
+                },
+            },
+            dataLabels: {
                 enabled: false,
             },
-            toolbar: {
-                show: false,
+            stroke: {
+                width: 4,
             },
-        },
-        legend: {
-            show: true
-        },
-        fill: {
-            type: "gradient",
-            gradient: {
-                opacityFrom: 0.55,
-                opacityTo: 0,
-                shade: "#1C64F2",
-                gradientToColors: ["#1C64F2"],
-            },
-        },
-        dataLabels: {
-            enabled: false,
-        },
-        stroke: {
-            width: 4,
-        },
-        xaxis: {
-            categories: chartData.map(data => data.formatted_month),
-            labels: {
-                style: {
-                    colors: getThemeBasedColors()
-                }
-            }
-        },
-        yaxis: {
-            show: true,
-            labels: {
-                formatter: function (value) {
-                    return value;
-                },
-                style: {
-                    colors: getThemeBasedColors()
-                }
-            }
-        },
-    };
-
-    if (document.getElementById("tooltip-chart") && typeof ApexCharts !== 'undefined') {
-        const chart = new ApexCharts(document.getElementById("tooltip-chart"), options);
-        chart.render();
-    }
-
-    // Add event listener to update chart colors on theme change
-    const observer = new MutationObserver(() => {
-        const newColors = getThemeBasedColors();
-        chart.updateOptions({
             xaxis: {
+                categories: chartData.map(data => data.formatted_month),
                 labels: {
                     style: {
-                        colors: newColors
+                        colors: getThemeBasedColors()
                     }
                 }
             },
             yaxis: {
+                show: true,
                 labels: {
+                    formatter: function (value) {
+                        return Math.round(value);
+                    },
                     style: {
-                        colors: newColors
+                        colors: getThemeBasedColors()
                     }
                 }
-            }
-        });
-    });
+            },
+            colors: ['#1C64F2', '#22C55E'] // Blue for GPM, Green for SEO
+        };
 
-    observer.observe(document.documentElement, {
-        attributes: true,
-        attributeFilter: ['class']
-    });
+        if (document.getElementById("tooltip-chart") && typeof ApexCharts !== 'undefined') {
+            const chart = new ApexCharts(document.getElementById("tooltip-chart"), options);
+            chart.render();
+
+            // Add event listener to update chart colors on theme change
+            const observer = new MutationObserver(() => {
+                const newColors = getThemeBasedColors();
+                chart.updateOptions({
+                    xaxis: {
+                        labels: {
+                            style: {
+                                colors: newColors
+                            }
+                        }
+                    },
+                    yaxis: {
+                        labels: {
+                            style: {
+                                colors: newColors
+                            }
+                        }
+                    }
+                });
+            });
+            observer.observe(document.documentElement, {
+                attributes: true,
+                attributeFilter: ['class']
+            });
+        }
+    </script>
+<script>
+    function loadInquiryDetails(inquiryId) {
+        fetch(`/inquiry-details/${inquiryId}`)
+            .then(response => response.json())
+            .then(data => {
+                const detailsContainer = document.getElementById('inquiry-details');
+                detailsContainer.innerHTML = `
+                    <p><strong>Message:</strong> ${data.message}</p>
+                    <p><strong>Company Name:</strong> ${data.companyName || 'N/A'}</p>
+                    <p><strong>City:</strong> ${data.city || 'N/A'}</p>
+                    <p><strong>Pin Code:</strong> ${data.pinCode || 'N/A'}</p>
+                    <p><strong>UTM Source:</strong> ${data.utm_source || 'N/A'}</p>
+                    <p><strong>UTM Medium:</strong> ${data.utm_medium || 'N/A'}</p>
+                    <p><strong>UTM Campaign:</strong> ${data.utm_campaign || 'N/A'}</p>
+                    <p><strong>UTM ID:</strong> ${data.utm_id || 'N/A'}</p>
+                    <p><strong>GCLID:</strong> ${data.gclid || 'N/A'}</p>
+                    <p><strong>GCID Source:</strong> ${data.gcid_source || 'N/A'}</p>
+                    <p><strong>Is GPM:</strong> ${data.is_GPM ? 'Yes' : 'No'}</p>
+                `;
+            });
+    }
 </script>
 </x-app-layout>

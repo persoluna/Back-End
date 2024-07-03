@@ -21,17 +21,16 @@ class DashboardController extends Controller
 
         $selectedYear = $request->input('year') ? $request->input('year') : Carbon::now()->year;
 
-        $userInquiries = DB::table('user_inquiries')
-            ->select(
-                DB::raw('DATE_FORMAT(created_at, "%b") as formatted_month'), // Use "%b" for abbreviated month name
-                DB::raw('COUNT(*) as inquiry_count')
-            )
+        $userInquiries = Inquiry::selectRaw('DATE_FORMAT(created_at, "%b") as formatted_month,
+                                             SUM(CASE WHEN is_GPM = 1 THEN 1 ELSE 0 END) as gpm_count,
+                                             SUM(CASE WHEN is_GPM = 0 THEN 1 ELSE 0 END) as seo_count')
             ->whereYear('created_at', $selectedYear)
-            ->groupBy(DB::raw('DATE_FORMAT(created_at, "%m")'), DB::raw('DATE_FORMAT(created_at, "%b")')) // Include "%b" in GROUP BY
+            ->groupBy(DB::raw('DATE_FORMAT(created_at, "%m")'), DB::raw('DATE_FORMAT(created_at, "%b")'))
+            ->orderBy(DB::raw('DATE_FORMAT(created_at, "%m")'))
             ->get();
 
-        $totalInquiries = DB::table('user_inquiries')->count();
-        $yearlyInquiries = $userInquiries->sum('inquiry_count');
+        $totalInquiries = Inquiry::count();
+        $yearlyInquiries = $userInquiries->sum('gpm_count') + $userInquiries->sum('seo_count');
         $inquiryPercentage = ($totalInquiries > 0) ? ($yearlyInquiries / $totalInquiries) * 100 : 0;
 
         $years = DB::table('user_inquiries')
@@ -41,6 +40,18 @@ class DashboardController extends Controller
                 ->pluck('year')
                 ->toArray();
 
-        return view('dashboard', compact('productCount', 'categoryCount', 'subCategoryCount', 'blogCount', 'userInquiries', 'totalInquiries', 'inquiryPercentage', 'years', 'selectedYear', 'yearlyInquiries'));
+        $gpmInquiriesCount = Inquiry::gpm()->count();
+        $seoInquiriesCount = Inquiry::seo()->count();
+
+        return view('dashboard', compact(
+            'productCount', 'categoryCount', 'subCategoryCount', 'blogCount',
+            'userInquiries', 'totalInquiries', 'inquiryPercentage', 'years',
+            'selectedYear', 'yearlyInquiries', 'gpmInquiriesCount', 'seoInquiriesCount'));
+    }
+
+    public function getInquiryDetails($id)
+    {
+        $inquiry = Inquiry::findOrFail($id);
+        return response()->json($inquiry);
     }
 }

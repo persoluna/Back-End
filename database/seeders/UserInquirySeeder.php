@@ -14,15 +14,18 @@ class UserInquirySeeder extends Seeder
      */
     public function run(): void
     {
+        // Delete all existing rows
+        DB::table('user_inquiries')->truncate();
+
         $faker = Faker::create();
 
         // Define a list of years and months
-        $years = ['2024', '2023', '2022', '2021', '2020', '2019', '2018'];
+        $years = ['2018', '2019', '2020', '2021', '2022', '2023'];
         $months = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'];
 
         foreach ($years as $year) {
             // Determine a random number of inquiries for each year
-            $numInquiries = rand(10, 90); // Adjust the range as needed
+            $numInquiries = rand(100, 500); // Adjust the range as needed
 
             for ($i = 0; $i < $numInquiries; $i++) {
                 // Pick a random month from the list
@@ -34,13 +37,26 @@ class UserInquirySeeder extends Seeder
                 // Create a full timestamp for created_at
                 $createdAt = "$year-$randomMonth-$randomDay " . $faker->time('H:i:s');
 
+                // Randomly decide if this is a GPM inquiry
+                $isGPM = $faker->boolean(70); // 70% chance of being GPM
+
                 DB::table('user_inquiries')->insert([
                     'name' => $faker->name(),
                     'mobile_number' => $faker->phoneNumber(),
                     'email' => $faker->unique()->safeEmail(),
                     'message' => $faker->paragraph(),
+                    'companyName' => $isGPM ? $faker->company() : null,
+                    'city' => $isGPM ? $faker->city() : null,
+                    'pinCode' => $isGPM ? $faker->postcode() : null,
+                    'utm_source' => $isGPM ? $faker->randomElement(['google', 'facebook', 'twitter', 'linkedin']) : null,
+                    'utm_medium' => $isGPM ? $faker->randomElement(['cpc', 'social', 'email', 'banner']) : null,
+                    'utm_campaign' => $isGPM ? $faker->word() : null,
+                    'utm_id' => $isGPM ? $faker->uuid() : null,
+                    'gclid' => $isGPM ? $faker->uuid() : null,
+                    'gcid_source' => $isGPM ? $faker->randomElement(['google', 'bing', 'yahoo']) : null,
+                    'is_GPM' => $isGPM,
                     'created_at' => $createdAt,
-                    'updated_at' => now(),
+                    'updated_at' => $createdAt,
                 ]);
             }
         }
