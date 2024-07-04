@@ -1,17 +1,17 @@
 <x-app-layout>
     <div class="note-container py-12">
-        <x-breadcrumb :breadcrumbs="[['name' => 'Achievements', 'url' => route('achievements.index')]]" />
+        <x-breadcrumb :breadcrumbs="[['name' => 'Certificates', 'url' => route('certificates.index')]]" />
         <div class="m-4 py-4 overflow-x-auto">
             <div class="inline-block min-w-full shadow rounded-lg overflow-hidden flex-col">
 
                 <div class="grid gap-6 justify-start sm:justify-between lg:grid-cols-1 items-center mb-4">
-                    <h1 class="sm:text-4xl text-3xl font-semibold  sm:pb-4 pb-8 dark:text-white mt-6">Achievements</h1>
+                    <h1 class="sm:text-4xl text-3xl font-semibold  sm:pb-4 pb-8 dark:text-white mt-6">Certificates</h1>
 
                     <div class="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-4">
 
-                        <a href="{{ route('achievements.create') }}"
+                        <a href="{{ route('certificates.create') }}"
                             class="rounded-tr-2xl rounded-bl-2xl text-white bg-gradient-to-tl from-indigo-400 from-30% to-indigo-600 to-100% hover:bg-gradient-to-br hover:from-indigo-600 hover:from-60% hover:to-indigo-400 hover:to-100% font-bold py-2 px-4 rounded">Create
-                            Achievement</a>
+                            Certificate</a>
                         <a href="{{ route('headings.edit', 6) }}"
                             class="rounded-tr-2xl rounded-bl-2xl text-white bg-gradient-to-tl from-indigo-400 from-30% to-indigo-600 to-100% hover:bg-gradient-to-br hover:from-indigo-600 hover:from-60% hover:to-indigo-400 hover:to-100% font-bold py-2 px-4 rounded">
                             Update Title

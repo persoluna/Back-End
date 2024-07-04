@@ -82,8 +82,8 @@ class HeadingController extends Controller
 
             case 6:
                 $breadcrumbs = [
-                    ['name' => 'Achievements', 'url' => route('achievements.index')],
-                    ['name' => 'Update Achievements Title', 'url' => route('headings.edit', 6)],
+                    ['name' => 'Certificates', 'url' => route('certificates.index')],
+                    ['name' => 'Update Certificates Title', 'url' => route('headings.edit', 6)],
                 ];
                 break;
 

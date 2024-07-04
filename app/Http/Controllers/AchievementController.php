@@ -40,7 +40,7 @@ class AchievementController extends Controller
 
         $achievement = Achievement::create($validatedData);
 
-        return redirect()->route('achievements.index')->with('success', 'Achievement created successfully.');
+        return redirect()->route('certificates.index')->with('success', 'Certificate created successfully.');
     }
 
     /**
@@ -79,7 +79,7 @@ class AchievementController extends Controller
 
         $achievement->update($validatedData);
 
-        return redirect()->route('achievements.index')->with('success', 'Achievement updated successfully.');
+        return redirect()->route('certificates.index')->with('success', 'Certificate updated successfully.');
     }
 
     /**
@@ -91,6 +91,6 @@ class AchievementController extends Controller
 
         $achievement->delete();
 
-        return redirect()->route('achievements.index')->with('success', 'Achievement deleted successfully.');
+        return redirect()->route('certificates.index')->with('success', 'Certificate deleted successfully.');
     }
 }

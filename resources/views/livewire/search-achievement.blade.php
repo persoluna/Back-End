@@ -1,6 +1,6 @@
 <div>
     <div>
-        <input wire:model.live.debounce.500ms="search" type="text" placeholder="Search achievement..."
+        <input wire:model.live.debounce.500ms="search" type="text" placeholder="Search certificate..."
             class="w-full rounded-md border border-gray-200 px-4 py-2">
     </div>
 
@@ -13,7 +13,7 @@
                 </th>
                 <th
                     class="px-5 py-3 bg-gray-100 text-nowrap text-left text-[13px] sm:text-[15px] font-semibold text-gray-600 uppercase tracking-wider dark:bg-slate-600 dark:text-white">
-                    Application Image
+                    Image
                 </th>
                 <th
                     class="px-5 py-3 bg-gray-100 text-nowrap text-left text-[13px] sm:text-[15px] font-semibold text-gray-600 uppercase tracking-wider dark:bg-slate-600 dark:text-white">
@@ -64,7 +64,7 @@
                 </tr>
             @empty
                 <tr>
-                    <td colspan="3" class="text-center text-gray-500 font-bold">No achievements found for
+                    <td colspan="3" class="text-center text-gray-500 font-bold">No certificates found for
                         "{{ $search }}"!</td>
                 </tr>
             @endforelse

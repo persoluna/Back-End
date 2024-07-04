@@ -146,7 +146,7 @@ Route::resource('subcategories', SubcategoryController::class);
 
 Route::resource('faqs', FAQController::class);
 
-Route::resource('achievements', AchievementController::class);
+Route::resource('certificates', AchievementController::class);
 
 Route::resource('aboutpoints', AboutPointController::class);
 

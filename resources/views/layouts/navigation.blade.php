@@ -58,7 +58,7 @@
             <!-- Home section -->
             <li>
                 <button type="button"
-                    class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->routeIs(['banners.*', 'counters.*', 'applications.*', 'whychooseus.*', 'clients.*', 'testimonials.*', 'achievements.*', 'bannercategories.*']) ? 'parent-active' : '' }}"
+                    class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->routeIs(['banners.*', 'counters.*', 'applications.*', 'whychooseus.*', 'clients.*', 'testimonials.*', 'certificates.*', 'bannercategories.*']) ? 'parent-active' : '' }}"
                     aria-controls="dropdown-example" data-collapse-toggle="dropdown-example">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -74,7 +74,7 @@
                     </svg>
                 </button>
                 <ul id="dropdown-example"
-                    class="space-y-2 {{ request()->routeIs(['banners.*', 'counters.*', 'applications.*', 'whychooseus.*', 'clients.*', 'testimonials.*', 'achievements.*', 'bannercategories.*']) ? 'block' : 'hidden' }}">
+                    class="space-y-2 {{ request()->routeIs(['banners.*', 'counters.*', 'applications.*', 'whychooseus.*', 'clients.*', 'testimonials.*', 'certificates.*', 'bannercategories.*']) ? 'block' : 'hidden' }}">
                     <li>
                         <a href="{{ route('banners.index') }}"
                             class="{{ request()->routeIs('banners.*') ? 'active' : '' }} sidebar-item flex items-center w-full p-2 mt-3 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Banner</a>
@@ -104,8 +104,8 @@
                             class="{{ request()->routeIs('testimonials.*') ? 'active' : '' }} sidebar-item flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Testimonial</a>
                     </li>
                     <li>
-                        <a href="{{ route('achievements.index') }}"
-                            class="{{ request()->routeIs(['achievements.*']) ? 'active' : '' }} sidebar-item flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Achievement</a>
+                        <a href="{{ route('certificates.index') }}"
+                            class="{{ request()->routeIs(['certificates.*']) ? 'active' : '' }} sidebar-item flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Achievement</a>
                     </li>
                 </ul>
             </li>
