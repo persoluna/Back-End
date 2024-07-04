@@ -18,10 +18,6 @@ class Mission extends Model
         'vision_description',
         'vision_image',
         'vision_alt_tag',
-        'Core_title',
-        'Core_description',
-        'Core_image',
-        'Core_alt_tag',
     ];
 
 }

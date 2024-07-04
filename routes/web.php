@@ -44,6 +44,7 @@ use App\Http\Controllers\WhatsappSettingController;
 use App\Http\Controllers\InfrastructureController;
 use App\Http\Controllers\QualityControlController;
 use App\Http\Controllers\SitemapController;
+use App\Http\Controllers\CoreValueController;
 use App\Livewire\SearchApplication;
 use App\Livewire\SearchBanner;
 use App\Livewire\SearchCounter;
@@ -114,6 +115,8 @@ Route::post('blog/ckeditor/upload', [BlogController::class, 'upload'])->name('bl
 Route::post('/blog/images/deleteUnused', [BlogController::class, 'deleteUnusedImagesOnUnload'])->name('blog.images.deleteUnused');
 
 Route::resource('missions', MissionController::class);
+
+Route::resource('corevalues', CoreValueController::class);
 
 Route::resource('abouts', AboutController::class);
 

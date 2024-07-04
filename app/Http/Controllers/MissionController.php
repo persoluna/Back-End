@@ -64,10 +64,6 @@ class MissionController extends Controller
             'vision_description' => 'nullable|string',
             'vision_alt_tag' => 'nullable|string|max:255',
             'vision_image' => 'nullable|image|max:2048',
-            'Core_title' => 'nullable|string|max:255',
-            'Core_description' => 'nullable|string',
-            'Core_alt_tag' => 'nullable|string|max:255',
-            'Core_image' => 'nullable|image|max:2048',
         ]);
 
         // Delete old images if new images are uploaded
@@ -87,15 +83,6 @@ class MissionController extends Controller
             $filename = time() . '_vision.' . $request->file('vision_image')->getClientOriginalExtension();
             $request->file('vision_image')->storeAs('public/vision', $filename);
             $validatedData['vision_image'] = $filename;
-        }
-
-        if ($request->hasFile('Core_image')) {
-            if ($mission->Core_image) {
-                Storage::delete('public/core/' . $mission->Core_image);
-            }
-            $filename = time() . '_core.' . $request->file('Core_image')->getClientOriginalExtension();
-            $request->file('Core_image')->storeAs('public/core', $filename);
-            $validatedData['Core_image'] = $filename;
         }
 
         // Update the mission record

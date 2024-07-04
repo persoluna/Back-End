@@ -8,11 +8,17 @@
                 ['name' => 'Mission & Vision', 'url' => route('missions.show', $mission->id)],
             ]" />
         @endif
-
-        <div class="mb-8 space-y-3">
+        <div class="mb-8 space-y-3 ml-2">
             <h1 class="text-3xl font-semibold text-center sm:text-left sm:pl-[80px] pt-[90px]">Mission & Vision Details
-            </h1><br>
+            </h1>
+            <div class="ml-20 pt-10 flex justify-start gap-4">
+                <a href="{{ route('missions.edit', $mission->id) }}"
+                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Edit
+                    Mission & Vision 🖱️
+                </a>
+            </div>
         </div>
+
         @if (session('success'))
             <div id="success-message"
                 class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative opacity-0 transition-opacity duration-500"
@@ -84,25 +90,27 @@
                         <img src="{{ asset('storage/vision/' . $mission->vision_image) }}"
                             alt="{{ $mission->vision_alt_tag }}" class="img-fluid w-full">
                     </div>
+
                 </div>
                 <br>
-
-                {{-- ! Core --}}
-                <div class="md:col-span-2">
-                    <div class="space-y-4">
-                        <h3 class="text-xl font-semibold">{{ $mission->Core_title }}</h3>
-                        <p class="text-gray-600">{{ $mission->Core_description }}</p>
-                    </div>
-                    <div class="md:col-span-6">
-                        <img src="{{ asset('storage/core/' . $mission->Core_image) }}"
-                            alt="{{ $mission->Core_alt_tag }}" class="img-fluid w-full">
-                    </div>
-                    <div class="mt-8 flex justify-start gap-4">
-                        <a href="{{ route('missions.edit', $mission->id) }}"
-                            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Edit
-                            Mission & Vision 🖱️</a>
-                    </div>
-                </div>
             </div>
         </div>
+
+        <div class="m-6">
+            <div class="grid gap-6 justify-start sm:justify-between lg:grid-cols-1 items-center mb-4">
+                <h1 class="sm:text-4xl text-3xl font-semibold  sm:pb-4 pb-8 dark:text-white mt-6">Core Values</h1>
+            </div>
+            <div class="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-4">
+                <a href="{{ route('corevalues.create') }}"
+                    class="rounded-tr-2xl rounded-bl-2xl text-white bg-gradient-to-tl from-indigo-400 from-30% to-indigo-600 to-100% hover:bg-gradient-to-br hover:from-indigo-600 hover:from-60% hover:to-indigo-400 hover:to-100% font-bold py-2 px-4 rounded">Create
+                    Core Value
+                </a>
+            </div>
+        </div>
+
+        {{-- ! Live wire search for core value --}}
+        <div class="pb-12 m-4">
+            @livewire('search-core-value')
+        </div>
+
 </x-app-layout>
