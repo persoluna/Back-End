@@ -76,20 +76,21 @@ class BlogController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'category_id' => 'required',
-            'blog_title' => 'required|max:255',
+            'category_id' => 'nullable',
+            'blog_title' => 'nullable|max:255',
             'blog_slug' => 'required|unique:blogs|max:255',
-            'short_description' => 'required',
-            'long_description' => 'required',
-            'blog_image' => 'required|image',
-            'alt_tag' => 'required|max:255',
-            'banner_image' => 'required|image',
-            'banner_alt_tag' => 'required|max:255',
-            'posted_by' => 'required|max:255',
-            'meta_title' => 'required|max:255',
-            'meta_description' => 'required',
-            'meta_keywords' => 'required',
-            'meta_canonical' => 'required|url',
+            'short_description' => 'nullable',
+            'long_description' => 'nullable',
+            'blog_image' => 'nullable|image',
+            'alt_tag' => 'nullable|max:255',
+            'banner_image' => 'nullable|image',
+            'banner_alt_tag' => 'nullable|max:255',
+            'posted_by' => 'nullable|max:255',
+            'meta_title' => 'nullable|max:255',
+            'meta_description' => 'nullable',
+            'meta_keywords' => 'nullable',
+            'meta_canonical' => 'nullable|url',
+            'meta_tags' => 'nullable',
         ]);
 
         // Retrieve the list of uploaded image URLs
@@ -140,20 +141,21 @@ class BlogController extends Controller
     public function update(Request $request, $id)
     {
         $validatedData = $request->validate([
-            'category_id' => 'required',
-            'blog_title' => 'required|max:255',
-            'blog_slug' => 'required|unique:blogs,blog_slug,' . $id . '|max:255',
-            'short_description' => 'required',
-            'long_description' => 'required',
+            'category_id' => 'nullable',
+            'blog_title' => 'nullable|max:255',
+            'blog_slug' => 'nullable|unique:blogs,blog_slug,' . $id . '|max:255',
+            'short_description' => 'nullable',
+            'long_description' => 'nullable',
             'blog_image' => 'nullable|image',
-            'alt_tag' => 'required|max:255',
+            'alt_tag' => 'nullable|max:255',
             'banner_image' => 'nullable|image',
-            'banner_alt_tag' => 'required|max:255',
-            'posted_by' => 'required|max:255',
-            'meta_title' => 'required|max:255',
-            'meta_description' => 'required',
-            'meta_keywords' => 'required',
-            'meta_canonical' => 'required|url',
+            'banner_alt_tag' => 'nullable|max:255',
+            'posted_by' => 'nullable|max:255',
+            'meta_title' => 'nullable|max:255',
+            'meta_description' => 'nullable',
+            'meta_keywords' => 'nullable',
+            'meta_canonical' => 'nullable|url',
+            'meta_tags' => 'nullable',
         ]);
 
         $blog = blog::findOrFail($id);

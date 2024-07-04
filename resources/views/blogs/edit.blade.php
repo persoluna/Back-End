@@ -217,7 +217,22 @@
                     @enderror
                 </div>
 
-                <!-- meta title input field -->
+                <!-- Meta Tags input field -->
+                <div class="lg:col-span-2">
+                    <label
+                        class="text-base font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                        for="meta_tags">Meta Tags</label>
+                    <textarea
+                        class="border-input bg-background ring-offset-background placeholder:text-muted-foreground focus-visible:ring-ring flex h-40 w-full rounded-md border px-3 py-2 text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                        id="meta_tags" placeholder="Enter the meta tags" name="meta_tags">{{ $blog->meta_tags }}</textarea>
+                    @error('meta_tags')
+                        <div class="text-red-500 mt-2 text-sm">
+                            {{ $message }}
+                        </div>
+                    @enderror
+                </div>
+
+    <!--
                 <div class="lg:col-span-1">
                     <label
                         class="text-base font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
@@ -233,7 +248,6 @@
                     @enderror
                 </div>
 
-                <!-- meta description input field -->
                 <div class="lg:col-span-1">
                     <label
                         class="text-base font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
@@ -250,7 +264,6 @@
                 </div>
 
 
-                <!-- meta keywords input field -->
                 <div class="lg:col-span-1">
                     <label
                         class="text-base font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
@@ -266,7 +279,6 @@
                     @enderror
                 </div>
 
-                <!-- Meta canonical input field -->
                 <div class="lg:col-span-1">
                     <label
                         class="text-base font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
@@ -281,6 +293,7 @@
                         </div>
                     @enderror
                 </div>
+    -->
 
                 <!-- Update Blog button -->
                 <div class="pt-8 flex justify-center sm:w-fit lg:col-span-2">

@@ -72,7 +72,7 @@ class ProductController extends Controller
             'meta_description' => 'nullable',
             'meta_keyword' => 'nullable',
             'meta_canonical' => 'nullable|url',
-            'meta_tags' => 'nullable|string',
+            'meta_tags' => 'nullable',
         ]);
 
         if (!$request->has('category_id')) {

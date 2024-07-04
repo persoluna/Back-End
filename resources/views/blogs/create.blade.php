@@ -191,7 +191,22 @@
                 </div>
                 <br>
 
-                <!-- Blog Title input field -->
+                <!-- Meta Tags input field -->
+                <div class="lg:col-span-2">
+                    <label
+                        class="text-base font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                        for="meta_tags">Meta Tags</label>
+                    <textarea
+                        class="border-input bg-background ring-offset-background placeholder:text-muted-foreground focus-visible:ring-ring flex h-40 w-full rounded-md border px-3 py-2 text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                        id="meta_tags" placeholder="Enter the meta tags" name="meta_tags">{{ old('meta_tags') }}</textarea>
+                    @error('meta_tags')
+                        <div class="text-red-500 mt-2 text-sm">
+                            {{ $message }}
+                        </div>
+                    @enderror
+                </div>
+
+    <!--
                 <div class="lg:col-span-1">
                     <label
                         class="text-base font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
@@ -208,7 +223,6 @@
                 </div>
                 <br>
 
-                <!-- Blog Title input field -->
                 <div class="lg:col-span-1">
                     <label
                         class="text-base font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
@@ -225,7 +239,6 @@
                 </div>
                 <br>
 
-                <!-- Blog Title input field -->
                 <div class="lg:col-span-1">
                     <label
                         class="text-base font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
@@ -242,7 +255,6 @@
                 </div>
                 <br>
 
-                <!-- Meta Canonical input field -->
                 <div class="lg:col-span-1">
                     <label
                         class="text-base font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
@@ -259,7 +271,8 @@
                 </div>
                 <br>
             </div>
-            <div class="pt-8 lg:pl-[80px] flex justify-center sm:w-fit lg:col-span-2">
+    -->
+            <div class="pt-8 flex justify-center sm:w-fit lg:col-span-2">
                 <button
                     class="ring-offset-background focus-visible:ring-ring flex h-10 w-full items-center justify-center whitespace-nowrap rounded-md bg-black px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-black/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50"
                     type="submit">

@@ -28,6 +28,7 @@ class blog extends Model
         'meta_canonical',
         'status',
         'user_visits',
+        'meta_tags',
     ];
 
     public function blogcategory(): BelongsTo
