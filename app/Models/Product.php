@@ -24,6 +24,7 @@ class Product extends Model
         'meta_keyword',
         'meta_canonical',
         'status',
+        'meta_tags',
     ];
 
     public function category(): BelongsTo

@@ -58,10 +58,11 @@ class ServiceController extends Controller
             'description' => 'required',
             'image' => 'required',
             'alt_tag' => 'required|max:255',
-            'meta_title' => 'required|max:255',
-            'meta_description' => 'required',
-            'meta_keyword' => 'required',
-            'meta_canonical' => 'required|url',
+            'meta_title' => 'nullable|max:255',
+            'meta_description' => 'nullable',
+            'meta_keyword' => 'nullable',
+            'meta_canonical' => 'nullable|url',
+            'meta_tags' => 'nullable|string',
         ]);
 
         // Retrieve the list of uploaded image URLs
@@ -118,6 +119,7 @@ public function update(Request $request, $id)
         'meta_description' => 'nullable',
         'meta_keyword' => 'nullable',
         'meta_canonical' => 'nullable|url',
+        'meta_tags' => 'nullable',
     ]);
 
     $service = Service::findOrFail($id);

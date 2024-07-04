@@ -13,7 +13,7 @@ class SearchService extends Component
 
     public $search = '';
 
-    public $perPage = 5; // Number of items per page (default value)
+    public $perPage = 30; // Number of items per page (default value)
 
     public $serviceId;
 
@@ -21,9 +21,12 @@ class SearchService extends Component
 
     public $selectedCategory = null;
 
+    public $metaTagsFilter = 'all';
+
     public function mount()
     {
         $this->selectedCategory = request()->query('category', null);
+        $this->metaTagsFilter = request()->query('meta_tags', 'all');
     }
 
     public function updateServiceStatus(Service $service)
@@ -32,6 +35,11 @@ class SearchService extends Component
         $this->serviceStatus = !$service->status;
 
         $service->update(['status' => $this->serviceStatus]);
+    }
+
+    public function hasMetaTags($product)
+    {
+        return !empty($product->meta_tags);
     }
 
     public function render()
@@ -45,8 +53,21 @@ class SearchService extends Component
             ->when($this->selectedCategory, function ($query) {
                 $query->where('category_id', $this->selectedCategory);
             })
+            ->when($this->metaTagsFilter === 'complete', function ($query) {
+                $query->whereNotNull('meta_tags'); // Filter for services with meta tags
+            })
+            ->when($this->metaTagsFilter === 'incomplete', function ($query) {
+                $query->whereNull('meta_tags'); // Filter for services without meta tags
+            })
             ->latest()
             ->paginate($this->perPage);
-        return view('livewire.search-service', compact('servicecategories', 'services'));
+
+        return view('livewire.search-service', [
+            'services' => $services,
+            'servicecategories' => $servicecategories,
+            'hasMetaTags' => function($service) {
+                return $this->hasMetaTags($service);
+            }
+        ]);
     }
 }

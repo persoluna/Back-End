@@ -20,27 +20,49 @@
         </div>
     </div>
 
-    <div>
-        <button id="dropdownDefaultButton" data-dropdown-toggle="dropdown" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">Category
-            <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
-            </svg>
-        </button>
+    <div class="pl-2">
+    <!-- Category Dropdown -->
+    <button id="categoryDropdown" data-dropdown-toggle="categoryDropdownMenu" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">Category
+        <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
+        </svg>
+    </button>
 
-        <!-- Dropdown menu -->
-        <div id="dropdown" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
-            <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
+    <div id="categoryDropdownMenu" class="pl-2 z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+        <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="categoryDropdown">
+            <li>
+                <a href="{{ route('products.index') }}" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white {{ is_null($selectedCategory) ? 'bg-gray-100 dark:bg-gray-600 dark:text-white' : '' }}">All</a>
+            </li>
+            @foreach ($categories as $category)
                 <li>
-                    <a href="{{ route('products.index') }}" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white {{ is_null($selectedCategory) ? 'bg-gray-100 dark:bg-gray-600 dark:text-white' : '' }}">All</a>
+                    <a href="{{ route('products.index', ['category' => $category->id]) }}" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white {{ $selectedCategory == $category->id ? 'bg-gray-100 dark:bg-gray-600 dark:text-white' : '' }}">{{ $category->name }}</a>
                 </li>
-                @foreach ($categories as $category)
-                    <li>
-                        <a href="{{ route('products.index', ['category' => $category->id]) }}" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white {{ $selectedCategory == $category->id ? 'bg-gray-100 dark:bg-gray-600 dark:text-white' : '' }}">{{ $category->name }}</a>
-                    </li>
-                @endforeach
-            </ul>
-        </div>
+            @endforeach
+        </ul>
     </div>
+
+    <!-- Meta Tags Status Dropdown -->
+    <button id="metaTagsDropdown" data-dropdown-toggle="metaTagsDropdownMenu" class="text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800" type="button">Meta Status
+        <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
+        </svg>
+    </button>
+
+    <div id="metaTagsDropdownMenu" class="pl-2 z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+        <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="metaTagsDropdown">
+            <li>
+                <a href="{{ route('products.index', ['meta_tags' => 'all']) }}" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white {{ $metaTagsFilter === 'all' ? 'bg-gray-100 dark:bg-gray-600 dark:text-white' : '' }}">All</a>
+            </li>
+            <li>
+                <a href="{{ route('products.index', ['meta_tags' => 'complete']) }}" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white {{ $metaTagsFilter === 'complete' ? 'bg-gray-100 dark:bg-gray-600 dark:text-white' : '' }}">Complete</a>
+            </li>
+            <li>
+                <a href="{{ route('products.index', ['meta_tags' => 'incomplete']) }}" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white {{ $metaTagsFilter === 'incomplete' ? 'bg-gray-100 dark:bg-gray-600 dark:text-white' : '' }}">Incomplete</a>
+            </li>
+        </ul>
+    </div>
+</div>
+
 
     <table class="min-w-full leading-normal mt-8">
         <thead>
@@ -58,6 +80,15 @@
                 <tr class="font-medium">
                     <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                         {{ $product->product_name }}
+                        @if ($hasMetaTags($product))
+                            <span class="ml-3 bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">
+                                Meta Completed
+                            </span>
+                        @else
+                            <span class="ml-3 bg-red-100 text-red-800 text-xs font-medium px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300">
+                                Meta Incomplete
+                            </span>
+                        @endif
                     </td>
                     <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                         {{ $product->category ? $product->category->name : 'N/A' }}

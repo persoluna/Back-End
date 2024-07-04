@@ -22,6 +22,7 @@ class Service extends Model
         'meta_keyword',
         'meta_canonical',
         'status',
+        'meta_tags',
     ];
 
     public function servicecategory(): BelongsTo

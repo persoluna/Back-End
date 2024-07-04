@@ -60,18 +60,19 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'category_id' => 'required',
-            'subcategory_id' => 'required',
+            'category_id' => 'nullable',
+            'subcategory_id' => 'nullable',
             'product_name' => 'required|max:255',
-            'slug' => 'required|unique:products|max:255',
-            'description' => 'required',
-            'image' => 'required|array',
-            'image.*' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'alt_tag' => 'required|max:255',
-            'meta_title' => 'required|max:255',
-            'meta_description' => 'required',
-            'meta_keyword' => 'required',
-            'meta_canonical' => 'required|url',
+            'slug' => 'nullable|unique:products|max:255',
+            'description' => 'nullable',
+            'image' => 'nullable|array',
+            'image.*' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'alt_tag' => 'nullable|max:255',
+            'meta_title' => 'nullable|max:255',
+            'meta_description' => 'nullable',
+            'meta_keyword' => 'nullable',
+            'meta_canonical' => 'nullable|url',
+            'meta_tags' => 'nullable|string',
         ]);
 
         if (!$request->has('category_id')) {
@@ -122,9 +123,9 @@ class ProductController extends Controller
         }
 
         $validatedData = $request->validate([
-            'category_id' => 'required',
-            'subcategory_id' => 'required',
-            'product_name' => 'nullable|max:255',
+            'category_id' => 'nullable',
+            'subcategory_id' => 'nullable',
+            'product_name' => 'required|max:255',
             'slug' => 'nullable|max:255|unique:products,slug,' . $product->id,
             'description' => 'nullable',
             'image' => 'nullable|array',
@@ -135,6 +136,7 @@ class ProductController extends Controller
             'meta_description' => 'nullable',
             'meta_keyword' => 'nullable',
             'meta_canonical' => 'nullable|url',
+            'meta_tags' => 'nullable',
         ]);
 
         // Start with existing images that weren't removed
