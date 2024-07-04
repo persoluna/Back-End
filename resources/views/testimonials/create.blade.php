@@ -20,7 +20,7 @@
                 <div class="lg:col-span-1">
                     <label
                         class="text-base font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                        for="name">Testimonial Name</label>
+                        for="name">Name</label>
                     <input
                         class="border-input bg-background ring-offset-background placeholder:text-muted-foreground focus-visible:ring-ring flex h-10 w-full rounded-md border px-3 py-2 text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                         id="name" placeholder="Enter the Testimonial name" type="text" name="name"
@@ -31,16 +31,31 @@
                         </div>
                     @enderror
                 </div>
+                <!-- Testimonial designation input field -->
+                <div class="lg:col-span-1">
+                    <label
+                        class="text-base font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                        for="designation">Designation</label>
+                    <input
+                        class="border-input bg-background ring-offset-background placeholder:text-muted-foreground focus-visible:ring-ring flex h-10 w-full rounded-md border px-3 py-2 text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                        id="designation" placeholder="Enter the testimonial designation" type="text" name="designation"
+                        value="{{ old('designation') }}">
+                    @error('designation')
+                        <div class="text-red-500 mt-2 text-sm">
+                            {{ $message }}
+                        </div>
+                    @enderror
+                </div>
                 <br>
 
-                <!-- Testimonial description input field -->
+                <!-- Testimonial Testimony input field -->
                 <div class="lg:col-span-2">
                     <label
                         class="text-base font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                        for="description">Testimonial Description</label>
+                        for="description">Testimony</label>
                     <textarea
                         class="border-input bg-background ring-offset-background placeholder:text-muted-foreground focus-visible:ring-ring flex h-10 w-full rounded-md border px-3 py-2 text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-                        id="editor" placeholder="Enter the Testimonial Description"
+                        id="editor" placeholder="Enter the Testimonial Testimony"
                         name="description">{{ old('description') }}</textarea>
                     @error('description')
                         <div class="text-red-500 mt-2 text-sm">

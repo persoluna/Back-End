@@ -31,6 +31,7 @@
                         </div>
                     @enderror
                 </div>
+                <br>
 
                 <!-- Counter Number input field -->
                 <div class="lg:col-span-1">
@@ -42,6 +43,56 @@
                         id="number" placeholder="Enter the counter number" type="number" name="number"
                         value="{{ old('number') }}">
                     @error('number')
+                        <div class="text-red-500 mt-2 text-sm">
+                            {{ $message }}
+                        </div>
+                    @enderror
+                </div>
+
+                <!-- Sign input field with dropdown -->
+                <div class="lg:col-span-1">
+                    <label
+                        class="text-base font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                        for="sign">Sign</label>
+                    <div class="relative">
+                        <input
+                            class="border-input bg-background ring-offset-background placeholder:text-muted-foreground focus-visible:ring-ring flex h-10 w-full rounded-md border px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                            id="sign" placeholder="Enter or select a sign" type="text" name="sign"
+                            value="{{ old('sign') }}">
+                        <select
+                            class="absolute inset-y-0 right-0 w-10 bg-transparent border-none cursor-pointer"
+                            onchange="document.getElementById('sign').value = this.value">
+                            <option value="">&#x25BC;</option>
+                            <option value="@">@</option>
+                            <option value="$">$</option>
+                            <option value="%">%</option>
+                            <option value="^">^</option>
+                            <option value="&">&</option>
+                            <option value="*">*</option>
+                            <option value="€">€</option>
+                            <option value="£">£</option>
+                            <option value="¥">¥</option>
+                            <option value="₹">₹</option>
+                            <option value="¢">¢</option>
+                            <option value="₣">₣</option>
+                            <option value="₤">₤</option>
+                            <option value="₥">₥</option>
+                            <option value="₧">₧</option>
+                            <option value="₨">₨</option>
+                            <option value="₩">₩</option>
+                            <option value="₪">₪</option>
+                            <option value="₫">₫</option>
+                            <option value="₲">₲</option>
+                            <option value="₺">₺</option>
+                            <option value="₼">₼</option>
+                            <option value="₽">₽</option>
+                            <option value="৳">৳</option>
+                            <option value="₵">₵</option>
+                            <option value="₴">₴</option>
+                            <!-- Add more options as needed -->
+                        </select>
+                    </div>
+                    @error('sign')
                         <div class="text-red-500 mt-2 text-sm">
                             {{ $message }}
                         </div>

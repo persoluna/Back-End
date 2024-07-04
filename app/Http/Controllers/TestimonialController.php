@@ -75,6 +75,7 @@ class TestimonialController extends Controller
     {
         $validatedData = $request->validate([
             'name' => 'required|max:255',
+            'designation' => 'required',
             'description' => 'required|max:255',
             'profile_image' => 'required|image|max:2048',
             'alt_tag' => 'required|max:255',
@@ -129,6 +130,7 @@ class TestimonialController extends Controller
     {
         $validatedData = $request->validate([
             'name' => 'required|max:255',
+            'designation' => 'required',
             'description' => 'required|max:255',
             'profile_image' => 'nullable|image|max:2048',
             'alt_tag' => 'required|max:255',

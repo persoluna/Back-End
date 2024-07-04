@@ -11,6 +11,7 @@ class Counter extends Model
 
     protected $fillable = [
         'title',
+        'sign',
         'number',
         'icon',
         'alt_tag',
