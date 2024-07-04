@@ -16,6 +16,10 @@
                 </th>
                 <th
                     class="px-5 py-3 bg-gray-100 text-nowrap text-left text-[13px] sm:text-[15px] font-semibold text-gray-600 uppercase tracking-wider dark:bg-slate-600 dark:text-white">
+                    Created At
+                </th>
+                <th
+                    class="px-5 py-3 bg-gray-100 text-nowrap text-left text-[13px] sm:text-[15px] font-semibold text-gray-600 uppercase tracking-wider dark:bg-slate-600 dark:text-white">
                     Photo
                 </th>
                 <th
@@ -36,6 +40,9 @@
                     </td>
                     <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm dark:bg-gray-800 dark:text-white dark:border-gray-600">
                         {{ $staff->staff_id }}
+                    </td>
+                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm dark:bg-gray-800 dark:text-white dark:border-gray-600">
+                        {{ $staff->created_at }}
                     </td>
                     <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm dark:bg-gray-800 dark:text-white dark:border-gray-600">
                         <img src="{{ asset('storage/staffs/' . $staff->photo) }}" class="w-14 h-14 object-cover">

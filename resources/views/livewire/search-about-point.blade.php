@@ -12,6 +12,14 @@
                     Point
                 </th>
                 <th
+                    class="px-5 py-3 bg-gray-100 text-nowrap text-left text-[13px] sm:text-[15px] font-bold text-gray-600 uppercase tracking-wider dark:bg-slate-600 dark:text-white">
+                    Created At
+                </th>
+                <th
+                    class="px-5 py-3 bg-gray-100 text-nowrap text-left text-[13px] sm:text-[15px] font-bold text-gray-600 uppercase tracking-wider dark:bg-slate-600 dark:text-white">
+                    Updated At
+                </th>
+                <th
                     class="px-5 py-3 bg-gray-100 text-nowrap text-left text-[13px] sm:text-[15px] font-semibold text-gray-600 uppercase tracking-wider dark:bg-slate-600 dark:text-white">
                     Actions
                 </th>
@@ -26,6 +34,12 @@
                 <tr class="font-medium">
                     <td class="px-5 py-5 border-b border-gray-200 dark:border-gray-600 bg-white text-sm dark:bg-gray-800 dark:text-white">
                         {{ $aboutpoint->point }}
+                    </td>
+                    <td class="px-5 py-5 border-b border-gray-200 dark:border-gray-600 bg-white text-sm dark:bg-gray-800 dark:text-white">
+                        {{ $aboutpoint->created_at }}
+                    </td>
+                    <td class="px-5 py-5 border-b border-gray-200 dark:border-gray-600 bg-white text-sm dark:bg-gray-800 dark:text-white">
+                        {{ $aboutpoint->updated_at }}
                     </td>
                     <td class="px-5 py-8 border-b border-gray-200 dark:border-gray-600 bg-white flex text-sm gap-3 dark:bg-gray-800 dark:text-white">
                         <a href="{{ route('aboutpoints.edit', $aboutpoint->id) }}"

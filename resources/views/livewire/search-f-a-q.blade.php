@@ -16,6 +16,10 @@
                 </th>
                 <th
                     class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-nowrap text-left text-[13px] sm:text-[15px] font-semibold text-gray-600 uppercase tracking-wider">
+                    Created At
+                </th>
+                <th
+                    class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-nowrap text-left text-[13px] sm:text-[15px] font-semibold text-gray-600 uppercase tracking-wider">
                     Actions
                 </th>
                 <th
@@ -32,6 +36,9 @@
                     </td>
                     <td class="px-5 py-5 border-b border-gray-200 text-sm truncate">
                         {{ Str::limit($faq->answer, 25) }}
+                    </td>
+                    <td class="px-5 py-5 border-b border-gray-200 text-sm truncate">
+                        {{ $faq->created_at }}
                     </td>
                     <td class="px-5 py-8 border-b border-gray-200 text-sm flex gap-3">
                         <a href="{{ route('faqs.edit', $faq->id) }}"

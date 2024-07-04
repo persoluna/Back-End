@@ -43,12 +43,18 @@ use App\Http\Controllers\OtherSettingController;
 use App\Http\Controllers\WhatsappSettingController;
 use App\Http\Controllers\InfrastructureController;
 use App\Http\Controllers\QualityControlController;
+use App\Http\Controllers\SitemapController;
 use App\Livewire\SearchApplication;
 use App\Livewire\SearchBanner;
 use App\Livewire\SearchCounter;
 use App\Livewire\SearchSubcategory;
 use App\Livewire\SearchWhyChooseUs;
 use Illuminate\Support\Facades\Route;
+
+// web.php
+Route::get('/admin/sitemap', [SitemapController::class, 'index'])->name('admin.sitemap');
+Route::post('/admin/sitemap/generate', [SitemapController::class, 'generate'])->name('admin.sitemap.generate');
+Route::post('/admin/sitemap/publish', [SitemapController::class, 'publish'])->name('admin.sitemap.publish');
 
 Route::post('/truncate-tables', [TruncateTablesController::class, 'truncateAllTables'])->name('truncate-tables');
 

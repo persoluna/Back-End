@@ -1,0 +1,310 @@
+
+Route::get('/', [HomeController::class, 'HomePage'])->name('home');
+Route::get('/home', function (Request $request) {
+    return redirect()->route('home');
+})->name('HomePage');
+Route::get('/about-us', [HomeController::class, 'AboutUs'])->name('AboutUs');
+Route::get('/clients', [HomeController::class, 'Client'])->name('Client');
+Route::get('/our-products', [HomeController::class, 'PrpductPage'])->name('PrpductPage');
+Route::get('/career', [HomeController::class, 'Career'])->name('Career');
+//Route::get('/categories', [HomeController::class, 'Category'])->name('Category');
+// Route::get('/applications', [HomeController::class, 'Application'])->name('Application');
+Route::get('/contact-us', [HomeController::class, 'ContactUs'])->name('ContactUs');
+// Route::get('product-detail', [HomeController::class, 'ProductDetail'])->name('ProductDetail');
+Route::get('pages/{slug}', [HomeController::class, 'PageDetail'])->name('PageDetail');
+Route::get('search',[HomeController::class, 'search'])->name('search');
+Route::get('products/{slug}', [HomeController::class, 'ProductDetail'])->name('ProductDetail');
+Route::post('contact', [HomeController::class, 'storeContactForm'])->name('storeContactForm');
+// Route::get('categories/{alph}', [HomeController::class, 'CategoryFilter'])->name('CategoryFilter');
+Route::get('categories/{slug}', [HomeController::class, 'CategoryDetail'])->name('CategoryDetail');
+Route::get('applications/{slug}', [HomeController::class, 'ApplicationDetail'])->name('ApplicationDetail');
+Route::get('/blogs', [HomeController::class, 'Blogs'])->name('Blogs');
+Route::get('blogs/{slug}', [HomeController::class, 'BlogDetail'])->name('BlogDetail');
+Route::get('/sitemap', [HomeController::class, 'SiteMap'])->name('sitemap');
+
+Route::get('/global-presence', [HomeController::class, 'globalfootprint'])->name('globalfootprint');
+
+// blog search
+Route::get('/blogs', function (Request $request) {
+
+    $search = $request->searchblog;
+
+    $query = App\Models\Blog::query();
+
+
+    if($search != "") {
+        // $query->where(function($query) use ($search) {
+        //     $query->where('title', 'like', '%' . $search . '%')
+        //           ->orWhere('description', 'like', '%' . $search . '%');
+        // });
+        $query->where(function($query) use ($search) {
+            $query->whereRaw('LOWER(title) LIKE ?', ['%' . strtolower($search) . '%'])
+                  ->orWhereRaw('LOWER(description) LIKE ?', ['%' . strtolower($search) . '%']);
+        });
+    }
+
+    // // Add other conditions
+    // $query->where('published', true)
+    //       ->where('category_id', 1);
+
+    $blogs = $query->orderBy('id', 'desc')->paginate(9);
+
+    return view("frontend.blogs.list", compact( 'blogs'));
+
+})->name('searchblog');
+
+Route::get('/categories', function (Request $request) {
+
+    $search = $request->search;
+    $alph = $request->alph;
+
+    $query = App\Models\Category::query();
+
+    if ($alph != '') {
+        $query->where('category_title', 'LIKE', "{$alph}%");
+    }
+
+    if ($search != '') {
+        $query->where(function ($query) use ($search) {
+            $query->where('category_title', 'LIKE', '%' . $search . '%')
+                  ->where(function ($query) {
+                      $query->where('admin_del', '<>', '1')
+                            ->orWhereNull('admin_del');
+                  });
+        });
+
+        $relatedCategories = App\Models\Category::where(function ($query) use ($search) {
+            $query->where('category_title', 'LIKE', '%' . $search . '%')
+                  ->where(function ($query) {
+                      $query->where('admin_del', '<>', '1')
+                            ->orWhereNull('admin_del');
+                  });
+        })->where('category_title', '!=', $search)->limit(32)->get();
+    } else {
+        $relatedCategories = App\Models\Category::where(function ($query) {
+        $query->where('admin_del', '<>', '1')
+              ->orWhereNull('admin_del');
+        })->where('category_title', '!=', $search)->limit(32)->get();
+    }
+
+    $Categories = $query->where(function ($query) {
+        $query->where('admin_del', '<>', '1')
+              ->orWhereNull('admin_del');
+    })->paginate(32);
+
+    $selected_id = [
+        'alph' => $request->alph,
+    ];
+
+    return view("frontend.category", compact('Categories', 'selected_id', 'relatedCategories'));
+
+})->name('filter3');
+
+Route::get('/applications', function (Request $request) {
+
+    $search = $request->search;
+    $alph = $request->alph;
+
+    $query = App\Models\Application::query();
+
+    if ($alph != '') {
+        $query->where('application_name', 'LIKE', "{$alph}%");
+    }
+
+    if ($search != '') {
+        $query->where('application_name', $search)
+              ->where(function ($query) use ($search) {
+                  $query->where('admin_del', '<>', '1')
+                        ->orWhereNull('admin_del');
+              });
+
+        $relatedApplications = App\Models\Application::where(function ($query) use ($search) {
+            $query->where('application_name', 'LIKE', '%' . $search . '%')
+                  ->where(function ($query) {
+                      $query->where('admin_del', '<>', '1')
+                            ->orWhereNull('admin_del');
+                  });
+        })->where('application_name', '!=', $search)->limit(32)->get();
+    } else {
+        $relatedApplications =  $query->where(function ($query) {
+            $query->where('admin_del', '<>', '1')
+                  ->orWhereNull('admin_del');
+        })->get();
+    }
+
+    $Applications = $query->where(function ($query) {
+        $query->where('admin_del', '<>', '1')
+              ->orWhereNull('admin_del');
+    })->paginate(32);
+
+    $selected_id = [
+        'alph' => $request->alph,
+    ];
+
+
+    return view("frontend.application", compact('Applications', 'selected_id', 'relatedApplications'));
+
+})->name('filter2');
+
+Route::get('/our-products', function (Request $request) {
+    $app_id = $request->application_id;
+    $cat_id = $request->category_id;
+    $search = $request->search;
+    $alph = $request->alph;
+
+    if($request->ip() != '103.83.155.90' && $request->ip() != '103.148.96.198' && $request->ip() !=  '127.0.0.1' ){
+         // Check if $app_id is not null and not 0
+        $filterCount = FilterCount::where('ip', $request->ip())->first();
+        if (!$filterCount) {
+            // If record doesn't exist, create new record
+            $filterCount = FilterCount::create([
+                'ip' => $request->ip(),
+                'visited'=> 1
+            ]);
+        }else{
+            $filterCount->increment('visited');
+        }
+
+        // Check if $app_id is not null and not 0
+        if (!is_null($app_id) && $app_id != 0) {
+
+            $filterCount = FilterCount::where('ip', $request->ip())->first();
+
+            if ($filterCount) {
+                // If record exists, increment 'app' count
+                $filterCount->increment('app');
+            }
+
+        }
+
+        // Check if $cat_id is not null and not 0
+        if (!is_null($cat_id) && $cat_id != 0) {
+
+            $filterCount = FilterCount::where('ip', $request->ip())->first();
+
+            if ($filterCount) {
+                // If record exists, increment 'app' count
+                $filterCount->increment('cat');
+            }
+        }
+    }
+    $query = App\Models\Product::query();
+
+    // if (($app_id == 0 && $cat_id == 0) || ($app_id == '' && $cat_id == '')) {
+    //     $query->orderBy('product_name');
+    // }
+
+    $searchWithoutSpaces = str_replace([' ', '-',','], '', $search); // Define $searchWithoutSpaces here
+
+    if ($alph != '') {
+        $Products = $query->where('product_name', 'LIKE', $alph . '%')->paginate(32);
+    }
+
+
+    if ($search != '') {
+
+        $Products = $query->where(function ($query) use ($search, $searchWithoutSpaces) {
+                if (!empty($search)) {
+                    $query->where(function ($query) use ($search, $searchWithoutSpaces) {
+                        $query->where('product_name', '=', $search)
+                            ->orWhere(function ($query) use ($search, $searchWithoutSpaces) {
+$query->whereRaw("REPLACE(REPLACE(REPLACE(product_name, '-', ''), ' ', ''), ',', '') = ?", [$searchWithoutSpaces]);
+                            });
+                    });
+
+                    // $query->orWhere(function ($query) use ($search, $searchWithoutSpaces) {
+                    //     $query->where('synonyms', '=', $search)
+                    //         ->orWhere(function ($query) use ($search, $searchWithoutSpaces) {
+                    // $query->whereRaw("REPLACE(REPLACE(synonyms, '-', ''), ' ', '') = ?", [$searchWithoutSpaces])
+                    // ->orWhereRaw("REPLACE(REPLACE(synonyms, '-', ''), ' ', '') LIKE ?", ['%' . $searchWithoutSpaces . '%']);
+                    //         });
+                    // });
+
+                    $query->orWhere(function ($query) use ($search, $searchWithoutSpaces) {
+                        $query->where('cas_no', '=', $search)
+                            ->orWhere(function ($query) use ($search, $searchWithoutSpaces) {
+$query->whereRaw("REPLACE(REPLACE(cas_no, '-', ''), ' ', '') = ?", [$searchWithoutSpaces])
+->orWhereRaw("REPLACE(REPLACE(cas_no, '-', ''), ' ', '') LIKE ?", ['%' . $searchWithoutSpaces . '%']);
+                            });
+                    });
+                }
+
+                $query->where(function ($query) {
+                    $query->where('admin_del', '<>', '1')
+                        ->orWhereNull('admin_del');
+                });
+    })
+        ->orderByRaw("CASE WHEN product_name LIKE ? THEN 0 ELSE 1 END", [$search . '%'])
+        ->orderBy('product_name')
+        ->paginate(32);
+
+        $relatedProducts = App\Models\Product::where(function ($query) use ($search, $searchWithoutSpaces) {
+            $query->where(function ($query) use ($search, $searchWithoutSpaces) {
+                $query->where('product_name', 'LIKE' ,$search . '%')
+                    ->orWhere(function ($query) use ($search, $searchWithoutSpaces) {
+$query->orWhereRaw("REPLACE(REPLACE(REPLACE(product_name, '-', ''), ' ', ''), ',', '') LIKE ?", [$searchWithoutSpaces . '%']);
+
+                    });
+            })
+            ->orWhere(function ($query) use ($search, $searchWithoutSpaces) {
+                $query->where('synonyms', 'LIKE',$search . '%')
+                    ->orWhere(function ($query) use ($search, $searchWithoutSpaces) {
+                        $query->where('synonyms', '=', $search)
+->orWhereRaw("REPLACE(REPLACE(synonyms, '-', ''), ' ', '') = ?", [$searchWithoutSpaces])
+->orWhereRaw("REPLACE(REPLACE(synonyms, '-', ''), ' ', '') LIKE ?", [$searchWithoutSpaces . '%']);
+                    });
+            });
+        })
+        ->where(function ($query) {
+            $query->where('admin_del', '<>', '1')
+                ->orWhereNull('admin_del');
+        })
+        ->where('product_name', '!=', $search)
+        ->limit(5)
+        ->get();
+        // dd($relatedProducts );
+
+    }
+    else {
+        // Define $relatedProducts for the case when $search is empty
+        $relatedProducts = App\Models\Product::where(function ($query) {
+            $query->where('admin_del', '<>', '1')
+                ->orWhereNull('admin_del');
+        })->limit(32)->get();
+    }
+
+    if ($search == "" && $alph == "") {
+        $Products = App\Models\Product::where(function ($query) {
+            $query->where('admin_del', '<>', '1')
+                ->orWhereNull('admin_del');
+        })->paginate(32);
+    }
+
+    $selected_id = [
+        'application_id' => $request->application_id,
+        'category_id' => $request->category_id,
+        'alph' => $request->alph,
+    ];
+
+    return view("frontend.products.list", compact('Products', 'selected_id', 'relatedProducts'));
+
+})->name('filter');
+// map
+Route::get('/get-country-data', [HomeController::class, 'getCountryLocation'])->name('getCountryLocation');
+
+Route::get('search',[HomeController::class, 'search'])->name('search');
+
+// update count email and phone number copy and click action
+Route::post('update-clickcounts',[HomeController::class,'clickcount'])->name('clickcount');
+
+// comment on blogs
+Route::post('comment',[HomeController::class,'comment'])->name('addcomment');
+
+Route::post('replycomment',[HomeController::class,'replycomment'])->name('replycomment');
+
+Route::get('thank-you',[HomeController::class,'thankyou'])->name('thankyou');
+Route::post('/request-msds-speacification', [HomeController::class, 'msds'])->name('msds');
+//Disable Back Button After Logout
+Route::group(['middleware' => 'prevent-back-history'],function(){
+//Admin Route
+

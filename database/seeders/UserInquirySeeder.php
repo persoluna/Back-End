@@ -15,12 +15,12 @@ class UserInquirySeeder extends Seeder
     public function run(): void
     {
         // Delete all existing rows
-        DB::table('user_inquiries')->truncate();
+        // DB::table('user_inquiries')->truncate();
 
         $faker = Faker::create();
 
         // Define a list of years and months
-        $years = ['2018', '2019', '2020', '2021', '2022', '2023'];
+        $years = ['2024'];
         $months = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'];
 
         foreach ($years as $year) {

@@ -1,7 +1,23 @@
 <div>
-    <div>
-        <input wire:model.live.debounce.500ms="search" type="text" placeholder="Search why choose use..."
-            class="w-full rounded-md border border-gray-200 px-4 py-2">
+    <div class="flex items-center justify-between mb-4">
+        <div class="w-1/2">
+            <input wire:model.live.debounce.500ms="search" type="text" placeholder="Search whychooseus"
+                class="w-full rounded-md border border-gray-700 dark:border-gray-500 bg-gray-50 dark:bg-gray-200 px-4 py-2 text-gray-900 dark:text-gray-200">
+        </div>
+        <div class="flex space-x-2">
+            <a href="{{ route('whychooseus.export') }}" class="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded inline-flex items-center">
+                <i class="fas fa-download mr-2"></i>
+                Export
+            </a>
+            <form action="{{ route('whychooseus.import') }}" method="POST" enctype="multipart/form-data" class="inline-block">
+                @csrf
+                <label for="import-file" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded inline-flex items-center cursor-pointer">
+                    <i class="fas fa-upload mr-2"></i>
+                    Import
+                </label>
+                <input id="import-file" type="file" name="file" class="hidden" accept=".csv,.xls,.xlsx" onchange="this.form.submit()">
+            </form>
+        </div>
     </div>
 
     <table class="min-w-full leading-normal mt-8">
