@@ -2,7 +2,6 @@
     <div class="bg-white min-h-[800px] pt-12">
         @if (isset($staticseo))
             <x-breadcrumb :breadcrumbs="[
-                ['name' => 'Pages', 'url' => route('menus.index')],
                 ['name' => 'Update staticseo', 'url' => route('staticseos.index')],
             ]" />
         @else

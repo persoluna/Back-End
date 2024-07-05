@@ -45,6 +45,7 @@ use App\Http\Controllers\InfrastructureController;
 use App\Http\Controllers\QualityControlController;
 use App\Http\Controllers\SitemapController;
 use App\Http\Controllers\CoreValueController;
+use App\Http\Controllers\ScriptController;
 use App\Livewire\SearchApplication;
 use App\Livewire\SearchBanner;
 use App\Livewire\SearchCounter;
@@ -109,6 +110,8 @@ Route::resource('footers', FooterController::class);
 Route::resource('headers', HeaderController::class);
 
 Route::resource('blogs', BlogController::class);
+
+Route::resource('scripts', ScriptController::class);
 
 // For Blog
 Route::post('blog/ckeditor/upload', [BlogController::class, 'upload'])->name('blog.ckeditor.upload');

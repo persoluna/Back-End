@@ -11,11 +11,6 @@
                             class="rounded-tr-2xl rounded-bl-2xl text-white bg-gradient-to-tl from-indigo-400 from-30% to-indigo-600 to-100% hover:bg-gradient-to-br hover:from-indigo-600 hover:from-60% hover:to-indigo-400 hover:to-100% font-bold py-2 px-4 rounded">
                             Create New Page 🎬
                         </a>
-
-                        <a href="{{ route('staticseos.index') }}"
-                            class="rounded-tr-2xl rounded-bl-2xl text-white bg-gradient-to-tl from-indigo-400 from-30% to-indigo-600 to-100% hover:bg-gradient-to-br hover:from-indigo-600 hover:from-60% hover:to-indigo-400 hover:to-100% font-bold py-2 px-4 rounded">
-                            Update Static SEO 🗄️
-                        </a>
                     </div>
                 </div>
                 @if (session('success'))

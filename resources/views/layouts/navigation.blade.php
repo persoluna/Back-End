@@ -334,7 +334,7 @@
             <!-- Setting section -->
             <li>
                 <button type="button"
-                    class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ Route::currentRouteNamed('headers.index') || Route::currentRouteNamed('footers.index') || request()->routeIs('menus.*') || Route::currentRouteNamed('staticseos.index') || Route::currentRouteNamed('smtp-settings.index') || Route::currentRouteNamed('whatsappsettings.index') || Route::currentRouteNamed('othersettings.index') || Route::currentRouteNamed('backups.index') ? 'parent-active' : '' }}"
+                    class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ Route::currentRouteNamed('headers.index') || Route::currentRouteNamed('footers.index') || request()->routeIs('menus.*') || Route::currentRouteNamed('smtp-settings.index') || Route::currentRouteNamed('whatsappsettings.index') || Route::currentRouteNamed('othersettings.index') || Route::currentRouteNamed('backups.index') || Route::currentRouteNamed('staticseos.index') ? 'parent-active' : '' }}"
                     aria-controls="dropdown-settings" data-collapse-toggle="dropdown-settings">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -357,7 +357,7 @@
                     </svg>
                 </button>
                 <ul id="dropdown-settings"
-                    class="{{ Route::currentRouteNamed('headers.index') || Route::currentRouteNamed('footers.index') || request()->routeIs('menus.*') || Route::currentRouteNamed('staticseos.index') || Route::currentRouteNamed('smtp-settings.index') || Route::currentRouteNamed('whatsappsettings.index') || Route::currentRouteNamed('othersettings.index') || Route::currentRouteNamed('backups.index') ? 'block' : 'hidden' }} py-2 space-y-2">
+                    class="{{ Route::currentRouteNamed('headers.index') || Route::currentRouteNamed('footers.index') || request()->routeIs('menus.*') || Route::currentRouteNamed('smtp-settings.index') || Route::currentRouteNamed('whatsappsettings.index') || Route::currentRouteNamed('othersettings.index') || Route::currentRouteNamed('backups.index') || Route::currentRouteNamed('staticseos.index') ? 'block' : 'hidden' }} py-2 space-y-2">
                     <li>
                         <a href="{{ route('headers.index') }}"
                             class="{{ Route::currentRouteNamed('headers.index') ? 'active' : '' }} sidebar-item flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
@@ -370,8 +370,13 @@
                     </li>
                     <li>
                         <a href="{{ route('menus.index') }}"
-                            class="{{ request()->routeIs('menus.*') || Route::currentRouteNamed('staticseos.index') ? 'active' : '' }} sidebar-item flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
+                            class="{{ request()->routeIs('menus.*') ? 'active' : '' }} sidebar-item flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
                             Menu setting</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('staticseos.index') }}"
+                            class="{{ request()->routeIs('staticseos.*') ? 'active' : '' }} sidebar-item flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
+                            Static SEO</a>
                     </li>
                     <li>
                         <a href="{{ route('smtp-settings.index') }}"
