@@ -85,9 +85,11 @@
             </td>
         </tr>
         @empty
-            <tr class="dark:bg-gray-700 dark:text-gray-200">
-                <td colspan="3" class="text-center text-gray-500 font-bold dark:text-gray-400">No applications found for
-                    "{{ $search }}"!</td>
+            <tr>
+                <td colspan="5" class="text-center pt-10 text-gray-500 dark:text-gray-400 font-bold">
+                    No application found for "{{ $search }}"!
+                    <img src="{{ asset('storage/DrawKit-onlineshopping-Illustration-10.svg') }}" alt="No banners found" class="mx-auto mb-4 h-64 w-64">
+                </td>
             </tr>
         @endforelse
         </tbody>

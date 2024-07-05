@@ -29,7 +29,7 @@
                 </th>
                 <th
                     class="px-5 py-3 bg-gray-100 text-nowrap text-left text-[13px] sm:text-[15px] font-semibold text-gray-600 uppercase tracking-wider dark:bg-slate-600 dark:text-white">
-                    Why Choose us Image
+                    Image
                 </th>
                 <th
                     class="px-5 py-3 bg-gray-100 text-nowrap text-left text-[13px] sm:text-[15px] font-semibold text-gray-600 uppercase tracking-wider dark:bg-slate-600 dark:text-white">
@@ -45,7 +45,6 @@
                 </th>
             </tr>
         </thead>
-        <tbody>
 
         <tbody>
             @forelse ($whychooseuses as $whychooseus)
@@ -93,14 +92,12 @@
                 </tr>
             @empty
                 <tr>
-                    <td colspan="3" class="text-center text-gray-500 font-bold">No whychooseuses found for
-                        "{{ $search }}"!</td>
+                    <td colspan="5" class="text-center pt-10 text-gray-500 dark:text-gray-400 font-bold">
+                        No why choose us found for "{{ $search }}"!
+                        <img src="{{ asset('storage/DrawKit-onlineshopping-Illustration-10.svg') }}" alt="No banners found" class="mx-auto mb-4 h-64 w-64">
+                    </td>
                 </tr>
             @endforelse
-        </tbody>
-
-
-
         </tbody>
     </table>
 

@@ -58,7 +58,7 @@
 
                 <!-- analytics code input field -->
                 <div class="lg:col-span-1">
-                    <label class="text-base font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70" for="analytics_code">Analytics Code</label>
+                    <label class="text-base font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70" for="analytics_code">Google Analytics Code</label>
                     <input class="border-input bg-background ring-offset-background placeholder:text-muted-foreground focus-visible:ring-ring flex h-10 w-full rounded-md border px-3 py-2 text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50" placeholder="Enter code" type="text" name="analytics_code" value="{{ old('analytics_code', $othersetting->analytics_code) }}">
                     @error('analytics_code')
                         <div class="text-red-500 mt-2 text-sm">{{ $message }}</div>
@@ -67,7 +67,7 @@
 
                 <!-- Facebook Code input field -->
                 <div class="lg:col-span-1">
-                    <label class="text-base font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70" for="facebook_code">Facebook Code</label>
+                    <label class="text-base font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70" for="facebook_code">Pixel Code</label>
                     <input class="border-input bg-background ring-offset-background placeholder:text-muted-foreground focus-visible:ring-ring flex h-10 w-full rounded-md border px-3 py-2 text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50" placeholder="Enter code" type="text" name="facebook_code" value="{{ old('facebook_code', $othersetting->facebook_code) }}">
                     @error('facebook_code')
                         <div class="text-red-500 mt-2 text-sm">{{ $message }}</div>
