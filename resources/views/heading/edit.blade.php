@@ -3,7 +3,7 @@
         <x-breadcrumb :breadcrumbs="$breadcrumbs" />
 
         <!-- heading edit title -->
-        <div class="mb-8 space-y-3">
+        <div class="space-y-3">
             <h1 class="text-3xl font-semibold text-center sm:text-left sm:pl-[80px] pt-[90px]">Edit Title
             </h1>
         </div>
@@ -13,7 +13,7 @@
             <div id="success-message"
                 class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative opacity-0 transition-opacity duration-500"
                 role="alert" style="display: none;">
-                <strong class="font-bold">{{ $heading->title }} Title Updated</strong>
+                <strong class="font-bold">Title Updated</strong>
                 <span class="block sm:inline">{{ session('message') }}</span>
                 <span class="absolute top-0 bottom-0 right-0 px-4 py-3">
                     <svg id="success-close-button" class="fill-current h-6 w-6 text-green-500" role="button"
@@ -74,24 +74,22 @@
                         </div>
                     @enderror
                 </div>
+                <br>
 
                 <!-- sub title input field -->
                 <div class="lg:col-span-1">
                     <label
                         class="text-base font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                        for="sub_title">Sub Title</label>
-                    <input
-                        class="border-input bg-background ring-offset-background placeholder:text-muted-foreground focus-visible:ring-ring flex h-10 w-full rounded-md border px-3 py-2 text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-                        id="sub_title" placeholder="Enter Sub Title" type="text" name="sub_title"
-                        value="{{ old('sub_title', $heading->sub_title) }}">
+                        for="sub_title">Description</label>
+                    <textarea
+                        class="border-input bg-background ring-offset-background placeholder:text-muted-foreground focus-visible:ring-ring flex h-60 w-full rounded-md border px-3 py-2 text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                        id="sub_title" placeholder="Enter Description" type="text" name="sub_title">{{ old('sub_title', $heading->sub_title) }}</textarea>
                     @error('sub_title')
                         <div class="text-red-500 mt-2 text-sm">
                             {{ $message }}
                         </div>
                     @enderror
                 </div>
-
-
 
                 <!-- Update button -->
                 <div class="pt-8 flex justify-center sm:w-fit lg:col-span-2">
