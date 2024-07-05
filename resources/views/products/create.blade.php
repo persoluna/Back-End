@@ -1,5 +1,5 @@
 <x-app-layout>
-    <div class="bg-white min-h-[1200px] pt-12">
+    <div class="bg-white min-h-screen pt-12">
         <x-breadcrumb :breadcrumbs="[
             ['name' => 'Products', 'url' => route('products.index')],
             ['name' => 'Create Product', 'url' => route('products.create')],
@@ -39,6 +39,30 @@
                     </div>
                 </div>
 
+                <!-- Benefits Dropdown -->
+                <div class="mb-3 lg:mt-10 lg:ml-4">
+                    <button id="dropdownBgHoverButton" data-dropdown-toggle="dropdownBgHover" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
+                        Select Benefits
+                        <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
+                        </svg>
+                    </button>
+
+                    <!-- Dropdown menu -->
+                    <div id="dropdownBgHover" class="z-10 hidden w-48 bg-white rounded-lg shadow dark:bg-gray-700">
+                        <ul class="p-3 space-y-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownBgHoverButton">
+                            @foreach($benefits as $benefit)
+                                <li>
+                                    <div class="flex items-center p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
+                                        <input id="benefit-{{ $benefit->id }}" type="checkbox" name="benefit_ids[]" value="{{ $benefit->id }}" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500" data-benefit-id="{{ $benefit->id }}">
+                                        <label for="benefit-{{ $benefit->id }}" class="w-full ms-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300">{{ $benefit->title }}</label>
+                                    </div>
+                                </li>
+                            @endforeach
+                        </ul>
+                    </div>
+                </div>
+
                 <!-- Sub category dropdown -->
                 <div class="lg:col-span-1">
                     <div class="space-y-2">
@@ -62,6 +86,7 @@
                         @enderror
                     </div>
                 </div>
+                <br>
 
                 <!-- Product Name input field -->
                 <div class="lg:col-span-1">
@@ -209,7 +234,7 @@
                     @enderror
                 </div>
 -->
-                 <!-- Meta Tags input field -->
+                <!-- Meta Tags input field -->
                 <div class="lg:col-span-2">
                     <label
                         class="text-base font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
@@ -236,6 +261,30 @@
         </form>
     </div>
 
+    <!-- Inquiry Modal -->
+    <div id="inquiry-modal" tabindex="-1" aria-hidden="true" class="fixed inset-0 z-50 flex items-center justify-center bg-gray-800 bg-opacity-50 transition-opacity duration-300 opacity-0 pointer-events-none">
+        <div class="relative p-4 w-full max-w-2xl max-h-full bg-white rounded-lg shadow dark:bg-gray-700 transition-transform transform scale-95 duration-300">
+            <!-- Modal content -->
+            <div class="relative">
+                <!-- Modal header -->
+                <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+                    <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+                        Benefit Details
+                    </h3>
+                    <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" id="close-modal-button">
+                        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                        </svg>
+                        <span class="sr-only">Close modal</span>
+                    </button>
+                </div>
+                <!-- Modal body -->
+                <div id="inquiry-details" class="p-4 md:p-5 space-y-4">
+                    <!-- Benefit details will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </div>
     <!-- JS to handle image preview -->
      <script>
         const fileInput = document.getElementById("file-input");
@@ -328,5 +377,51 @@
 
         // Initial count update
         updateSelectedFilesCount();
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const dropdownButton = document.getElementById('dropdownBgHoverButton');
+            const dropdownMenu = document.getElementById('dropdownBgHover');
+            const modal = document.getElementById('inquiry-modal');
+            const closeModalButton = document.getElementById('close-modal-button');
+
+            // Toggle dropdown menu
+            dropdownButton.addEventListener('click', function () {
+                dropdownMenu.classList.toggle('hidden');
+            });
+
+            // Show modal with transition
+            document.querySelectorAll('input[data-benefit-id]').forEach(checkbox => {
+                checkbox.addEventListener('change', function () {
+                    if (this.checked) {
+                        fetch(`/api/benefits/${this.dataset.benefitId}`)
+                            .then(response => response.json())
+                            .then(data => {
+                                document.getElementById('inquiry-details').innerHTML = `
+                                    <h4 class="text-lg font-semibold">${data.title}</h4>
+                                    <p>${data.description}</p>
+                                    <img src="{{ asset('storage/benefit_images/') }}/${data.image}" alt="${data.title}" class="w-full max-w-[400px] h-auto mt-2">
+                                `;
+                                modal.classList.remove('opacity-0', 'pointer-events-none');
+                                modal.classList.add('opacity-100');
+                            });
+                    }
+                });
+            });
+
+            // Close modal when clicking outside
+            window.addEventListener('click', function (event) {
+                if (event.target === modal) {
+                    modal.classList.add('opacity-0', 'pointer-events-none');
+                    modal.classList.remove('opacity-100');
+                }
+            });
+
+            // Close modal button click event
+            closeModalButton.addEventListener('click', function () {
+                modal.classList.add('opacity-0', 'pointer-events-none');
+                modal.classList.remove('opacity-100');
+            });
+        });
     </script>
 </x-app-layout>

@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SeoController;
+use App\Http\Controllers\BenefitController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -17,3 +18,6 @@ Route::get('user-types', [SeoController::class, 'getUserTypes']);
 Route::get('top-browsers', [SeoController::class, 'getTopBrowsers']);
 Route::get('top-countries', [SeoController::class, 'getTopCountries']);
 Route::get('top-operating-systems', [SeoController::class, 'getTopOperatingSystems']);
+
+
+Route::get('benefits/{id}', [BenefitController::class, 'demo']);

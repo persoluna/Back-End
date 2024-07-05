@@ -212,7 +212,7 @@
             <!-- Product section -->
             <li>
                 <button type="button"
-                    class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->routeIs('categories.*') || request()->routeIs('subcategories.*') || request()->routeIs('products.*') ? 'parent-active' : '' }}"
+                    class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->routeIs('categories.*') || request()->routeIs('subcategories.*') || request()->routeIs('products.*') || request()->routeIs('benefits.*') ? 'parent-active' : '' }}"
                     aria-controls="dropdown-product" data-collapse-toggle="dropdown-product">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -229,7 +229,7 @@
                     </svg>
                 </button>
                 <ul id="dropdown-product"
-                    class="{{ request()->routeIs('categories.*') || request()->routeIs('subcategories.*') || request()->routeIs('products.*') ? 'block' : 'hidden' }} py-2 space-y-2">
+                    class="{{ request()->routeIs('categories.*') || request()->routeIs('subcategories.*') || request()->routeIs('products.*')  || request()->routeIs('benefits.*') ? 'block' : 'hidden' }} py-2 space-y-2">
                     <li>
                         <a href="{{ route('categories.index') }}"
                             class="{{ request()->routeIs('categories.*') ? 'active' : '' }} sidebar-item flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Categories</a>
@@ -237,6 +237,10 @@
                     <li>
                         <a href="{{ route('subcategories.index') }}"
                             class="{{ request()->routeIs('subcategories.*') ? 'active' : '' }} sidebar-item flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Sub-categories</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('benefits.index') }}"
+                            class="{{ request()->routeIs('benefits.*')  ? 'active' : '' }} sidebar-item flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Benefits</a>
                     </li>
                     <li>
                         <a href="{{ route('products.index') }}"

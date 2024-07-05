@@ -25,6 +25,11 @@ class Product extends Model
         'meta_canonical',
         'status',
         'meta_tags',
+        'benefit_ids',
+    ];
+
+    protected $casts = [
+        'benefit_ids' => 'array',
     ];
 
     public function category(): BelongsTo

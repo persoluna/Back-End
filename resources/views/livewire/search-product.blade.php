@@ -1,6 +1,6 @@
 <div>
     <div class="flex items-center sm:gap-[850px] gap-[480px]">
-        <div class="w-1/2 mb-4">
+        <div class="w-1/2 mb-4 ml-3">
             <input wire:model.live.debounce.500ms="search" type="text" placeholder="Search products"
                 class="w-full rounded-md border border-gray-700 dark:border-gray-500 bg-gray-50 dark:bg-gray-200 px-4 py-2 text-gray-900 dark:text-gray-200">
         </div>
@@ -81,11 +81,11 @@
                     <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                         {{ $product->product_name }}
                         @if ($hasMetaTags($product))
-                            <span class="ml-3 bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">
+                            <span class="truncate ml-3 bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">
                                 Meta Completed
                             </span>
                         @else
-                            <span class="ml-3 bg-red-100 text-red-800 text-xs font-medium px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300">
+                            <span class="truncate ml-3 bg-red-100 text-red-800 text-xs font-medium px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300">
                                 Meta Incomplete
                             </span>
                         @endif

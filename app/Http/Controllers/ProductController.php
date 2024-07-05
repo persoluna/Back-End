@@ -7,6 +7,7 @@ use App\Imports\ProductsImport;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\Subcategory;
+use App\Models\Benefit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Maatwebsite\Excel\Facades\Excel;
@@ -51,7 +52,8 @@ class ProductController extends Controller
     {
         $subcategories = Subcategory::all();
         $categories = Category::all();
-        return view('products.create', compact('categories', 'subcategories'));
+        $benefits = Benefit::all();
+        return view('products.create', compact('categories', 'subcategories', 'benefits'));
     }
 
     /**
@@ -73,6 +75,7 @@ class ProductController extends Controller
             'meta_keyword' => 'nullable',
             'meta_canonical' => 'nullable|url',
             'meta_tags' => 'nullable',
+            'benefit_ids' => 'nullable|array',
         ]);
 
         if (!$request->has('category_id')) {
@@ -90,10 +93,16 @@ class ProductController extends Controller
 
         $validatedData['image'] = json_encode($imageNames);
 
+        // Convert benefit_ids array to JSON
+        if ($request->has('benefit_ids')) {
+            $validatedData['benefit_ids'] = json_encode($request->input('benefit_ids'));
+        }
+
         $product = Product::create($validatedData);
 
         return redirect()->route('products.index')->with('success', 'Product created successfully.');
     }
+
 
     /**
      * Display the specified resource.
