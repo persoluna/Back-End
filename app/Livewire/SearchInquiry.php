@@ -11,7 +11,7 @@ class SearchInquiry extends Component
     use WithPagination;
 
     public $search = '';
-    public $perPage = 5;
+    public $perPage = 10;
     public $inquiryId;
     public $sortColumn = 'id';
     public $sortDirection = 'desc';

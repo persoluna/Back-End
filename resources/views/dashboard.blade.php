@@ -246,6 +246,7 @@
             .then(data => {
                 const detailsContainer = document.getElementById('inquiry-details');
                 detailsContainer.innerHTML = `
+                    <p><strong>User IP:</strong> ${data.user_ip || 'N/A'}</p>
                     <p><strong>Message:</strong> ${data.message}</p>
                     <p><strong>Company Name:</strong> ${data.companyName || 'N/A'}</p>
                     <p><strong>City:</strong> ${data.city || 'N/A'}</p>

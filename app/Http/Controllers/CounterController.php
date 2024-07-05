@@ -57,7 +57,7 @@ class CounterController extends Controller
     {
         $validatedData = $request->validate([
             'title' => 'required|max:255',
-            'sign' => ['required', 'regex:/^[\p{Sc}@#$%^&*()_+\-=\[\]{};:"\\|,.<>\/?~`!]+$/u'],
+            'sign' => 'required',
             'number' => 'required|numeric',
             'icon' => 'nullable|max:255',
             'alt_tag' => 'nullable|max:255',
@@ -101,7 +101,7 @@ class CounterController extends Controller
     {
         $validatedData = $request->validate([
             'title' => 'required|max:255',
-            'sign' => ['required', 'regex:/^[\p{Sc}@#$%^&*()_+\-=\[\]{};:"\\|,.<>\/?~`!]+$/u'],
+            'sign' => 'required',
             'number' => 'required|numeric',
             'icon' => 'nullable|max:255',
             'alt_tag' => 'nullable|max:255',
