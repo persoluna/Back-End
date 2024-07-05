@@ -415,47 +415,50 @@
         </ul>
     </div>
 
-    <!-- New bottom section with user setting -->
-    <div class="px-3 py-1 bg-gradient-to-b from-indigo-50 to-indigo-100 dark:bg-gradient-to-t dark:from-slate-900 dark:to-slate-700 border-t border-gray-200 dark:border-gray-700 flex justify-between items-center">
-        <div class="relative">
-            <button type="button" class="flex text-sm hover:bg-gray-200 dark:hover:bg-gray-700 rounded-3xl"
-                    aria-expanded="false" data-dropdown-toggle="dropdown-user-sidebar">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="dark:stroke-white">
-                    <circle cx="12" cy="12" r="3"></circle>
-                    <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
-                </svg>
-            </button>
-            <div class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded shadow dark:bg-gray-700 dark:divide-gray-600 absolute right-0 top-full"
-                id="dropdown-user-sidebar">
-                <div class="px-4 py-3" role="none">
-                    <p class="text-sm text-gray-900 dark:text-white" role="none">
-                        {{ Auth::user()->name }}
-                    </p>
-                    <p class="text-sm font-medium text-gray-900 truncate dark:text-gray-300" role="none">
-                        {{ Auth::user()->email }}
-                    </p>
+    <!-- New bottom section with user setti ng -->
+<div class="px-3 py-1 bg-gradient-to-b from-indigo-50 to-indigo-100 dark:bg-gradient-to-t dark:from-slate-900 dark:to-slate-700 border-t border-gray-200 dark:border-gray-700 flex justify-between items-center">
+    <div class="relative">
+        <button type="button" class="flex text-sm hover:bg-gray-200 dark:hover:bg-gray-700 rounded-full"
+                aria-expanded="false" data-dropdown-toggle="dropdown-user-sidebar">
+            @if(Auth::user()->profile_image)
+                <img class="w-8 h-8 rounded-full object-cover" src="{{ asset('storage/profile_images/' . Auth::user()->profile_image) }}" alt="{{ Auth::user()->name }}'s profile picture">
+            @else
+                <div class="w-8 h-8 rounded-full bg-gray-300 flex items-center justify-center text-gray-600">
+                    {{ strtoupper(Auth::user()->name[0]) }}
                 </div>
-                <ul class="py-1" role="none">
-                    <li>
-                        <a href="{{ route('profile.edit') }}"
-                            class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
-                            role="menuitem">Profile</a>
-                    </li>
-                </ul>
+            @endif
+        </button>
+        <div class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded shadow dark:bg-gray-700 dark:divide-gray-600 absolute right-0 top-full"
+            id="dropdown-user-sidebar">
+            <div class="px-4 py-3" role="none">
+                <p class="text-sm text-gray-900 dark:text-white" role="none">
+                    {{ Auth::user()->name }}
+                </p>
+                <p class="text-sm font-medium text-gray-900 truncate dark:text-gray-300" role="none">
+                    {{ Auth::user()->email }}
+                </p>
             </div>
+            <ul class="py-1" role="none">
+                <li>
+                    <a href="{{ route('profile.edit') }}"
+                        class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
+                        role="menuitem">Profile</a>
+                </li>
+            </ul>
         </div>
-        <form method="POST" action="{{ route('logout') }}">
-            @csrf
-            <button type="submit" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="dark:stroke-white">
-                    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
-                    <polyline points="16 17 21 12 16 7"></polyline>
-                    <line x1="21" y1="12" x2="9" y2="12"></line>
-                </svg>
-            </button>
-        </form>
-
     </div>
+    <form method="POST" action="{{ route('logout') }}">
+        @csrf
+        <button type="submit" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="dark:stroke-white">
+                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                <polyline points="16 17 21 12 16 7"></polyline>
+                <line x1="21" y1="12" x2="9" y2="12"></line>
+            </svg>
+        </button>
+    </form>
+</div>
+
 </aside>
 
 <script>
