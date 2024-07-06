@@ -2,23 +2,23 @@
     <div class="bg-white min-h-[800px] pt-12">
         @if (isset($achievement))
             <x-breadcrumb :breadcrumbs="[
-                ['name' => 'Achievement', 'url' => route('achievements.index')],
-                ['name' => $achievement->title, 'url' => route('achievements.edit', $achievement->id)],
+                ['name' => 'Certificate', 'url' => route('certificates.index')],
+                ['name' => $achievement->title, 'url' => route('certificates.edit', $achievement->id)],
             ]" />
         @else
             <x-breadcrumb :breadcrumbs="[
                 ['name' => 'Home', 'url' => route('dashboard')],
-                ['name' => 'Achievement', 'url' => route('achievements.index')],
+                ['name' => 'Certificate', 'url' => route('certificates.index')],
             ]" />
         @endif
 
-        <!-- Achievement edit title -->
+        <!-- certificate edit title -->
         <div class="mb-8 space-y-3">
-            <h1 class="text-3xl font-semibold text-center sm:text-left sm:pl-[80px] pt-[90px]">Edit Achievement</h1>
+            <h1 class="text-3xl font-semibold text-center sm:text-left sm:pl-[80px] pt-[90px]">Edit Certificate</h1>
         </div>
 
         <!-- Achievement form -->
-        <form action="{{ route('achievements.update', $achievement->id) }}" method="POST" class="w-full"
+        <form action="{{ route('certificates.update', $certificate->id) }}" method="POST" class="w-full"
             enctype="multipart/form-data">
             @csrf
             @method('PUT')
@@ -33,7 +33,7 @@
                         class="border-input bg-background ring-offset-background placeholder:text-muted-foreground focus-visible:ring-ring flex h-10 w-full rounded-md border px-3 py-2 text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                         id="title" placeholder="Enter the achievement title" type="text"
                         name="title"
-                        value="{{ old('title', $achievement->title) }}">
+                        value="{{ old('title', $certificate->title) }}">
                     @error('title')
                         <div class="text-red-500 mt-2 text-sm">
                             {{ $message }}
@@ -52,8 +52,8 @@
                         id="image" type="file" name="image" onchange="previewImage(event)">
 
                     <div id="image-container">
-                        @if ($achievement->image)
-                            <img src="{{ asset('storage/achievements/' . $achievement->image) }}"
+                        @if ($certificate->image)
+                            <img src="{{ asset('storage/achievements/' . $certificate->image) }}"
                                 class="min-h-[100px] w-auto p-2">
                         @endif
                     </div>

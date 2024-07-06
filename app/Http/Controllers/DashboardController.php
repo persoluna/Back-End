@@ -9,6 +9,10 @@ use App\Models\Product;
 use App\Models\Category;
 use App\Models\Subcategory;
 use App\Models\blog;
+use App\Models\Benefit;
+use App\Models\Banner;
+use App\Models\Service;
+use App\Models\Counter;
 
 class DashboardController extends Controller
 {
@@ -17,7 +21,11 @@ class DashboardController extends Controller
         $productCount = Product::count();
         $categoryCount = Category::count();
         $subCategoryCount = Subcategory::count();
+        $benefitCount = Benefit::count();
         $blogCount = blog::count();
+        $bannerCount = Banner::count();
+        $serviceCount = Service::count();
+        $counterCount = Counter::count();
 
         $selectedYear = $request->input('year') ? $request->input('year') : Carbon::now()->year;
 
@@ -46,7 +54,8 @@ class DashboardController extends Controller
         return view('dashboard', compact(
             'productCount', 'categoryCount', 'subCategoryCount', 'blogCount',
             'userInquiries', 'totalInquiries', 'inquiryPercentage', 'years',
-            'selectedYear', 'yearlyInquiries', 'gpmInquiriesCount', 'seoInquiriesCount'));
+            'selectedYear', 'yearlyInquiries', 'gpmInquiriesCount', 'seoInquiriesCount',
+            'benefitCount', 'bannerCount', 'serviceCount', 'counterCount'));
     }
 
     public function getInquiryDetails($id)

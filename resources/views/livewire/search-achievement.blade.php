@@ -38,9 +38,9 @@
                         </div>
                     </td>
                     <td class="px-5 py-8 border-b border-gray-200 dark:border-gray-600 bg-white flex text-sm gap-3 dark:bg-gray-800 dark:text-white">
-                        <a href="{{ route('achievements.edit', $achievement->id) }}"
+                        <a href="{{ route('certificates.edit', $achievement->id) }}"
                             class="rounded-full bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">Edit</a>
-                        <form action="{{ route('achievements.destroy', $achievement->id) }}" method="POST"
+                        <form action="{{ route('certificates.destroy', $achievement->id) }}" method="POST"
                             class="inline-block">
                             @csrf
                             @method('DELETE')

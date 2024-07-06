@@ -55,15 +55,15 @@ class AchievementController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Achievement $achievement)
+    public function edit(Achievement $certificate)
     {
-        return view('achievements.edit', compact('achievement'));
+        return view('achievements.edit', compact('certificate'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Achievement $achievement)
+    public function update(Request $request, Achievement $certificate)
     {
         $validatedData = $request->validate([
             'title' => 'nullable',
@@ -77,7 +77,7 @@ class AchievementController extends Controller
             $validatedData['image'] = basename($achievementImagePath);
         }
 
-        $achievement->update($validatedData);
+        $certificate->update($validatedData);
 
         return redirect()->route('certificates.index')->with('success', 'Certificate updated successfully.');
     }
@@ -85,11 +85,11 @@ class AchievementController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Achievement $achievement)
+    public function destroy(Achievement $certificate)
     {
-        Storage::delete('public/achievements/' . $achievement->image);
+        Storage::delete('public/achievements/' . $certificate->image);
 
-        $achievement->delete();
+        $certificate->delete();
 
         return redirect()->route('certificates.index')->with('success', 'Certificate deleted successfully.');
     }
