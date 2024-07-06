@@ -56,16 +56,16 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'name' => 'required|max:255',
-            'slug' => 'required|unique:categories|max:255',
-            'image' => 'required',
-            'alt_tag' => 'required|max:255',
-            'icon' => 'required',
-            'icon_alt_tag' => 'required|max:255',
-            'meta_title' => 'required|max:255',
-            'meta_description' => 'required',
-            'meta_keyword' => 'required',
-            'meta_canonical' => 'required|url',
+            'name' => 'nullable|max:255',
+            'slug' => 'nullable|unique:categories|max:255',
+            'image' => 'nullable',
+            'alt_tag' => 'nullable|max:255',
+            'icon' => 'nullable',
+            'icon_alt_tag' => 'nullable|max:255',
+            'meta_title' => 'nullable|max:255',
+            'meta_description' => 'nullable',
+            'meta_keyword' => 'nullable',
+            'meta_canonical' => 'nullable|url',
         ]);
 
         $categoryImagePath = $request->file('image')->store('public/category_images');

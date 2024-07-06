@@ -249,6 +249,38 @@
                 </ul>
             </li>
 
+            <!-- SEO section -->
+            <li>
+                <button type="button"
+                    class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ Route::currentRouteNamed('admin.sitemap.index') || Route::currentRouteNamed('admin.approved-urls') || Route::currentRouteNamed('staticseos.index') || Route::currentRouteNamed('SEO.index') ? 'parent-active' : '' }}"
+                    aria-controls="dropdown-seo" data-collapse-toggle="dropdown-seo">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="dark:stroke-white"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z"/><circle cx="12" cy="10" r="3"/></svg>
+                    <span class="flex-1 ms-3 text-left rtl:text-right whitespace-nowrap">SEO</span>
+                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                        viewBox="0 0 10 6">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="m1 1 4 4 4-4" />
+                    </svg>
+                </button>
+                <ul id="dropdown-seo"
+                    class="{{ Route::currentRouteNamed('SEO.index') || Route::currentRouteNamed('admin.sitemap.index') || Route::currentRouteNamed('admin.approved-urls') || Route::currentRouteNamed('staticseos.index') ? 'block' : 'hidden' }} py-2 space-y-2">
+                    <li>
+                        <a href="{{ route('admin.sitemap.index') }}"
+                            class="{{ Route::currentRouteNamed('admin.sitemap.index') ? 'active' : '' }} sidebar-item flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
+                            Sitemap Generator</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('admin.approved-urls') }}"
+                            class="{{ Route::currentRouteNamed('admin.approved-urls') ? 'active' : '' }} sidebar-item flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
+                            Approved URLs</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('SEO.index') }}"
+                            class="{{ Route::currentRouteNamed('SEO.index') ? 'active' : '' }} sidebar-item flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
+                            GA statistics</a>
+                    </li>
+                </ul>
+            </li>
             <!-- Manufacturing section -->
             <li>
                 <button type="button"
@@ -403,14 +435,6 @@
                             Data Management</a>
                     </li>
                 </ul>
-            </li>
-
-             <li>
-                <a href="{{ route('SEO.index') }}"
-                    class="{{ Route::currentRouteNamed('SEO.index') ? 'active' : '' }} sidebar-item flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="dark:stroke-white"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z"/><circle cx="12" cy="10" r="3"/></svg>
-                    <span class="flex-1 ms-3 whitespace-nowrap">SEO</span>
-                </a>
             </li>
         </ul>
     </div>

@@ -54,10 +54,10 @@ use App\Livewire\SearchSubcategory;
 use App\Livewire\SearchWhyChooseUs;
 use Illuminate\Support\Facades\Route;
 
-// web.php
-Route::get('/admin/sitemap', [SitemapController::class, 'index'])->name('admin.sitemap');
-Route::post('/admin/sitemap/generate', [SitemapController::class, 'generate'])->name('admin.sitemap.generate');
-Route::post('/admin/sitemap/publish', [SitemapController::class, 'publish'])->name('admin.sitemap.publish');
+Route::get('/admin/approved-urls', [SitemapController::class, 'showApprovedUrls'])->name('admin.approved-urls');
+Route::put('/admin/update-approved-urls', [SitemapController::class, 'updateApprovedUrls'])->name('admin.update-approved-urls');
+Route::get('/admin/sitemap', [SitemapController::class, 'index'])->name('admin.sitemap.index');
+Route::post('/admin/sitemap', [SitemapController::class, 'store'])->name('admin.sitemap.store');
 
 Route::post('/truncate-tables', [TruncateTablesController::class, 'truncateAllTables'])->name('truncate-tables');
 
