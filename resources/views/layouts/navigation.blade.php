@@ -174,11 +174,11 @@
                     class="{{ request()->routeIs('careers.*') || request()->routeIs('careerinquiries.*') ? 'block' : 'hidden' }} py-2 space-y-2">
                     <li>
                         <a href="{{ route('careers.index') }}"
-                            class="{{ request()->routeIs('careers.*') ? 'active' : '' }} sidebar-item flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Careers</a>
+                            class="{{ request()->routeIs('careers.*') ? 'active' : '' }} sidebar-item flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Career</a>
                     </li>
                     <li>
                         <a href="{{ route('careerinquiries.index') }}"
-                            class="{{ request()->routeIs('careerinquiries.*') ? 'active' : '' }} sidebar-item flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Career Inquiries</a>
+                            class="{{ request()->routeIs('careerinquiries.*') ? 'active' : '' }} sidebar-item flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Inquiry</a>
                     </li>
                 </ul>
             </li>
@@ -204,7 +204,7 @@
                     </li>
                     <li>
                         <a href="{{ route('servicecategories.index') }}"
-                            class="{{ request()->routeIs('servicecategories.*') ? 'active' : '' }} sidebar-item flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Service Category</a>
+                            class="{{ request()->routeIs('servicecategories.*') ? 'active' : '' }} sidebar-item flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Category</a>
                     </li>
                 </ul>
             </li>
@@ -232,19 +232,19 @@
                     class="{{ request()->routeIs('categories.*') || request()->routeIs('subcategories.*') || request()->routeIs('products.*')  || request()->routeIs('benefits.*') ? 'block' : 'hidden' }} py-2 space-y-2">
                     <li>
                         <a href="{{ route('categories.index') }}"
-                            class="{{ request()->routeIs('categories.*') ? 'active' : '' }} sidebar-item flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Categories</a>
+                            class="{{ request()->routeIs('categories.*') ? 'active' : '' }} sidebar-item flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Category</a>
                     </li>
                     <li>
                         <a href="{{ route('subcategories.index') }}"
-                            class="{{ request()->routeIs('subcategories.*') ? 'active' : '' }} sidebar-item flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Sub-categories</a>
+                            class="{{ request()->routeIs('subcategories.*') ? 'active' : '' }} sidebar-item flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Sub-category</a>
                     </li>
                     <li>
                         <a href="{{ route('benefits.index') }}"
-                            class="{{ request()->routeIs('benefits.*')  ? 'active' : '' }} sidebar-item flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Benefits</a>
+                            class="{{ request()->routeIs('benefits.*')  ? 'active' : '' }} sidebar-item flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Benefit</a>
                     </li>
                     <li>
                         <a href="{{ route('products.index') }}"
-                            class="{{ request()->routeIs('products.*')  ? 'active' : '' }} sidebar-item flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Products</a>
+                            class="{{ request()->routeIs('products.*')  ? 'active' : '' }} sidebar-item flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Product</a>
                     </li>
                 </ul>
             </li>
@@ -267,7 +267,7 @@
                     <li>
                         <a href="{{ route('admin.sitemap.index') }}"
                             class="{{ Route::currentRouteNamed('admin.sitemap.index') ? 'active' : '' }} sidebar-item flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
-                            Sitemap Generator</a>
+                            URL Generator</a>
                     </li>
                     <li>
                         <a href="{{ route('admin.approved-urls') }}"
@@ -331,7 +331,7 @@
                 <ul id="dropdown-gallery" class="space-y-2 {{ request()->routeIs(['gallerycategories.*', 'galleries.*']) ? 'block' : 'hidden' }}">
                     <li>
                         <a href="{{ route('gallerycategories.index') }}"
-                            class="{{ request()->routeIs('gallerycategories.*') ? 'active' : '' }} mt-3 sidebar-item flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Gallery Category</a>
+                            class="{{ request()->routeIs('gallerycategories.*') ? 'active' : '' }} mt-3 sidebar-item flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Category</a>
                     </li>
                     <li>
                         <a href="{{ route('galleries.index') }}"

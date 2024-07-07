@@ -1,21 +1,23 @@
 <x-app-layout>
-    <div class="bg-white min-h-[800px] pt-12">
-        @if (isset($about))
-            <x-breadcrumb :breadcrumbs="[
-                ['name' => 'About Us', 'url' => route('abouts.show', $about->id)],
-                ['name' => 'Edit About Us', 'url' => route('abouts.edit', $about->id)],
-            ]" />
-        @else
-            <x-breadcrumb :breadcrumbs="[
-                ['name' => 'Home', 'url' => route('dashboard')],
-                ['name' => 'About Us', 'url' => route('abouts.show')],
-            ]" />
-        @endif
-
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <header class="bg-gradient-to-r from-indigo-500 to-purple-600 rounded-lg shadow-lg p-6 mb-8">
+            <h1 class="text-4xl font-bold text-white mb-4">Edit About Us</h1>
+            <nav class="flex items-center space-x-4">
+                @if (isset($about))
+                    <a href="{{ route('dashboard') }}" class="text-white hover:text-gray-200">Home</a>
+                    <span class="text-white">/</span>
+                    <a href="{{ route('abouts.show', $about->id) }}" class="text-white hover:text-gray-200">About Us</a>
+                    <span class="text-white">/</span>
+                    <a href="{{ route('abouts.edit', $about->id) }}" class="text-white hover:text-gray-200">Edit About Us</a>
+                @else
+                    <a href="{{ route('dashboard') }}" class="text-white hover:text-gray-200">Home</a>
+                    <span class="text-white">/</span>
+                    <a href="{{ route('abouts.show') }}" class="text-white hover:text-gray-200">About Us</a>
+                @endif
+            </nav>
+        </header>
         <!-- About us edit title -->
-        <div class="mb-8 space-y-3">
-            <h1 class="text-3xl font-semibold text-center sm:text-left sm:pl-[80px] pt-[90px]">About Us</h1>
-        </div>
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 mb-8">
 
         <!-- About us form -->
         <form action="{{ route('abouts.update', $about->id) }}" method="POST" class="w-full" enctype="multipart/form-data">

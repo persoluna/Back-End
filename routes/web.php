@@ -54,6 +54,7 @@ use App\Livewire\SearchSubcategory;
 use App\Livewire\SearchWhyChooseUs;
 use Illuminate\Support\Facades\Route;
 
+Route::post('/admin/generate-sitemap', [SitemapController::class, 'generateSitemap'])->name('admin.generate-sitemap');
 Route::get('/admin/approved-urls', [SitemapController::class, 'showApprovedUrls'])->name('admin.approved-urls');
 Route::put('/admin/update-approved-urls', [SitemapController::class, 'updateApprovedUrls'])->name('admin.update-approved-urls');
 Route::get('/admin/sitemap', [SitemapController::class, 'index'])->name('admin.sitemap.index');

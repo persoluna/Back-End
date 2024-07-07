@@ -2,7 +2,7 @@
     <div class="m-12 min-h-screen">
         <div class="container mx-auto px-4 py-8">
             <div class="flex justify-between items-center mb-6">
-                <h1 class="text-3xl font-bold text-gray-800">New URLs for Sitemap</h1>
+                <h1 class="text-3xl font-bold text-gray-800">Unsettled URLs for Sitemap</h1>
                 <button type="submit" form="sitemap-form" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                     Approve and Add URLs
                 </button>
@@ -27,7 +27,7 @@
                             </tr>
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200">
-                            @foreach($newUrls as $url)
+                            @forelse($newUrls as $url)
                                 <tr>
                                     <td class="px-6 py-4">
                                         <input type="hidden" name="original_urls[]" value="{{ $url }}">
@@ -48,7 +48,14 @@
                                         </select>
                                     </td>
                                 </tr>
-                            @endforeach
+                            @empty
+                                <tr>
+                                    <td colspan="5" class="text-center font-medium text-xl pt-10 text-gray-500 dark:text-gray-400 font-bold">
+                                        Looks like there are no new url :)
+                                        <img src="{{ asset('storage/DrawKit-onlineshopping-Illustration-15.svg') }}" alt="No banners found" class="mx-auto mb-4 h-80 w-80">
+                                    </td>
+                                </tr>
+                            @endforelse
                         </tbody>
                     </table>
                 </div>

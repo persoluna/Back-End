@@ -1,21 +1,23 @@
 <x-app-layout>
-    <div class="bg-white min-h-[800px] pt-12">
-        @if (isset($mission))
-            <x-breadcrumb :breadcrumbs="[
-                ['name' => 'Mission & Vision', 'url' => route('missions.index')],
-                ['name' => 'Edit Mission & Vision', 'url' => route('missions.edit', $mission->id)],
-            ]" />
-        @else
-            <x-breadcrumb :breadcrumbs="[
-                ['name' => 'Home', 'url' => route('dashboard')],
-                ['name' => 'mission & Vision', 'url' => route('missions.show')],
-            ]" />
-        @endif
-
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <header class="bg-gradient-to-r from-indigo-500 to-purple-600 rounded-lg shadow-lg p-6 mb-8">
+            <h1 class="text-4xl font-bold text-white mb-4">Edit Mission & Vision</h1>
+            <nav class="flex items-center space-x-4">
+                @if (isset($mission))
+                    <a href="{{ route('dashboard') }}" class="text-white hover:text-gray-200">Home</a>
+                    <span class="text-white">/</span>
+                    <a href="{{ route('missions.index') }}" class="text-white hover:text-gray-200">Mission & Vision</a>
+                    <span class="text-white">/</span>
+                    <a href="{{ route('missions.edit', $mission->id) }}" class="text-white hover:text-gray-200">Edit Mission & Vision</a>
+                @else
+                    <a href="{{ route('dashboard') }}" class="text-white hover:text-gray-200">Home</a>
+                    <span class="text-white">/</span>
+                    <a href="{{ route('missions.show') }}" class="text-white hover:text-gray-200">Mission & Vision</a>
+                @endif
+            </nav>
+        </header>
         <!-- Mission & Vision edit title -->
-        <div class="mb-8 space-y-3">
-            <h1 class="text-3xl font-semibold text-center sm:text-left sm:pl-[80px] pt-[90px]">Mission & Vision</h1>
-        </div>
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 mb-8">
 
         <!-- Mision and vision form -->
         <form action="{{ route('missions.update', $mission->id) }}" method="POST" class="w-full"

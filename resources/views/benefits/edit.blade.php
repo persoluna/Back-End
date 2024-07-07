@@ -1,21 +1,22 @@
 <x-app-layout>
-    <div class="bg-white min-h-[1300px] pt-12">
-        @if (isset($benefit))
-            <x-breadcrumb :breadcrumbs="[
-                ['name' => 'Benefits', 'url' => route('benefits.index')],
-                ['name' => $benefit->name, 'url' => route('benefits.edit', $benefit->id)],
-            ]" />
-        @else
-            <x-breadcrumb :breadcrumbs="[
-                ['name' => 'Home', 'url' => route('dashboard')],
-                ['name' => 'Benefit', 'url' => route('benefits.index')],
-            ]" />
-        @endif
-
-        <!-- Benefit edit title -->
-        <div class="mb-8 space-y-3">
-            <h1 class="text-3xl font-semibold text-center sm:text-left sm:pl-[80px] pt-[90px]">Edit Benefit</h1>
-        </div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <header class="bg-gradient-to-r from-indigo-500 to-purple-600 rounded-lg shadow-lg p-6 mb-8">
+            <h1 class="text-4xl font-bold text-white mb-4">Edit Benefit</h1>
+            <nav class="flex items-center space-x-4">
+                @if (isset($benefit))
+                    <a href="{{ route('dashboard') }}" class="text-white hover:text-gray-200">Home</a>
+                    <span class="text-white">/</span>
+                    <a href="{{ route('benefits.index') }}" class="text-white hover:text-gray-200">Benefits</a>
+                    <span class="text-white">/</span>
+                    <a href="{{ route('benefits.edit', $benefit->id) }}" class="text-white hover:text-gray-200">{{ $benefit->title }}</a>
+                @else
+                    <a href="{{ route('dashboard') }}" class="text-white hover:text-gray-200">Home</a>
+                    <span class="text-white">/</span>
+                    <a href="{{ route('benefits.index') }}" class="text-white hover:text-gray-200">Benefit</a>
+                @endif
+            </nav>
+        </header>
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 mb-8">
 
         <!-- Benefit form -->
         <form action="{{ route('benefits.update', $benefit->id) }}" method="POST" class="w-full"

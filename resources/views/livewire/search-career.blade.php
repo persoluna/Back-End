@@ -65,7 +65,7 @@
                 <tr>
                     <td colspan="5" class="text-center pt-10 text-gray-500 dark:text-gray-400 font-bold">
                         No career found for "{{ $search }}"!
-                        <img src="{{ asset('storage/DrawKit-onlineshopping-Illustration-10.svg') }}" alt="No banners found" class="mx-auto mb-4 h-64 w-64">
+                        <img src="{{ asset('storage/DrawKit-onlineshopping-Illustration-10.svg') }}" alt="No career found" class="mx-auto mb-4 h-80 w-80">
                     </td>
                 </tr>
             @endforelse

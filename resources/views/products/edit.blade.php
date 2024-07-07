@@ -1,15 +1,19 @@
 <x-app-layout>
-    <div class="bg-white min-h-[1200px] pt-12">
-        <x-breadcrumb :breadcrumbs="[
-            ['name' => 'Products', 'url' => route('products.index')],
-            ['name' => 'Edit Product', 'url' => route('products.edit', $product)],
-        ]" />
-
-        <!-- Product edit title and description -->
-        <div class="mb-8 space-y-3">
-            <h1 class="text-3xl sm:text-4xl font-semibold text-center pt-[90px]">Edit Product</h1>
-            <p class="text-gray-500 text-center text-xl">Update the Product details.</p>
-        </div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <header class="bg-gradient-to-r from-indigo-500 to-purple-600 rounded-lg shadow-lg p-6 mb-8">
+            <h1 class="text-4xl font-bold text-white mb-4">Edit Product</h1>
+            <nav class="flex items-center space-x-4">
+                <a href="{{ route('dashboard') }}" class="text-white hover:text-gray-200">Home</a>
+                <span class="text-white">/</span>
+                <a href="{{ route('products.index') }}" class="text-white hover:text-gray-200">Products</a>
+                <span class="text-white">/</span>
+                <a href="{{ route('products.edit', $product) }}" class="text-white hover:text-gray-200">{{ $product->product_name }}</a>
+            </nav>
+        </header>
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 mb-8">
+            <div class="mb-8 space-y-3">
+                <p class="text-gray-500 text-center text-xl">Update the Product details.</p>
+            </div>
 
         <!-- Product form -->
         <form action="{{ route('products.update', $product) }}" method="POST" class="w-full" enctype="multipart/form-data">

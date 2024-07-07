@@ -1,21 +1,18 @@
 <x-app-layout>
-    <div class="bg-white min-h-[1300px] pt-12">
-        @if (isset($servicecategory))
-            <x-breadcrumb :breadcrumbs="[
-                ['name' => 'Service Categories', 'url' => route('servicecategories.index')],
-                ['name' => $servicecategory->name, 'url' => route('servicecategories.edit', $servicecategory->id)],
-            ]" />
-        @else
-            <x-breadcrumb :breadcrumbs="[
-                ['name' => 'Home', 'url' => route('dashboard')],
-                ['name' => 'Service Category', 'url' => route('servicecategories.index')],
-            ]" />
-        @endif
-
-        <!-- S Category edit title -->
-        <div class="mb-8 space-y-3">
-            <h1 class="text-3xl font-semibold text-center sm:text-left sm:pl-[80px] pt-[90px]">Edit Service Category</h1>
-        </div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <header class="bg-gradient-to-r from-indigo-500 to-purple-600 rounded-lg shadow-lg p-6 mb-8">
+            <h1 class="text-4xl font-bold text-white mb-4">Edit Service Category</h1>
+            <nav class="flex items-center space-x-4">
+                <a href="{{ route('dashboard') }}" class="text-white hover:text-gray-200">Home</a>
+                <span class="text-white">/</span>
+                <a href="{{ route('servicecategories.index') }}" class="text-white hover:text-gray-200">Service Categories</a>
+                @if (isset($servicecategory))
+                    <span class="text-white">/</span>
+                    <a href="{{ route('servicecategories.edit', $servicecategory->id) }}" class="text-white hover:text-gray-200">{{ $servicecategory->name }}</a>
+                @endif
+            </nav>
+        </header>
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 mb-8">
 
         <!-- S Category form -->
         <form action="{{ route('servicecategories.update', $servicecategory->id) }}" method="POST" class="w-full"

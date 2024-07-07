@@ -1,20 +1,19 @@
 <x-app-layout>
-    <div class="bg-white min-h-[800px] pt-12">
-        @if (isset($banner))
-            <x-breadcrumb :breadcrumbs="[
-                ['name' => 'Banners', 'url' => route('banners.index')],
-                ['name' => $banner->title, 'url' => route('banners.edit', $banner->id)],
-            ]" />
-        @else
-            <x-breadcrumb :breadcrumbs="[
-                ['name' => 'Home', 'url' => route('dashboard')],
-                ['name' => 'Banners', 'url' => route('banners.index')],
-            ]" />
-        @endif
-        <!-- Banner edit title -->
-        <div class="mb-8 space-y-3">
-            <h1 class="text-3xl font-semibold text-center sm:text-left sm:pl-[80px] pt-[90px]">Edit Banner</h1>
-        </div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <header class="bg-gradient-to-r from-indigo-500 to-purple-600 rounded-lg shadow-lg p-6 mb-8">
+            <h1 class="text-4xl font-bold text-white mb-4">Edit Banner</h1>
+            <nav class="flex items-center space-x-4">
+                <a href="{{ route('dashboard') }}" class="text-white hover:text-gray-200">Home</a>
+                <span class="text-white">/</span>
+                <a href="{{ route('banners.index') }}" class="text-white hover:text-gray-200">Banners</a>
+                @if (isset($banner))
+                    <span class="text-white">/</span>
+                    <a href="{{ route('banners.edit', $banner->id) }}" class="text-white hover:text-gray-200">{{ $banner->title }}</a>
+                @endif
+            </nav>
+        </header>
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 mb-8">
+
         <!-- Banner form -->
         <form id="editBannerForm" action="{{ route('banners.update', $banner->id) }}" method="POST" class="w-full" enctype="multipart/form-data">
             @csrf

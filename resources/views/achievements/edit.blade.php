@@ -1,21 +1,18 @@
 <x-app-layout>
-    <div class="bg-white min-h-[800px] pt-12">
-        @if (isset($achievement))
-            <x-breadcrumb :breadcrumbs="[
-                ['name' => 'Certificate', 'url' => route('certificates.index')],
-                ['name' => $achievement->title, 'url' => route('certificates.edit', $achievement->id)],
-            ]" />
-        @else
-            <x-breadcrumb :breadcrumbs="[
-                ['name' => 'Home', 'url' => route('dashboard')],
-                ['name' => 'Certificate', 'url' => route('certificates.index')],
-            ]" />
-        @endif
-
-        <!-- certificate edit title -->
-        <div class="mb-8 space-y-3">
-            <h1 class="text-3xl font-semibold text-center sm:text-left sm:pl-[80px] pt-[90px]">Edit Certificate</h1>
-        </div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <header class="bg-gradient-to-r from-indigo-500 to-purple-600 rounded-lg shadow-lg p-6 mb-8">
+            <h1 class="text-4xl font-bold text-white mb-4">Edit Certificate</h1>
+            <nav class="flex items-center space-x-4">
+                <a href="{{ route('dashboard') }}" class="text-white hover:text-gray-200">Home</a>
+                <span class="text-white">/</span>
+                <a href="{{ route('certificates.index') }}" class="text-white hover:text-gray-200">Certificates</a>
+                @if (isset($certificate))
+                    <span class="text-white">/</span>
+                    <a href="{{ route('certificates.edit', $certificate->id) }}" class="text-white hover:text-gray-200">{{ $certificate->title }}</a>
+                @endif
+            </nav>
+        </header>
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 mb-8">
 
         <!-- Achievement form -->
         <form action="{{ route('certificates.update', $certificate->id) }}" method="POST" class="w-full"

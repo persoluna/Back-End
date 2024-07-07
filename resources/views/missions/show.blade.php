@@ -1,23 +1,32 @@
 <x-app-layout>
-    <div class="bg-white min-h-[700px] pt-12">
-        @if (isset($mission))
-            <x-breadcrumb :breadcrumbs="[['name' => 'Mission & Vision', 'url' => route('missions.show', $mission->id)]]" />
-        @else
-            <x-breadcrumb :breadcrumbs="[
-                ['name' => 'Home', 'url' => route('dashboard')],
-                ['name' => 'Mission & Vision', 'url' => route('missions.show', $mission->id)],
-            ]" />
-        @endif
-        <div class="mb-8 space-y-3 ml-2">
-            <h1 class="text-3xl font-semibold text-center sm:text-left sm:pl-[80px] pt-[90px]">Mission & Vision Details
-            </h1>
-            <div class="ml-20 pt-10 flex justify-start gap-4">
-                <a href="{{ route('missions.edit', $mission->id) }}"
-                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Edit
-                    Mission & Vision 🖱️
-                </a>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <header class="bg-gradient-to-r from-indigo-500 to-purple-600 rounded-lg shadow-lg p-6 mb-8">
+            <div class="flex justify-between items-center">
+                <div>
+                    <h1 class="text-4xl font-bold text-white mb-4">Mission & Vision Details</h1>
+                    <nav class="flex items-center space-x-4">
+                        @if (isset($mission))
+                            <a href="{{ route('dashboard') }}" class="text-white hover:text-gray-200">Home</a>
+                            <span class="text-white">/</span>
+                            <a href="{{ route('missions.show', $mission->id) }}" class="text-white hover:text-gray-200">Mission & Vision</a>
+                        @else
+                            <a href="{{ route('dashboard') }}" class="text-white hover:text-gray-200">Home</a>
+                            <span class="text-white">/</span>
+                            <a href="{{ route('missions.show') }}" class="text-white hover:text-gray-200">Mission & Vision</a>
+                        @endif
+                    </nav>
+                </div>
+                <div>
+                    @if (isset($mission))
+                        <a href="{{ route('missions.edit', $mission->id) }}" class="inline-block px-6 py-3 bg-white text-indigo-600 font-semibold rounded-lg shadow-md hover:bg-indigo-600 hover:text-white transform hover:-translate-y-0.5 transition duration-300 ease-in-out">
+                            Edit Mission & Vision
+                        </a>
+                    @endif
+                </div>
             </div>
-        </div>
+        </header>
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 mb-8">
+
 
         @if (session('success'))
             <div id="success-message"

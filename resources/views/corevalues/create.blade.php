@@ -1,14 +1,19 @@
 <x-app-layout>
-    <div class="bg-white min-h-[800px] pt-12">
-        <x-breadcrumb :breadcrumbs="[
-            ['name' => 'Mission & Vision', 'url' => route('missions.index')],
-            ['name' => 'Core Value Create', 'url' => route('corevalues.create')],
-        ]" />
-
-        <!-- creation title and description -->
-        <div class="mb-8 space-y-3">
-            <h1 class="text-3xl sm:text-4xl font-semibold text-start pt-[90px] ml-12">Enter Your Core Value</h1>
-        </div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <header class="bg-gradient-to-r from-indigo-500 to-purple-600 rounded-lg shadow-lg p-6 mb-8">
+            <h1 class="text-4xl font-bold text-white mb-4">Enter Your Core Value</h1>
+            <nav class="flex items-center space-x-4">
+                <a href="{{ route('dashboard') }}" class="text-white hover:text-gray-200">Home</a>
+                <span class="text-white">/</span>
+                <a href="{{ route('missions.index') }}" class="text-white hover:text-gray-200">Mission & Vision</a>
+                <span class="text-white">/</span>
+                <a href="{{ route('corevalues.create') }}" class="text-white hover:text-gray-200">Core Value Create</a>
+            </nav>
+        </header>
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 mb-8">
+            <div class="mb-8 space-y-3">
+                <p class="text-gray-500 dark:text-gray-400 text-center text-xl">Enter the blog details below.</p>
+            </div>
 
         <!-- form -->
         <form action="{{ route('corevalues.store') }}" method="POST" class="w-full" enctype="multipart/form-data">

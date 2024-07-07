@@ -1,15 +1,20 @@
 <x-app-layout>
-    <div class="bg-white min-h-screen pt-12">
-        <x-breadcrumb :breadcrumbs="[
-            ['name' => 'Benefits', 'url' => route('benefits.index')],
-            ['name' => 'Create Benefit', 'url' => route('benefits.create')],
-        ]" />
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <header class="bg-gradient-to-r from-indigo-500 to-purple-600 rounded-lg shadow-lg p-6 mb-8">
+            <h1 class="text-4xl font-bold text-white mb-4">Add Your Benefit</h1>
+            <nav class="flex items-center space-x-4">
+                <a href="{{ route('dashboard') }}" class="text-white hover:text-gray-200">Home</a>
+                <span class="text-white">/</span>
+                <a href="{{ route('benefits.index') }}" class="text-white hover:text-gray-200">Benefits</a>
+                <span class="text-white">/</span>
+                <a href="{{ route('benefits.create') }}" class="text-white hover:text-gray-200">Create Benefit</a>
+            </nav>
+        </header>
 
-        <!-- Benefit creation title and description -->
-        <div class="mb-8 space-y-3">
-            <h1 class="text-3xl sm:text-4xl font-semibold text-center pt-[90px]">Add Your Benefit</h1>
-            <p class="text-gray-500 text-center text-xl">Enter the Benefit details.</p>
-        </div>
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 mb-8">
+            <div class="mb-8 space-y-3">
+                <p class="text-gray-500 dark:text-gray-400 text-center text-xl">Enter the Benefit details below.</p>
+            </div>
 
         <!-- Benefit form -->
         <form action="{{ route('benefits.store') }}" method="POST" class="w-full" enctype="multipart/form-data">

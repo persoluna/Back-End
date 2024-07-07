@@ -10,6 +10,7 @@ use App\Models\ServiceCategory;
 use App\Models\blog;
 use App\Models\ApprovedUrl;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class SitemapController extends Controller
 {
@@ -121,5 +122,61 @@ class SitemapController extends Controller
         }
 
         return response()->json(['success' => true]);
+    }
+
+    public function generateSitemap()
+    {
+        try {
+            $approvedUrls = ApprovedUrl::all();
+
+            $dom = new \DOMDocument('1.0', 'UTF-8');
+            $dom->formatOutput = true; // This is the key for beautifying the output
+
+            $urlset = $dom->createElement('urlset');
+            $urlset->setAttribute('xmlns', 'http://www.sitemaps.org/schemas/sitemap/0.9');
+            $dom->appendChild($urlset);
+
+            foreach ($approvedUrls as $url) {
+                $urlElement = $dom->createElement('url');
+
+                $loc = $dom->createElement('loc', $url->editable_url);
+                $urlElement->appendChild($loc);
+
+                $lastmod = $dom->createElement('lastmod', $url->updated_at->tz('UTC')->toAtomString());
+                $urlElement->appendChild($lastmod);
+
+                $changefreq = $dom->createElement('changefreq', $url->frequency);
+                $urlElement->appendChild($changefreq);
+
+                $priority = $dom->createElement('priority', number_format($url->priority, 1));
+                $urlElement->appendChild($priority);
+
+                $urlset->appendChild($urlElement);
+            }
+
+            $xmlContent = $dom->saveXML();
+
+            // Save the XML content to a file
+            $filePath = public_path('sitemap.xml');
+            file_put_contents($filePath, $xmlContent);
+
+            if (request()->ajax() || request()->wantsJson()) {
+                return response()->json(['message' => 'Sitemap generated successfully']);
+            }
+
+            // For non-AJAX requests, return the XML
+            $response = new Response($xmlContent, 200);
+            $response->header('Content-Type', 'text/xml');
+
+            return $response;
+        } catch (\Exception $e) {
+            \Log::error('Sitemap generation error: ' . $e->getMessage());
+
+            if (request()->ajax() || request()->wantsJson()) {
+                return response()->json(['error' => 'An error occurred while generating the sitemap'], 500);
+            }
+
+            return back()->with('error', 'An error occurred while generating the sitemap');
+        }
     }
 }

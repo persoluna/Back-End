@@ -1,15 +1,19 @@
 <x-app-layout>
-    <div class="bg-white min-h-[1800px] pt-12 pb-12">
-        <x-breadcrumb :breadcrumbs="[
-            ['name' => 'Blogs', 'url' => route('blogs.index')],
-            ['name' => 'Create Blog', 'url' => route('blogs.create')],
-        ]" />
-
-        <!-- Blog creation title and description -->
-        <div class="mb-8 space-y-3">
-            <h1 class="text-3xl sm:text-4xl font-semibold text-center pt-[90px]">Add Your Blog</h1>
-            <p class="text-gray-500 text-center text-xl">Enter the blog details.</p>
-        </div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <header class="bg-gradient-to-r from-indigo-500 to-purple-600 rounded-lg shadow-lg p-6 mb-8">
+            <h1 class="text-4xl font-bold text-white mb-4">Add Your Blog</h1>
+            <nav class="flex items-center space-x-4">
+                <a href="{{ route('dashboard') }}" class="text-white hover:text-gray-200">Home</a>
+                <span class="text-white">/</span>
+                <a href="{{ route('blogs.index') }}" class="text-white hover:text-gray-200">Blogs</a>
+                <span class="text-white">/</span>
+                <a href="{{ route('blogs.create') }}" class="text-white hover:text-gray-200">Create Blog</a>
+            </nav>
+        </header>
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 mb-8">
+            <div class="mb-8 space-y-3">
+                <p class="text-gray-500 dark:text-gray-400 text-center text-xl">Enter the blog details below.</p>
+            </div>
 
         <!-- Blog form -->
         <form id="blogForm" method="POST" action="{{ route('blogs.store') }}" class="w-full" enctype="multipart/form-data">

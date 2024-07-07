@@ -1,21 +1,22 @@
 <x-app-layout>
-    <div class="bg-white min-h-[1300px] pt-12">
-        @if (isset($category))
-            <x-breadcrumb :breadcrumbs="[
-                ['name' => 'Categories', 'url' => route('categories.index')],
-                ['name' => $category->name, 'url' => route('categories.edit', $category->id)],
-            ]" />
-        @else
-            <x-breadcrumb :breadcrumbs="[
-                ['name' => 'Home', 'url' => route('dashboard')],
-                ['name' => 'Category', 'url' => route('categories.index')],
-            ]" />
-        @endif
-
-        <!-- Category edit title -->
-        <div class="mb-8 space-y-3">
-            <h1 class="text-3xl font-semibold text-center sm:text-left sm:pl-[80px] pt-[90px]">Edit Category</h1>
-        </div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <header class="bg-gradient-to-r from-indigo-500 to-purple-600 rounded-lg shadow-lg p-6 mb-8">
+            <h1 class="text-4xl font-bold text-white mb-4">Edit Category</h1>
+            <nav class="flex items-center space-x-4">
+                @if (isset($category))
+                    <a href="{{ route('dashboard') }}" class="text-white hover:text-gray-200">Home</a>
+                    <span class="text-white">/</span>
+                    <a href="{{ route('categories.index') }}" class="text-white hover:text-gray-200">Categories</a>
+                    <span class="text-white">/</span>
+                    <a href="{{ route('categories.edit', $category->id) }}" class="text-white hover:text-gray-200">{{ $category->name }}</a>
+                @else
+                    <a href="{{ route('dashboard') }}" class="text-white hover:text-gray-200">Home</a>
+                    <span class="text-white">/</span>
+                    <a href="{{ route('categories.index') }}" class="text-white hover:text-gray-200">Category</a>
+                @endif
+            </nav>
+        </header>
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 mb-8">
 
         <!-- Category form -->
         <form action="{{ route('categories.update', $category->id) }}" method="POST" class="w-full"

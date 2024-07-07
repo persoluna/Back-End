@@ -44,7 +44,7 @@
         @include('layouts.navigation')
 
         <!-- Page Content -->
-        <main class="sm:ml-64 pt-14">
+        <main class="sm:ml-64 pt-24">
             {{ $slot }}
         </main>
     </div>

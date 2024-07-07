@@ -53,10 +53,11 @@
         }
 
         .sidebar-item.active {
-            /* Active styles for light mode */
-            background: linear-gradient(270deg, #F3F4F6, #E5E7EB, #D1D5DB, #324AB2, #E5E7EB, #F3F4F6);
-            background-size: 800% 800%;
-            animation: gradientAnimationLight 20s ease infinite alternate;
+              background: linear-gradient(270deg, #EEEEFF, #EEEEFF, #EEEEFF, #ffffff, #EEEEFF, #EEEEFF);
+              background-size: 600% 600%;
+              animation: gradientAnimationLight 15s ease infinite;
+              position: relative;
+              overflow: hidden;
         }
 
         .dark .sidebar-item.active {
@@ -67,19 +68,10 @@
         }
 
         @keyframes gradientAnimationLight {
-            0% {
-                background-position: 0% 50%;
+              0% { background-position: 0% 50%; }
+              50% { background-position: 100% 50%; }
+              100% { background-position: 0% 50%; }
             }
-            50% {
-                background-position: 100% 50%;
-            }
-            50% {
-                background-position: 100% 50%;
-            }
-            100% {
-                background-position: 0% 50%;
-            }
-        }
 
         @keyframes gradientAnimationDark {
             0% {
@@ -117,4 +109,16 @@
 
         .ck-editor__editable_inline {
             min-height: 300px;
+        }
+
+        #generate-sitemap-button {
+            filter: drop-shadow(0 0 10px rgba(0,0,0,0.5));
+        }
+
+        #sticky-header {
+            transition: all 0.3s ease-in-out;
+        }
+        #sticky-header.expanded {
+            padding-top: 2rem;
+            padding-bottom: 2rem;
         }

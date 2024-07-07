@@ -1,17 +1,31 @@
 <x-app-layout>
-    <div class="bg-white min-h-[700px] pt-12">
-        @if (isset($about))
-            <x-breadcrumb :breadcrumbs="[['name' => 'About Us', 'url' => route('abouts.show', $about->id)]]" />
-        @else
-            <x-breadcrumb :breadcrumbs="[
-                ['name' => 'Home', 'url' => route('dashboard')],
-                ['name' => 'About Us', 'url' => route('abouts.show', $about->id)],
-            ]" />
-        @endif
-
-        <div class="mb-8 space-y-3">
-            <h1 class="text-3xl font-semibold text-center sm:text-left sm:pl-[80px] pt-[90px]">About Us Details</h1><br>
-        </div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <header class="bg-gradient-to-r from-indigo-500 to-purple-600 rounded-lg shadow-lg p-6 mb-8">
+            <div class="flex justify-between items-center">
+                <div>
+                    <h1 class="text-4xl font-bold text-white mb-4">About Us Details</h1>
+                    <nav class="flex items-center space-x-4">
+                        @if (isset($about))
+                            <a href="{{ route('dashboard') }}" class="text-white hover:text-gray-200">Home</a>
+                            <span class="text-white">/</span>
+                            <a href="{{ route('abouts.show', $about->id) }}" class="text-white hover:text-gray-200">About Us</a>
+                        @else
+                            <a href="{{ route('dashboard') }}" class="text-white hover:text-gray-200">Home</a>
+                            <span class="text-white">/</span>
+                            <a href="{{ route('abouts.show') }}" class="text-white hover:text-gray-200">About Us</a>
+                        @endif
+                    </nav>
+                </div>
+                <div>
+                    @if (isset($about))
+                        <a href="{{ route('abouts.edit', $about->id) }}" class="inline-block px-6 py-3 bg-white text-indigo-600 font-semibold rounded-lg shadow-md hover:bg-indigo-600 hover:text-white transform hover:-translate-y-0.5 transition duration-300 ease-in-out">
+                            Edit About Us
+                        </a>
+                    @endif
+                </div>
+            </div>
+        </header>
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 mb-8">
         @if (session('success'))
             <div id="success-message"
                 class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative opacity-0 transition-opacity duration-500"
@@ -73,9 +87,6 @@
                         <div class="md:col-span-6">
                             <img src="{{ asset('storage/abouts/'. $about->owner_signature) }}" alt="{{ $about->alt_tag3 }}" class="img-fluid w-full">
                         </div>
-                    </div>
-                    <div class="mt-8 flex justify-start gap-4">
-                        <a href="{{ route('abouts.edit', $about->id) }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Edit About Us 🖱️</a>
                     </div>
                 </div>
             </div>

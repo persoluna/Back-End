@@ -1,20 +1,21 @@
 <x-app-layout>
-    <div class="bg-white min-h-[800px] pt-12">
-        @if (isset($staff))
-            <x-breadcrumb :breadcrumbs="[
-                ['name' => 'Team', 'url' => route('staffs.index')],
-                ['name' => $staff->name, 'url' => route('staffs.edit', $staff->id)],
-            ]" />
-        @else
-            <x-breadcrumb :breadcrumbs="[
-                ['name' => 'Home', 'url' => route('dashboard')],
-            ]" />
-        @endif
-
-        <!-- edit title -->
-        <div class="mb-8 space-y-3">
-            <h1 class="text-3xl font-semibold text-center sm:text-left sm:pl-[80px] pt-[90px]">Edit Details</h1>
-        </div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <header class="bg-gradient-to-r from-indigo-500 to-purple-600 rounded-lg shadow-lg p-6 mb-8">
+            <h1 class="text-4xl font-bold text-white mb-4">Edit Details</h1>
+            <nav class="flex items-center space-x-4">
+                <a href="{{ route('dashboard') }}" class="text-white hover:text-gray-200">Home</a>
+                <span class="text-white">/</span>
+                <a href="{{ route('staffs.index') }}" class="text-white hover:text-gray-200">Team</a>
+                @if (isset($staff))
+                    <span class="text-white">/</span>
+                    <a href="{{ route('staffs.edit', $staff->id) }}" class="text-white hover:text-gray-200">{{ $staff->name }}</a>
+                @endif
+            </nav>
+        </header>
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 mb-8">
+            <div class="mb-8 space-y-3">
+                <h2 class="text-3xl font-semibold">Edit Details</h2>
+            </div>
 
         <!-- Staff form -->
         <form action="{{ route('staffs.update', $staff->id) }}" method="POST" class="w-full"

@@ -1,15 +1,20 @@
 <x-app-layout>
-    <div class="bg-white pt-12 h-screen">
-        <x-breadcrumb :breadcrumbs="[
-            ['name' => 'Gallery Categories', 'url' => route('gallerycategories.index')],
-            ['name' => 'Create Category', 'url' => route('gallerycategories.create')],
-        ]" />
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <header class="bg-gradient-to-r from-indigo-500 to-purple-600 rounded-lg shadow-lg p-6 mb-8">
+            <h1 class="text-4xl font-bold text-white mb-4">Add Your Category</h1>
+            <nav class="flex items-center space-x-4">
+                <a href="{{ route('dashboard') }}" class="text-white hover:text-gray-200">Home</a>
+                <span class="text-white">/</span>
+                <a href="{{ route('gallerycategories.index') }}" class="text-white hover:text-gray-200">Gallery Categories</a>
+                <span class="text-white">/</span>
+                <a href="{{ route('gallerycategories.create') }}" class="text-white hover:text-gray-200">Create Category</a>
+            </nav>
+        </header>
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 mb-8">
+            <div class="mb-8 space-y-3">
 
-        <!-- Category creation title and description -->
-        <div class="mb-8 space-y-3">
-            <h1 class="text-3xl sm:text-4xl font-semibold text-start pt-[90px] ml-20">Add Your Category</h1>
-            <p class="text-gray-500 text-start text-xl ml-20">Enter the Category details.</p>
-        </div>
+                <p class="text-gray-500 dark:text-gray-400 text-start text-xl">Enter the Category details below.</p>
+            </div>
 
         <!-- Category form -->
         <form action="{{ route('gallerycategories.store') }}" method="POST" class="w-full" enctype="multipart/form-data">
