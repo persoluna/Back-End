@@ -28,43 +28,47 @@
       </div>
     @endif
 
-    <div class="bg-white rounded-lg shadow-md p-6 mb-8 overflow-x-auto">
+    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 mb-8 overflow-x-auto">
       <table class="min-w-full leading-normal mt-8">
         <thead>
           <tr>
-            <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-[13px] sm:text-[15px] font-bold text-gray-600 uppercase tracking-wider">Country</th>
-            <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-[13px] sm:text-[15px] font-bold text-gray-600 uppercase tracking-wider">Latitude</th>
-            <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-[13px] sm:text-[15px] font-bold text-gray-600 uppercase tracking-wider">Longitude</th>
-            <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-[13px] sm:text-[15px] font-semibold text-gray-600 uppercase tracking-wider">Actions</th>
+            <th class="px-5 py-3 border-b-2 border-gray-200 dark:border-gray-600 bg-gray-100 dark:bg-gray-700 text-left text-xs sm:text-sm font-semibold text-gray-600 dark:text-gray-300 uppercase tracking-wider">Country</th>
+            <th class="px-5 py-3 border-b-2 border-gray-200 dark:border-gray-600 bg-gray-100 dark:bg-gray-700 text-left text-xs sm:text-sm font-semibold text-gray-600 dark:text-gray-300 uppercase tracking-wider">Latitude</th>
+            <th class="px-5 py-3 border-b-2 border-gray-200 dark:border-gray-600 bg-gray-100 dark:bg-gray-700 text-left text-xs sm:text-sm font-semibold text-gray-600 dark:text-gray-300 uppercase tracking-wider">Longitude</th>
+            <th class="px-5 py-3 border-b-2 border-gray-200 dark:border-gray-600 bg-gray-100 dark:bg-gray-700 text-left text-xs sm:text-sm font-semibold text-gray-600 dark:text-gray-300 uppercase tracking-wider">Updated At</th>
+            <th class="px-5 py-3 border-b-2 border-gray-200 dark:border-gray-600 bg-gray-100 dark:bg-gray-700 text-left text-xs sm:text-sm font-semibold text-gray-600 dark:text-gray-300 uppercase tracking-wider">Actions</th>
           </tr>
         </thead>
         <tbody>
           @forelse ($globalpresences as $globalpresence)
-            <tr class="font-medium">
-              <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm text-gray-900">
+            <tr class="hover:bg-gray-50 dark:hover:bg-gray-700 transition duration-300">
+              <td class="px-5 py-5 border-b border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 text-sm text-gray-900 dark:text-gray-300">
                 {{ $globalpresence->countryName }}
               </td>
-              <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm text-gray-900">
+              <td class="px-5 py-5 border-b border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 text-sm text-gray-900 dark:text-gray-300">
                 {{ $globalpresence->latitude }}
               </td>
-              <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm text-gray-900">
+              <td class="px-5 py-5 border-b border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 text-sm text-gray-900 dark:text-gray-300">
                 {{ $globalpresence->longitude }}
               </td>
-              <td class="px-5 py-8 border-b border-gray-200 bg-white text-sm flex gap-3">
-                <a href="{{ route('globalpresences.edit', $globalpresence->id) }}" class="inline-block px-4 py-2 bg-gray-500 text-white font-bold rounded-lg shadow-md hover:bg-gray-700">Edit</a>
+              <td class="px-5 py-5 border-b border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 text-sm text-gray-900 dark:text-gray-300">
+                {{ $globalpresence->updated_at }}
+              </td>
+              <td class="px-5 py-5 border-b border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 text-sm flex gap-3">
+                <a href="{{ route('globalpresences.edit', $globalpresence->id) }}" class="inline-flex items-center px-3 py-1 bg-gradient-to-r from-gray-400 to-gray-500 text-white text-xs sm:text-sm font-semibold rounded-md shadow-md hover:from-gray-500 hover:to-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 transition duration-300">Edit</a>
                 <form action="{{ route('globalpresences.destroy', $globalpresence->id) }}" method="POST" class="inline-block">
                   @csrf
                   @method('DELETE')
-                  <button type="submit" class="inline-block px-4 py-2 bg-red-500 text-white font-bold rounded-lg shadow-md hover:bg-red-700" onclick="return confirm('Are you sure you want to delete this global presence?')">Delete</button>
+                  <button type="submit" class="inline-flex items-center px-3 py-1 bg-gradient-to-r from-red-500 to-red-600 text-white text-xs sm:text-sm font-semibold rounded-md shadow-md hover:from-red-600 hover:to-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition duration-300" onclick="return confirm('Are you sure you want to delete this global presence?')">Delete</button>
                 </form>
               </td>
             </tr>
           @empty
             <tr>
-                <td colspan="4" class="text-center py-10 text-gray-500 dark:text-gray-400 font-bold">
-                    No presence found!
-                    <img src="{{ asset('storage/DrawKit-onlineshopping-Illustration-10.svg') }}" alt="No achievement found" class="mx-auto mb-4 h-80 w-80">
-                </td>
+              <td colspan="4" class="text-center py-10 text-gray-500 dark:text-gray-400 font-bold">
+                No presence found!
+                <img src="{{ asset('storage/DrawKit-onlineshopping-Illustration-10.svg') }}" alt="No presence found" class="mx-auto mb-4 h-80 w-80">
+              </td>
             </tr>
           @endforelse
         </tbody>

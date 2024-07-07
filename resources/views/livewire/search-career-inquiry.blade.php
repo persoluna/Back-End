@@ -1,80 +1,83 @@
 <div>
-    <div>
-        <input wire:model.live.debounce.500ms="search" type="text" placeholder="Search career inquiries..."
-            class="w-full rounded-md border border-gray-200 px-4 py-2">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 mb-8">
+
+            <div class="flex flex-col sm:flex-row items-center justify-between mb-4 space-y-4 sm:space-y-0">
+                <div class="w-full sm:w-1/2">
+                    <input wire:model.live.debounce.500ms="search" type="text" placeholder="Search career inquiries..."
+                        class="w-full rounded-md border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 px-4 py-2 text-gray-900 dark:text-gray-200 focus:ring-2 focus:ring-indigo-500">
+                </div>
+            </div>
+
+            <div class="overflow-x-auto">
+                <table class="min-w-full leading-normal mt-8">
+                    <thead>
+                        <tr>
+                            <th class="px-5 py-3 border-b-2 border-gray-200 dark:border-gray-600 bg-gray-100 dark:bg-gray-700 text-left text-xs sm:text-sm font-semibold text-gray-600 dark:text-gray-300 uppercase tracking-wider">
+                                Name
+                            </th>
+                            <th class="px-5 py-3 border-b-2 border-gray-200 dark:border-gray-600 bg-gray-100 dark:bg-gray-700 text-left text-xs sm:text-sm font-semibold text-gray-600 dark:text-gray-300 uppercase tracking-wider">
+                                Mobile no.
+                            </th>
+                            <th class="px-5 py-3 border-b-2 border-gray-200 dark:border-gray-600 bg-gray-100 dark:bg-gray-700 text-left text-xs sm:text-sm font-semibold text-gray-600 dark:text-gray-300 uppercase tracking-wider">
+                                Email
+                            </th>
+                            <th class="px-5 py-3 border-b-2 border-gray-200 dark:border-gray-600 bg-gray-100 dark:bg-gray-700 text-left text-xs sm:text-sm font-semibold text-gray-600 dark:text-gray-300 uppercase tracking-wider">
+                                Actions
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @forelse ($careerinquiries as $careerinquiry)
+                            <tr class="hover:bg-gray-50 dark:hover:bg-gray-700 transition duration-300">
+                                <td class="px-5 py-5 border-b border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 text-sm text-gray-900 dark:text-gray-300 truncate">
+                                    {{ $careerinquiry->name }}
+                                </td>
+                                <td class="px-5 py-5 border-b border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 text-sm text-gray-900 dark:text-gray-300">
+                                    {{ $careerinquiry->mobile_number }}
+                                </td>
+                                <td class="px-5 py-5 border-b border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 text-sm text-gray-900 dark:text-gray-300">
+                                    {{ $careerinquiry->email }}
+                                </td>
+                                <td class="px-5 py-5 border-b border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 text-sm">
+                                    <div class="flex flex-col sm:flex-row gap-2">
+                                        <a href="{{ route('careerinquiries.show', $careerinquiry->id) }}"
+                                            class="inline-flex items-center px-3 py-1 bg-gradient-to-r from-blue-500 to-blue-600 text-white text-xs sm:text-sm font-semibold rounded-md shadow-md hover:from-blue-600 hover:to-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition duration-300">View</a>
+                                        <form action="{{ route('careerinquiries.destroy', $careerinquiry->id) }}" method="POST" class="inline-block">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="inline-flex items-center px-3 py-1 bg-gradient-to-r from-red-500 to-red-600 text-white text-xs sm:text-sm font-semibold rounded-md shadow-md hover:from-red-600 hover:to-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition duration-300" onclick="return confirm('Are you sure you want to delete this career inquiry?')">Delete</button>
+                                        </form>
+                                        <a href="{{ route('careerinquiries.download', $careerinquiry->id) }}"
+                                           class="inline-flex items-center px-3 py-1 bg-gradient-to-r from-blue-500 to-blue-600 text-white text-xs sm:text-sm font-semibold rounded-md shadow-md hover:from-blue-600 hover:to-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition duration-300">
+                                           Download Resume
+                                        </a>
+                                        <a href="{{ route('careerinquiries.view', $careerinquiry->id) }}"
+                                           class="inline-flex items-center px-3 py-1 bg-gradient-to-r from-green-500 to-green-600 text-white text-xs sm:text-sm font-semibold rounded-md shadow-md hover:from-green-600 hover:to-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition duration-300"
+                                           target="_blank">
+                                           View Resume
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="4" class="text-center py-10 text-gray-500 dark:text-gray-400">
+                                    <p class="font-bold mb-4">No inquiry found for "{{ $search }}"!</p>
+                                    <img src="{{ asset('storage/DrawKit-onlineshopping-Illustration-10.svg') }}" alt="No inquiry found" class="mx-auto h-40 w-40 sm:h-60 sm:w-60">
+                                </td>
+                            </tr>
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
+
+            @if ($careerinquiries->count() > 0)
+                <div class="mt-4">
+                    {{ $careerinquiries->links() }}
+                </div>
+            @endif
+        </div>
     </div>
-
-    <table class="min-w-full leading-normal mt-8">
-        <thead>
-            <tr>
-                <th
-                    class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-nowrap text-left text-[13px] sm:text-[15px] font-bold text-gray-600 uppercase tracking-wider">
-                    Name
-                </th>
-                <th
-                    class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-nowrap text-left text-[13px] sm:text-[15px] font-semibold text-gray-600 uppercase tracking-wider">
-                    Mobile no.
-                </th>
-                <th
-                    class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-nowrap text-left text-[13px] sm:text-[15px] font-semibold text-gray-600 uppercase tracking-wider">
-                    Email
-                </th>
-                <th
-                    class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-nowrap text-left text-[13px] sm:text-[15px] font-semibold text-gray-600 uppercase tracking-wider">
-                    Actions
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            @forelse ($careerinquiries as $careerinquiry)
-                <tr class="font-medium">
-                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                        {{ $careerinquiry->name }}
-                    </td>
-                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                        {{ $careerinquiry->mobile_number }}
-                    </td>
-                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                        {{ $careerinquiry->email }}
-                    </td>
-                    <td class="px-5 py-8 border-b border-gray-200 bg-white flex text-sm gap-3">
-                        <a href="{{ route('careerinquiries.show', $careerinquiry->id) }}"
-                            class="rounded-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">View</a>
-
-                        <form action="{{ route('careerinquiries.destroy', $careerinquiry->id) }}" method="POST" class="inline-block">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="rounded-full bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
-                                onclick="return confirm('Are you sure you want to delete this career inquiry?')">Delete</button>
-                        </form>
-
-                        <a href="{{ route('careerinquiries.download', $careerinquiry->id) }}"
-                           class="rounded-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                           Download Resume
-                        </a>
-
-                        <a href="{{ route('careerinquiries.view', $careerinquiry->id) }}"
-                           class="rounded-full bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
-                           target="_blank">
-                           View Resume
-                        </a>
-                    </td>
-                </tr>
-            @empty
-                <tr>
-                    <td colspan="5" class="text-center pt-10 text-gray-500 dark:text-gray-400 font-bold">
-                        No inquiry found for "{{ $search }}"!
-                        <img src="{{ asset('storage/DrawKit-onlineshopping-Illustration-10.svg') }}" alt="No career found" class="mx-auto mb-4 h-80 w-80">
-                    </td>
-                </tr>
-            @endforelse
-        </tbody>
-    </table>
-
-    {{-- * Pagination Links for Career Inquiries --}}
-    @if ($careerinquiries->count() > 0)
-        <div class="mt-4">
-            {{ $careerinquiries->links() }} </div>
-    @endif
 </div>
 

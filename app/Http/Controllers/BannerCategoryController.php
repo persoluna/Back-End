@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\BannerCategory;
 use Illuminate\Http\Request;
+use App\Models\Banner;
 
 class BannerCategoryController extends Controller
 {
@@ -74,7 +75,7 @@ class BannerCategoryController extends Controller
     public function destroy(BannerCategory $bannercategory)
     {
         // Update associated banners to have a null banner category value
-        $bannercategory->services()->update(['category_id' => null]);
+        $bannercategory->banners()->update(['category_id' => null]);
 
         $bannercategory->delete();
 
