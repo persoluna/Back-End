@@ -19,6 +19,7 @@ class Banner extends Model
         'banner_image',
         'alt_tag',
         'status',
+        'position',
     ];
 
     public function bannercategory(): BelongsTo

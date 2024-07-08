@@ -85,6 +85,13 @@ class BannerController extends Controller
             'alt_tag' => 'nullable|max:255',
         ]);
 
+        // Get the highest position for the selected category
+        $highestPosition = Banner::where('category_id', $validatedData['category_id'])
+            ->max('position');
+
+        // Set the new banner's position
+        $validatedData['position'] = $highestPosition ? $highestPosition + 1 : 1;
+
         // Retrieve the list of uploaded image URLs
         $uploadedImageUrls = json_decode($request->input('uploadedImages'), true);
 
@@ -134,7 +141,7 @@ class BannerController extends Controller
     public function update(Request $request, $id)
     {
         $validatedData = $request->validate([
-            'category_id' => 'nullable',
+            'category_id' => 'required',
             'title' => 'required|max:255',
             'sub_title' => 'nullable|max:255',
             'description' => 'nullable',
@@ -143,6 +150,7 @@ class BannerController extends Controller
         ]);
 
         $banner = Banner::findOrFail($id);
+        $oldCategoryId = $banner->category_id;
 
         // Retrieve the list of uploaded image URLs
         $uploadedImageUrls = json_decode($request->input('uploadedImages'), true) ?? [];
@@ -169,6 +177,21 @@ class BannerController extends Controller
             $validatedData['banner_image'] = $filename;
         }
 
+        // Check if the category has changed
+        if ($oldCategoryId != $validatedData['category_id']) {
+            // Adjust the position in the old category
+            Banner::where('category_id', $oldCategoryId)
+                ->where('position', '>', $banner->position)
+                ->decrement('position');
+
+            // Get the highest position in the new category
+            $highestPosition = Banner::where('category_id', $validatedData['category_id'])
+                ->max('position');
+
+            // Set the new position
+            $validatedData['position'] = $highestPosition ? $highestPosition + 1 : 1;
+        }
+
         $banner->update($validatedData);
 
         return redirect()->route('banners.index')->with('success', 'Banner updated successfully.');
@@ -185,7 +208,16 @@ class BannerController extends Controller
         // Detect and delete images in the description
         $this->deleteImagesFromDescription($banner->description);
 
+        // Get the category ID and position before deleting
+        $categoryId = $banner->category_id;
+        $position = $banner->position;
+
         $banner->delete();
+
+        // Adjust the positions of the remaining banners in the same category
+        Banner::where('category_id', $categoryId)
+            ->where('position', '>', $position)
+            ->decrement('position');
 
         return redirect()->route('banners.index')->with('success', 'Banner deleted successfully.');
     }

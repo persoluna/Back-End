@@ -22,10 +22,32 @@
             </div>
         </div>
 
+        <div class="pl-2 space-y-4 mb-4">
+            <button id="categoryDropdown" data-dropdown-toggle="categoryDropdownMenu" class="text-white bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
+                Category
+                <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
+                </svg>
+            </button>
+
+            <div id="categoryDropdownMenu" class="hidden bg-white dark:bg-gray-700 divide-y divide-gray-100 rounded-lg shadow w-44">
+                <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="categoryDropdown">
+                    @foreach ($categories as $category)
+                        <li>
+                            <a href="{{ route('banners.index', ['category' => $category->id]) }}" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white {{ $selectedCategory == $category->id ? 'bg-gray-100 dark:bg-gray-600 dark:text-white' : '' }}">{{ $category->name }}</a>
+                        </li>
+                    @endforeach
+                </ul>
+            </div>
+        </div>
+
         <div class="overflow-x-auto">
             <table class="min-w-full leading-normal mt-8">
                 <thead>
                     <tr>
+                        <th class="px-5 py-3 border-b-2 border-gray-200 dark:border-gray-600 bg-gray-100 dark:bg-gray-700 text-left text-xs sm:text-sm font-semibold text-gray-600 dark:text-gray-300 uppercase tracking-wider">
+                            Position
+                        </th>
                         <th class="px-5 py-3 border-b-2 border-gray-200 dark:border-gray-600 bg-gray-100 dark:bg-gray-700 text-left text-xs sm:text-sm font-semibold text-gray-600 dark:text-gray-300 uppercase tracking-wider">
                             Title
                         </th>
@@ -46,6 +68,30 @@
                 <tbody>
                     @forelse ($banners as $banner)
                         <tr class="hover:bg-gray-50 dark:hover:bg-gray-700 transition duration-300">
+                            <td class="px-5 py-5 border-b border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 text-sm">
+        <div class="flex items-center">
+            @if ($editingPosition === $banner->id)
+                <input
+                    wire:model.lazy="newPosition"
+                    type="number"
+                    min="1"
+                    class="w-20 px-2 py-1 border rounded mr-2"
+                    wire:keydown.enter="updatePosition({{ $banner->id }})"
+                    wire:blur="updatePosition({{ $banner->id }})"
+                >
+            @else
+                <span class="mr-2">{{ $banner->position }}</span>
+                <button
+                    wire:click="startEditingPosition({{ $banner->id }})"
+                    class="text-blue-500 hover:text-blue-600"
+                >
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
+                    </svg>
+                </button>
+            @endif
+        </div>
+    </td>
                             <td class="px-5 py-5 border-b border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 text-sm text-gray-900 dark:text-gray-300">
                                 {{ $banner->title }}
                             </td>

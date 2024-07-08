@@ -49,7 +49,6 @@
         </main>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/apexcharts/3.49.1/apexcharts.min.js"></script>
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
     {{-- ! Livewire Scripts --}}
     @livewireScripts
