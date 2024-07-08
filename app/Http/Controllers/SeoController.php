@@ -77,6 +77,7 @@ class SeoController extends Controller
         $topBrowsers = Analytics::fetchTopBrowsers($period, 6);
         $getVisitorsAndPageViews = Analytics::fetchVisitorsAndPageViews($period, 5);
         $getTopOperatingSystems = Analytics::fetchTopOperatingSystems($period, 5);
-        return view('SEO.index', compact('topBrowsers', 'getVisitorsAndPageViews', 'getTopOperatingSystems'));
+        $topCountries = Analytics::fetchTopCountries($period, 100);
+        return view('SEO.index', compact('topBrowsers', 'getVisitorsAndPageViews', 'getTopOperatingSystems', 'topCountries'));
     }
 }

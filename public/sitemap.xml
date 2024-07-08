@@ -150,4 +150,34 @@
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
+  <url>
+    <loc>http://localhost:8000/about</loc>
+    <lastmod>2024-07-08T06:07:53+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>http://localhost:8000/globalpresences</loc>
+    <lastmod>2024-07-08T06:07:53+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>http://localhost:8000/infrastructures</loc>
+    <lastmod>2024-07-08T06:07:53+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>http://localhost:8000/qualitycontrols</loc>
+    <lastmod>2024-07-08T06:07:53+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>http://localhost:8000/team</loc>
+    <lastmod>2024-07-08T06:07:53+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
 </urlset>

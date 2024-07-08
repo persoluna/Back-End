@@ -60,6 +60,11 @@ class SitemapController extends Controller
         });
         $urls = array_merge($urls, $blogUrls->all());
 
+        $urls[] = url("/about");
+        $urls[] = url("/globalpresences");
+        $urls[] = url("/infrastructures");
+        $urls[] = url("/qualitycontrols");
+        $urls[] = url("/team");
         return $urls;
     }
 

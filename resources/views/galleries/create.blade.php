@@ -12,7 +12,6 @@
         </header>
         <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 mb-8">
             <div class="mb-8 space-y-3">
-                <h2 class="text-3xl sm:text-4xl font-semibold text-start">Create Gallery</h2>
                 <p class="text-gray-500 dark:text-gray-400 text-start text-xl">Enter the Gallery details below.</p>
             </div>
 

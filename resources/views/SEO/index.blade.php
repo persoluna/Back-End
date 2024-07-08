@@ -1,6 +1,7 @@
 <x-app-layout>
     <div class="grid sm:grid-cols-6 overflow-hidden">
 
+        <!-- Left Column: Browser Table -->
         <div class="lg:col-span-2 col-span-6 pt-8 pl-2">
             <div class="sm:col-span-1 md:col-span-2 lg:col-span-4 xl:col-span-1 overflow-hidden shadow-md dark:shadow-lg-dark">
                 <div class="h-full card">
@@ -8,6 +9,10 @@
                         <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
                             <div class="inline-block py-2 min-w-full sm:px-6 lg:px-8">
                                 <div class="overflow-hidden">
+                                    <!-- Heading for the Browser Table -->
+                                    <h2 class="text-2xl ml-4 font-bold text-gray-800 dark:text-gray-200 mb-4">
+                                        Top Browsers by Page Views
+                                    </h2>
                                     <table class="min-w-full">
                                         <thead class="bg-gray-50 dark:bg-gray-700">
                                             <tr>
@@ -40,10 +45,16 @@
             </div>
         </div>
 
+        <!-- Right Column: SVG Map -->
         <div class="sm:h-[500px] pt-20 sm:col-span-4 hidden lg:block">
             <div id="name" class="fixed bg-white w-auto opacity-0 rounded-sm border-[1px] rounded-xl border-black p-2 text-xl">
                 <p id="namep">Name</p>
             </div>
+
+            <!-- Heading for the Map -->
+            <h2 class="text-2xl ml-12 font-bold text-gray-800 dark:text-gray-200 mb-4">
+                User Distribution by Country :
+            </h2>
             <svg id="allSvg" baseprofile="tiny" fill="#ececec" stroke="black" stroke-linecap="round" stroke-linejoin="round"
                 version="1.2" viewbox="0 0 2000 857" xmlns="http://www.w3.org/2000/svg">
                 <path class="allPaths"
@@ -1619,31 +1630,44 @@
 
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <script>
-        let userCounts = {}; // Object to store user counts for each country
-        const colorScale = ['#ffffcc', '#ffeda0', '#fed976', '#feb24c', '#fd8d3c', '#fc4e2a', '#e31a1c', '#b10026'];
+        let userCounts = @json($topCountries); // Object to store user counts for each country
+        const colorScale = [
+            '#feedde', '#fdd0a2', '#fdae6b', '#fd8d3c', '#f16913',
+            '#d94801', '#a63603', '#7f2704', '#4a0b0e', '#3c0f0b'
+        ];
+
         let maxCount = 0;
+
+        function transformToUserCountsArray(data) {
+            let result = {};
+            data.forEach(item => {
+                result[item.country] = item.screenPageViews;
+            });
+            return result;
+        }
 
         // Fetch user counts from the server when the page loads
         window.addEventListener('DOMContentLoaded', () => {
-            fetchUserCounts()
-                .then(counts => {
-                    userCounts = counts;
-                    maxCount = Math.max(...Object.values(userCounts));
-                    updateCountryColors();
-                    addEventListeners();
-                })
-                .catch(error => {
-                    console.error('Error fetching user counts:', error);
-                });
+            userCounts = transformToUserCountsArray(userCounts); // Transform the data
+            console.log('Transformed User Counts:', userCounts);
+            maxCount = Math.max(...Object.values(userCounts));
+            updateCountryColors();
+            addEventListeners();
         });
 
         function updateCountryColors() {
+            const minCount = Math.min(...Object.values(userCounts));
+            const logMaxCount = Math.log(maxCount + 1); // To avoid log(0) issue
+            const logMinCount = Math.log(minCount + 1);
+
             document.querySelectorAll(".allPaths").forEach(e => {
                 const countryName = e.id;
                 const userCount = userCounts[countryName] || 0;
+                const logUserCount = Math.log(userCount + 1);
 
                 if (userCount > 0) {
-                    const colorIndex = Math.floor((userCount / maxCount) * (colorScale.length - 1));
+                    // Scale user count logarithmically
+                    const colorIndex = Math.floor(((logUserCount - logMinCount) / (logMaxCount - logMinCount)) * (colorScale.length - 1));
                     const color = colorScale[colorIndex];
                     e.style.fill = color;
                 } else {
@@ -1654,8 +1678,6 @@
 
         function addEventListeners() {
             document.querySelectorAll(".allPaths").forEach(e => {
-                e.setAttribute('class', `allPaths ${e.id}`);
-
                 e.addEventListener("mouseover", function () {
                     window.onmousemove = function (j) {
                         const x = j.clientX;
@@ -1663,7 +1685,7 @@
                         document.getElementById('name').style.top = y - 60 + 'px';
                         document.getElementById('name').style.left = x + 10 + 'px';
                     };
-                    e.style.fill = "pink";
+                    e.style.fill = "white";
                     document.getElementById("name").style.opacity = 1;
 
                     const countryName = e.id;
@@ -1687,7 +1709,7 @@
             const userCount = userCounts[countryName] || 0;
 
             if (userCount > 0) {
-                const colorIndex = Math.floor((userCount / maxCount) * (colorScale.length - 1));
+                const colorIndex = Math.floor(((Math.log(userCount + 1) - Math.log(Math.min(...Object.values(userCounts)) + 1)) / (Math.log(maxCount + 1) - Math.log(Math.min(...Object.values(userCounts)) + 1))) * (colorScale.length - 1));
                 const color = colorScale[colorIndex];
                 element.style.fill = color;
             } else {
@@ -1716,95 +1738,94 @@
 
         // Counter animation
         document.addEventListener('DOMContentLoaded', function() {
-        const counters = document.querySelectorAll('.counter');
-        const speed = 100; // The lower the slower
+            const counters = document.querySelectorAll('.counter');
+            const speed = 100; // The lower the slower
 
-        counters.forEach(counter => {
-            const updateCount = () => {
-                const target = +counter.getAttribute('data-target');
-                const count = +counter.innerText;
+            counters.forEach(counter => {
+                const updateCount = () => {
+                    const target = +counter.getAttribute('data-target');
+                    const count = +counter.innerText;
 
-                // Lower increment amounts for slower increase
-                const inc = Math.ceil(target / speed);
+                    // Lower increment amounts for slower increase
+                    const inc = Math.ceil(target / speed);
 
-                if (count < target) {
-                    counter.innerText = count + inc;
-                    setTimeout(updateCount, 25);
-                } else {
-                    counter.innerText = target;
-                }
-            };
+                    if (count < target) {
+                        counter.innerText = count + inc;
+                        setTimeout(updateCount, 25);
+                    } else {
+                        counter.innerText = target;
+                    }
+                };
 
-            updateCount();
+                updateCount();
+            });
         });
-        });
 
+        // Top Operating Systems Pie Chart
+        var operatingSystems = @json($getTopOperatingSystems);
+        const getChartOptions = (data) => {
+            const series = data.map(item => item.screenPageViews);
+            const labels = data.map(item => item.operatingSystem);
 
-      // Top Top OperatingSystems Pie Chart
-      var operatingSystems = @json($getTopOperatingSystems);
-      const getChartOptions = (data) => {
-      const series = data.map(item => item.screenPageViews);
-      const labels = data.map(item => item.operatingSystem);
-
-      return {
-        series: series,
-        colors: ["#1C64F2", "#16BDCA", "#9061F9"],
-        chart: {
-          height: 420,
-          width: "100%",
-          type: "pie",
-        },
-        stroke: {
-          colors: ["white"],
-          lineCap: "",
-        },
-        plotOptions: {
-          pie: {
-            labels: {
-              show: true,
-            },
-            size: "100%",
-            dataLabels: {
-              offset: -25
+            return {
+                series: series,
+                colors: ["#1C64F2", "#16BDCA", "#9061F9"],
+                chart: {
+                    height: 420,
+                    width: "100%",
+                    type: "pie",
+                },
+                stroke: {
+                    colors: ["white"],
+                    lineCap: "",
+                },
+                plotOptions: {
+                    pie: {
+                        labels: {
+                            show: true,
+                        },
+                        size: "100%",
+                        dataLabels: {
+                            offset: -25
+                        }
+                    },
+                },
+                labels: labels,
+                dataLabels: {
+                    enabled: true,
+                    style: {
+                        fontFamily: "Inter, sans-serif",
+                    },
+                },
+                legend: {
+                    position: "bottom",
+                    fontFamily: "Inter, sans-serif",
+                },
+                yaxis: {
+                    labels: {
+                        formatter: function (value) {
+                            return value + "  Views";
+                        },
+                    },
+                },
+                xaxis: {
+                    labels: {
+                        formatter: function (value) {
+                            return value + "%";
+                        },
+                    },
+                    axisTicks: {
+                        show: false,
+                    },
+                    axisBorder: {
+                        show: false,
+                    },
+                },
             }
-          },
-        },
-        labels: labels,
-        dataLabels: {
-          enabled: true,
-          style: {
-            fontFamily: "Inter, sans-serif",
-          },
-        },
-        legend: {
-          position: "bottom",
-          fontFamily: "Inter, sans-serif",
-        },
-        yaxis: {
-          labels: {
-            formatter: function (value) {
-              return value + "  Views"
-            },
-          },
-        },
-        xaxis: {
-          labels: {
-            formatter: function (value) {
-              return value  + "%"
-            },
-          },
-          axisTicks: {
-            show: false,
-          },
-          axisBorder: {
-            show: false,
-          },
-        },
-      }
-    }
-    if (document.getElementById("pie-chart") && typeof ApexCharts !== 'undefined') {
-    const chart = new ApexCharts(document.getElementById("pie-chart"), getChartOptions(operatingSystems));
-    chart.render();
-    }
+        }
+        if (document.getElementById("pie-chart") && typeof ApexCharts !== 'undefined') {
+            const chart = new ApexCharts(document.getElementById("pie-chart"), getChartOptions(operatingSystems));
+            chart.render();
+        }
     </script>
 </x-app-layout>
