@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>http://localhost:8000/products</loc>
-    <lastmod>2024-07-06T16:32:26+00:00</lastmod>
+    <lastmod>2024-07-08T09:26:41+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -14,170 +14,182 @@
   </url>
   <url>
     <loc>http://localhost:8000/products/product-2</loc>
-    <lastmod>2024-07-06T16:32:26+00:00</lastmod>
+    <lastmod>2024-07-08T09:26:41+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>http://localhost:8000/products/product-3</loc>
-    <lastmod>2024-07-06T16:32:26+00:00</lastmod>
+    <lastmod>2024-07-08T09:26:41+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>http://localhost:8000/categories</loc>
-    <lastmod>2024-07-06T16:32:26+00:00</lastmod>
+    <lastmod>2024-07-08T09:26:41+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>http://localhost:8000/categories/001</loc>
-    <lastmod>2024-07-06T16:32:26+00:00</lastmod>
+    <lastmod>2024-07-08T09:26:41+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>http://localhost:8000/categories/002</loc>
-    <lastmod>2024-07-06T16:32:26+00:00</lastmod>
+    <lastmod>2024-07-08T09:26:41+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>http://localhost:8000/categories/003</loc>
-    <lastmod>2024-07-06T16:32:26+00:00</lastmod>
+    <lastmod>2024-07-08T09:26:41+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>http://localhost:8000/subcategories</loc>
-    <lastmod>2024-07-06T16:32:26+00:00</lastmod>
+    <lastmod>2024-07-08T09:26:41+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>http://localhost:8000/sub-categories/sub-001</loc>
-    <lastmod>2024-07-06T16:32:26+00:00</lastmod>
+    <lastmod>2024-07-08T09:26:41+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>http://localhost:8000/sub-categories/sub-002</loc>
-    <lastmod>2024-07-06T16:32:26+00:00</lastmod>
+    <lastmod>2024-07-08T09:26:41+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>http://localhost:8000/sub-categories/sub-003</loc>
-    <lastmod>2024-07-06T16:32:26+00:00</lastmod>
+    <lastmod>2024-07-08T09:26:41+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>http://localhost:8000/services</loc>
-    <lastmod>2024-07-06T16:32:26+00:00</lastmod>
+    <lastmod>2024-07-08T09:26:41+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.2</priority>
   </url>
   <url>
     <loc>http://localhost:8000/services/service-1</loc>
-    <lastmod>2024-07-06T16:32:26+00:00</lastmod>
+    <lastmod>2024-07-08T09:26:41+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>http://localhost:8000/services/service-2</loc>
-    <lastmod>2024-07-06T16:32:26+00:00</lastmod>
+    <lastmod>2024-07-08T09:26:41+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>http://localhost:8000/services/service-3</loc>
-    <lastmod>2024-07-06T16:32:26+00:00</lastmod>
+    <lastmod>2024-07-08T09:26:41+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>http://localhost:8000/service-categories</loc>
-    <lastmod>2024-07-06T16:32:26+00:00</lastmod>
+    <lastmod>2024-07-08T09:26:41+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>http://localhost:8000/service-categories/s-category-1</loc>
-    <lastmod>2024-07-06T16:32:26+00:00</lastmod>
+    <lastmod>2024-07-08T09:26:41+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>http://localhost:8000/service-categories/s-category-2</loc>
-    <lastmod>2024-07-06T16:32:26+00:00</lastmod>
+    <lastmod>2024-07-08T09:26:41+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>http://localhost:8000/service-categories/s-category-3</loc>
-    <lastmod>2024-07-06T16:32:26+00:00</lastmod>
+    <lastmod>2024-07-08T09:26:41+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>http://localhost:8000/blogs</loc>
-    <lastmod>2024-07-06T16:32:26+00:00</lastmod>
+    <lastmod>2024-07-08T09:26:41+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>http://localhost:8000/blogs/blog-1</loc>
-    <lastmod>2024-07-06T16:32:26+00:00</lastmod>
+    <lastmod>2024-07-08T09:26:41+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>http://localhost:8000/blogs/blog-2</loc>
-    <lastmod>2024-07-06T16:32:26+00:00</lastmod>
+    <lastmod>2024-07-08T09:26:41+00:00</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>http://localhost:8000/blogs/blog-3</loc>
-    <lastmod>2024-07-06T16:32:26+00:00</lastmod>
+    <lastmod>2024-07-08T09:26:41+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>http://localhost:8000/services/d3ed</loc>
-    <lastmod>2024-07-08T03:33:59+00:00</lastmod>
+    <lastmod>2024-07-08T09:26:41+00:00</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
     <loc>http://localhost:8000/about</loc>
-    <lastmod>2024-07-08T06:07:53+00:00</lastmod>
+    <lastmod>2024-07-08T09:26:41+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>http://localhost:8000/globalpresences</loc>
-    <lastmod>2024-07-08T06:07:53+00:00</lastmod>
+    <lastmod>2024-07-08T09:26:41+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>http://localhost:8000/infrastructures</loc>
-    <lastmod>2024-07-08T06:07:53+00:00</lastmod>
+    <lastmod>2024-07-08T09:26:41+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>http://localhost:8000/qualitycontrols</loc>
-    <lastmod>2024-07-08T06:07:53+00:00</lastmod>
+    <lastmod>2024-07-08T09:26:41+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>http://localhost:8000/team</loc>
-    <lastmod>2024-07-08T06:07:53+00:00</lastmod>
+    <lastmod>2024-07-08T09:26:41+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>http://localhost:8000/products/eqwe</loc>
+    <lastmod>2024-07-08T09:26:41+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.1</priority>
+  </url>
+  <url>
+    <loc>http://localhost:8000/blogs/uyfuy</loc>
+    <lastmod>2024-07-08T09:31:13+00:00</lastmod>
+    <changefreq>always</changefreq>
+    <priority>1.0</priority>
   </url>
 </urlset>

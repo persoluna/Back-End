@@ -3,6 +3,8 @@
         <header class="bg-gradient-to-r from-indigo-500 to-purple-600 rounded-lg shadow-lg p-6 mb-8">
             <h1 class="text-4xl font-bold text-white mb-4">Edit Title</h1>
             <nav class="flex items-center space-x-4">
+                <a href="{{ route('dashboard') }}" class="text-white hover:text-gray-200">Home</a>
+                <span class="text-white">/</span>
                 @foreach($breadcrumbs as $breadcrumb)
                     @if(!$loop->last)
                         <a href="{{ $breadcrumb['url'] }}" class="text-white hover:text-gray-200">{{ $breadcrumb['name'] }}</a>
@@ -14,9 +16,6 @@
             </nav>
         </header>
         <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 mb-8">
-            <div class="mb-8 space-y-3">
-                <h2 class="text-3xl font-semibold">Edit Title</h2>
-            </div>
 
         <!-- error message -->
         @if (session('success'))

@@ -1,20 +1,23 @@
 <x-app-layout>
-    <div class="bg-white min-h-screen pt-12">
-        @if (isset($careerinquiry))
-            <x-breadcrumb :breadcrumbs="[
-                ['name' => 'Career Inquiries', 'url' => route('careerinquiries.index')],
-                ['name' => $careerinquiry->title, 'url' => route('careerinquiries.show', $careerinquiry->id)],
-            ]" />
-        @else
-            <x-breadcrumb :breadcrumbs="[
-                ['name' => 'Home', 'url' => route('dashboard')],
-            ]" />
-        @endif
-        <div class="mb-8 space-y-3">
-            <h1 class="text-3xl font-semibold text-center sm:text-left sm:pl-[80px] pt-[90px]">Career Inquiry Details
-            </h1>
-        </div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <header class="bg-gradient-to-r from-indigo-500 to-purple-600 rounded-lg shadow-lg p-6 mb-8">
+            <h1 class="text-4xl font-bold text-white mb-4">Career Inquiry Details</h1>
+            @if (isset($careerinquiry))
+                <nav class="flex items-center space-x-4">
+                    <a href="{{ route('dashboard') }}" class="text-white hover:text-gray-200">Home</a>
+                    <span class="text-white">/</span>
+                    <a href="{{ route('careerinquiries.index') }}" class="text-white hover:text-gray-200">Career Inquiries</a>
+                    <span class="text-white">/</span>
+                    <a href="{{ route('careerinquiries.show', $careerinquiry->id) }}" class="text-white hover:text-gray-200">{{ $careerinquiry->name }}</a>
+                </nav>
+            @else
+                <nav class="flex items-center space-x-4">
+                    <a href="{{ route('dashboard') }}" class="text-white hover:text-gray-200">Home</a>
+                </nav>
+            @endif
+        </header>
 
+    <div class="bg-white min-h-screen pt-4">
         <div class="m-[80px] justify-center items-start">
             <div class="grid md:grid-cols-12 gap-6">
                 <div class="md:col-span-6">

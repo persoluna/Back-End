@@ -12,7 +12,6 @@
         </header>
         <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 mb-8">
             <div class="mb-8 space-y-3">
-                <h2 class="text-3xl font-semibold">Edit FAQ</h2>
                 <p class="text-gray-500 dark:text-gray-400 text-xl">Update the FAQ details.</p>
             </div>
 

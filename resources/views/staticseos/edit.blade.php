@@ -1,17 +1,14 @@
 <x-app-layout>
-    <div class="bg-white min-h-[800px] pt-12">
-        @if (isset($staticseo))
-            <x-breadcrumb :breadcrumbs="[
-                ['name' => 'Update staticseo', 'url' => route('staticseos.index')],
-            ]" />
-        @else
-            <x-breadcrumb :breadcrumbs="[['name' => 'Home', 'url' => route('dashboard')]]" />
-        @endif
-
-        <!-- staticseo edit title -->
-        <div class="mb-8 space-y-3">
-            <h1 class="text-3xl font-semibold text-center sm:text-left sm:pl-[80px] pt-[90px]">Edit Static SEO</h1>
-        </div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <header class="bg-gradient-to-r from-indigo-500 to-purple-600 rounded-lg shadow-lg p-6 mb-8">
+            <h1 class="text-4xl font-bold text-white mb-4">Edit Static SEO</h1>
+            <nav class="flex items-center space-x-4">
+                <a href="{{ route('dashboard') }}" class="text-white hover:text-gray-200">Home</a>
+                <span class="text-white">/</span>
+                <a href="{{ route('staticseos.index') }}" class="text-white hover:text-gray-200">Static SEO</a>
+            </nav>
+        </header>
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 mb-8">
 
         <!-- error message -->
         @if (session('success'))

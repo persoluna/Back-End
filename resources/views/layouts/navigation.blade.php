@@ -40,7 +40,7 @@
 <aside id="logo-sidebar"
     class="fixed top-0 left-0 z-40 w-64 h-screen pt-20 transition-transform -translate-x-full bg-white border-r border-gray-200 sm:translate-x-0 dark:bg-gray-800 dark:border-gray-700 flex flex-col"
     aria-label="Sidebar">
-    <div class="h-full px-3 pb-4 pt-4 overflow-y-auto bg-white dark:bg-gray-900 flex-grow">
+    <div id="sidebar-content" class="h-full px-3 pb-4 pt-4 overflow-y-auto bg-white dark:bg-gray-900 flex-grow">
         <ul class="space-y-2 font-medium">
             <li>
                 <a href="{{ route('dashboard') }}"
@@ -77,19 +77,19 @@
                     class="space-y-2 {{ request()->routeIs(['banners.*', 'counters.*', 'applications.*', 'whychooseus.*', 'clients.*', 'testimonials.*', 'certificates.*', 'bannercategories.*']) ? 'block' : 'hidden' }}">
                     <li>
                         <a href="{{ route('banners.index') }}"
-                            class="{{ request()->routeIs('banners.*') ? 'active' : '' }} sidebar-item flex items-center w-full p-2 mt-3 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Banner</a>
+                            class="{{ request()->routeIs('banners.*') ? 'active' : '' }} sidebar-item flex items-center w-full p-2 mt-3 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Banners</a>
                     </li>
                     <li>
                         <a href="{{ route('bannercategories.index') }}"
-                            class="{{ request()->routeIs('bannercategories.*') ? 'active' : '' }} sidebar-item flex items-center w-full p-2 mt-3 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Banner Category</a>
+                            class="{{ request()->routeIs('bannercategories.*') ? 'active' : '' }} sidebar-item flex items-center w-full p-2 mt-3 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Banner Categories</a>
                     </li>
                     <li>
                         <a href="{{ route('counters.index') }}"
-                            class="{{ request()->routeIs('counters.*') ? 'active' : '' }} sidebar-item flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Counter</a>
+                            class="{{ request()->routeIs('counters.*') ? 'active' : '' }} sidebar-item flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Counters</a>
                     </li>
                     <li>
                         <a href="{{ route('applications.index') }}"
-                            class="{{ request()->routeIs('applications.*') ? 'active' : '' }} sidebar-item flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Application</a>
+                            class="{{ request()->routeIs('applications.*') ? 'active' : '' }} sidebar-item flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Applications</a>
                     </li>
                     <li>
                         <a href="{{ route('whychooseus.index') }}"
@@ -97,16 +97,55 @@
                     </li>
                     <li>
                         <a href="{{ route('clients.index') }}"
-                            class="{{ request()->routeIs('clients.*') ? 'active' : '' }} sidebar-item flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Client</a>
+                            class="{{ request()->routeIs('clients.*') ? 'active' : '' }} sidebar-item flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Clients</a>
                     </li>
                     <li>
                         <a href="{{ route('testimonials.index') }}"
-                            class="{{ request()->routeIs('testimonials.*') ? 'active' : '' }} sidebar-item flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Testimonial</a>
+                            class="{{ request()->routeIs('testimonials.*') ? 'active' : '' }} sidebar-item flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Testimonials</a>
                     </li>
                     <li>
                         <a href="{{ route('certificates.index') }}"
-                            class="{{ request()->routeIs(['certificates.*']) ? 'active' : '' }} sidebar-item flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Certificate</a>
+                            class="{{ request()->routeIs(['certificates.*']) ? 'active' : '' }} sidebar-item flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Certificates</a>
                     </li>
+                </ul>
+            </li>
+
+            <li>
+                <button type="button"
+                    class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->routeIs('analytics.*') ? 'parent-active' : '' }}"
+                    aria-controls="dropdown-analytics" data-collapse-toggle="dropdown-analytics">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="dark:stroke-white">
+                        <path d="M3 3v18h18"></path>
+                        <path d="M18 17V9"></path>
+                        <path d="M13 17V5"></path>
+                        <path d="M8 17v-3"></path>
+                    </svg>
+                    <span class="flex-1 ms-3 text-left rtl:text-right whitespace-nowrap">Analytics</span>
+                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                        viewBox="0 0 10 6">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="m1 1 4 4 4-4" />
+                    </svg>
+                </button>
+                <ul id="dropdown-analytics"
+                    class="{{ request()->routeIs('analytics.*') ? 'block' : 'hidden' }} py-2 space-y-2">
+                    <li>
+                        <a href="{{ route('analytics.countries') }}"
+                            class="{{ request()->routeIs('analytics.countries') ? 'active' : '' }} sidebar-item flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Country Visits</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('analytics.operating-systems') }}"
+                            class="{{ request()->routeIs('analytics.operating-systems') ? 'active' : '' }} sidebar-item flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Operating Systems</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('analytics.mostvisitedpages') }}"
+                            class="{{ request()->routeIs('analytics.mostvisitedpages') ? 'active' : '' }} sidebar-item flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Most Visited pages</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('analytics.topreferrers') }}"
+                            class="{{ request()->routeIs('analytics.topreferrers') ? 'active' : '' }} sidebar-item flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Most Top Referrers</a>
+                    </li>
+                    <!-- Add more analytics pages here as needed -->
                 </ul>
             </li>
 
@@ -174,11 +213,11 @@
                     class="{{ request()->routeIs('careers.*') || request()->routeIs('careerinquiries.*') ? 'block' : 'hidden' }} py-2 space-y-2">
                     <li>
                         <a href="{{ route('careers.index') }}"
-                            class="{{ request()->routeIs('careers.*') ? 'active' : '' }} sidebar-item flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Career</a>
+                            class="{{ request()->routeIs('careers.*') ? 'active' : '' }} sidebar-item flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Careers</a>
                     </li>
                     <li>
                         <a href="{{ route('careerinquiries.index') }}"
-                            class="{{ request()->routeIs('careerinquiries.*') ? 'active' : '' }} sidebar-item flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Inquiry</a>
+                            class="{{ request()->routeIs('careerinquiries.*') ? 'active' : '' }} sidebar-item flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Inquiries</a>
                     </li>
                 </ul>
             </li>
@@ -200,11 +239,11 @@
                 <ul id="dropdown-service" class="space-y-2 {{ request()->routeIs(['servicecategories.*', 'services.*']) ? 'block' : 'hidden' }}">
                     <li>
                         <a href="{{ route('services.index') }}"
-                            class="{{ request()->routeIs('services.*') ? 'active' : '' }}  mt-3 sidebar-item flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Service</a>
+                            class="{{ request()->routeIs('services.*') ? 'active' : '' }}  mt-3 sidebar-item flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Services</a>
                     </li>
                     <li>
                         <a href="{{ route('servicecategories.index') }}"
-                            class="{{ request()->routeIs('servicecategories.*') ? 'active' : '' }} sidebar-item flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Category</a>
+                            class="{{ request()->routeIs('servicecategories.*') ? 'active' : '' }} sidebar-item flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Categories</a>
                     </li>
                 </ul>
             </li>
@@ -232,19 +271,19 @@
                     class="{{ request()->routeIs('categories.*') || request()->routeIs('subcategories.*') || request()->routeIs('products.*')  || request()->routeIs('benefits.*') ? 'block' : 'hidden' }} py-2 space-y-2">
                     <li>
                         <a href="{{ route('categories.index') }}"
-                            class="{{ request()->routeIs('categories.*') ? 'active' : '' }} sidebar-item flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Category</a>
+                            class="{{ request()->routeIs('categories.*') ? 'active' : '' }} sidebar-item flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Categories</a>
                     </li>
                     <li>
                         <a href="{{ route('subcategories.index') }}"
-                            class="{{ request()->routeIs('subcategories.*') ? 'active' : '' }} sidebar-item flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Sub-category</a>
+                            class="{{ request()->routeIs('subcategories.*') ? 'active' : '' }} sidebar-item flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Sub categories</a>
                     </li>
                     <li>
                         <a href="{{ route('benefits.index') }}"
-                            class="{{ request()->routeIs('benefits.*')  ? 'active' : '' }} sidebar-item flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Benefit</a>
+                            class="{{ request()->routeIs('benefits.*')  ? 'active' : '' }} sidebar-item flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Benefits</a>
                     </li>
                     <li>
                         <a href="{{ route('products.index') }}"
-                            class="{{ request()->routeIs('products.*')  ? 'active' : '' }} sidebar-item flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Product</a>
+                            class="{{ request()->routeIs('products.*')  ? 'active' : '' }} sidebar-item flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Products</a>
                     </li>
                 </ul>
             </li>
@@ -252,7 +291,7 @@
             <!-- SEO section -->
             <li>
                 <button type="button"
-                    class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ Route::currentRouteNamed('admin.sitemap.index') || Route::currentRouteNamed('admin.approved-urls') || Route::currentRouteNamed('staticseos.index') || Route::currentRouteNamed('SEO.index') ? 'parent-active' : '' }}"
+                    class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ Route::currentRouteNamed('admin.sitemap.index') || Route::currentRouteNamed('admin.approved-urls') || Route::currentRouteNamed('SEO.index') ? 'parent-active' : '' }}"
                     aria-controls="dropdown-seo" data-collapse-toggle="dropdown-seo">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="dark:stroke-white"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z"/><circle cx="12" cy="10" r="3"/></svg>
                     <span class="flex-1 ms-3 text-left rtl:text-right whitespace-nowrap">SEO</span>
@@ -263,7 +302,7 @@
                     </svg>
                 </button>
                 <ul id="dropdown-seo"
-                    class="{{ Route::currentRouteNamed('SEO.index') || Route::currentRouteNamed('admin.sitemap.index') || Route::currentRouteNamed('admin.approved-urls') || Route::currentRouteNamed('staticseos.index') ? 'block' : 'hidden' }} py-2 space-y-2">
+                    class="{{ Route::currentRouteNamed('SEO.index') || Route::currentRouteNamed('admin.sitemap.index') || Route::currentRouteNamed('admin.approved-urls') ? 'block' : 'hidden' }} py-2 space-y-2">
                     <li>
                         <a href="{{ route('admin.sitemap.index') }}"
                             class="{{ Route::currentRouteNamed('admin.sitemap.index') ? 'active' : '' }} sidebar-item flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
@@ -331,11 +370,11 @@
                 <ul id="dropdown-gallery" class="space-y-2 {{ request()->routeIs(['gallerycategories.*', 'galleries.*']) ? 'block' : 'hidden' }}">
                     <li>
                         <a href="{{ route('gallerycategories.index') }}"
-                            class="{{ request()->routeIs('gallerycategories.*') ? 'active' : '' }} mt-3 sidebar-item flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Category</a>
+                            class="{{ request()->routeIs('gallerycategories.*') ? 'active' : '' }} mt-3 sidebar-item flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Categories</a>
                     </li>
                     <li>
                         <a href="{{ route('galleries.index') }}"
-                            class="{{ request()->routeIs('galleries.*') ? 'active' : '' }} sidebar-item flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Gallery</a>
+                            class="{{ request()->routeIs('galleries.*') ? 'active' : '' }} sidebar-item flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Galleries</a>
                     </li>
                 </ul>
             </li>
@@ -499,4 +538,20 @@
             document.documentElement.classList.add('dark');
         }
     };
+
+    document.addEventListener('DOMContentLoaded', function() {
+    const sidebarContent = document.getElementById('sidebar-content');
+    const activeItem = sidebarContent.querySelector('.active');
+
+    if (activeItem) {
+        // Calculate the scroll position
+        const scrollPosition = activeItem.offsetTop - sidebarContent.offsetHeight / 2 + activeItem.offsetHeight / 2;
+
+        // Smooth scroll to the active item
+        sidebarContent.scrollTo({
+            top: scrollPosition,
+            behavior: 'smooth'
+        });
+    }
+});
 </script>

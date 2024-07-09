@@ -26,6 +26,7 @@ class DashboardController extends Controller
         $bannerCount = Banner::count();
         $serviceCount = Service::count();
         $counterCount = Counter::count();
+        $allinquiryCount = Inquiry::count();
 
         $selectedYear = $request->input('year') ? $request->input('year') : Carbon::now()->year;
 
@@ -55,7 +56,7 @@ class DashboardController extends Controller
             'productCount', 'categoryCount', 'subCategoryCount', 'blogCount',
             'userInquiries', 'totalInquiries', 'inquiryPercentage', 'years',
             'selectedYear', 'yearlyInquiries', 'gpmInquiriesCount', 'seoInquiriesCount',
-            'benefitCount', 'bannerCount', 'serviceCount', 'counterCount'));
+            'benefitCount', 'bannerCount', 'serviceCount', 'counterCount', 'allinquiryCount'));
     }
 
     public function getInquiryDetails($id)

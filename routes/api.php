@@ -9,6 +9,7 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
+// GA data APIs
 Route::get('visitors-and-page-views', [SeoController::class, 'getVisitorsAndPageViews']);
 Route::get('visitors-and-page-views-by-date', [SeoController::class, 'getVisitorsAndPageViewsByDate']);
 Route::get('total-visitors-and-page-views', [SeoController::class, 'getTotalVisitorsAndPageViews']);

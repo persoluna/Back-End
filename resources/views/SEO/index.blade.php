@@ -10,9 +10,7 @@
                             <div class="inline-block py-2 min-w-full sm:px-6 lg:px-8">
                                 <div class="overflow-hidden">
                                     <!-- Heading for the Browser Table -->
-                                    <h2 class="text-2xl ml-4 font-bold text-gray-800 dark:text-gray-200 mb-4">
-                                        Top Browsers by Page Views
-                                    </h2>
+
                                     <table class="min-w-full">
                                         <thead class="bg-gray-50 dark:bg-gray-700">
                                             <tr>
@@ -52,9 +50,6 @@
             </div>
 
             <!-- Heading for the Map -->
-            <h2 class="text-2xl ml-12 font-bold text-gray-800 dark:text-gray-200 mb-4">
-                User Distribution by Country :
-            </h2>
             <svg id="allSvg" baseprofile="tiny" fill="#ececec" stroke="black" stroke-linecap="round" stroke-linejoin="round"
                 version="1.2" viewbox="0 0 2000 857" xmlns="http://www.w3.org/2000/svg">
                 <path class="allPaths"

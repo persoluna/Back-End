@@ -54,6 +54,11 @@ use App\Livewire\SearchSubcategory;
 use App\Livewire\SearchWhyChooseUs;
 use Illuminate\Support\Facades\Route;
 
+Route::get('/analytics/topreferrers', [SeoController::class, 'showTopReferrers'])->name('analytics.topreferrers');
+Route::get('/analytics/mostvisitpages', [SeoController::class, 'showMostVisits'])->name('analytics.mostvisitedpages');
+Route::get('/analytics/countries', [SeoController::class, 'showCountryVisits'])->name('analytics.countries');
+Route::get('/analytics/operating-systems', [SeoController::class, 'showTopOperatingSystems'])->name('analytics.operating-systems');
+
 Route::post('/admin/generate-sitemap', [SitemapController::class, 'generateSitemap'])->name('admin.generate-sitemap');
 Route::get('/admin/approved-urls', [SitemapController::class, 'showApprovedUrls'])->name('admin.approved-urls');
 Route::put('/admin/update-approved-urls', [SitemapController::class, 'updateApprovedUrls'])->name('admin.update-approved-urls');

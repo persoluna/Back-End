@@ -13,9 +13,6 @@
             </nav>
         </header>
         <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 mb-8">
-            <div class="mb-8 space-y-3">
-                <h2 class="text-3xl font-semibold">Edit Client</h2>
-            </div>
 
         <!-- Client form -->
         <form action="{{ route('clients.update', $client->id) }}" method="POST" class="w-full"

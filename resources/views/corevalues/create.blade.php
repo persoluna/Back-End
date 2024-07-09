@@ -12,7 +12,7 @@
         </header>
         <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 mb-8">
             <div class="mb-8 space-y-3">
-                <p class="text-gray-500 dark:text-gray-400 text-center text-xl">Enter the blog details below.</p>
+                <p class="text-gray-500 dark:text-gray-400 text-center text-xl">Enter the details below.</p>
             </div>
 
         <!-- form -->

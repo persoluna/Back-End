@@ -9,8 +9,10 @@
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.css">
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.all.min.js"></script>
 </head>
 <body class="font-sans text-gray-900 antialiased">
     <div class="flex w-full min-h-screen flex-col justify-center items-center bg-cover bg-center bg-slate-50">
@@ -33,5 +35,43 @@
             </div>
         </div>
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const loginForm = document.querySelector('form');
+
+            loginForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+
+                const email = document.getElementById('email').value;
+                const password = document.getElementById('password').value;
+                let isValid = true;
+                let errorMessage = '';
+
+                // Enhanced email validation
+                const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+                if (!email || !emailRegex.test(email)) {
+                    isValid = false;
+                    errorMessage += 'Please enter a valid email address (e.g., example@domain.com).<br>';
+                }
+
+                // Password validation
+                if (!password || password.length < 6) {
+                    isValid = false;
+                    errorMessage += 'Password must be at least 6 characters long.';
+                }
+
+                if (isValid) {
+                    loginForm.submit();
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Validation Error',
+                        html: errorMessage,
+                        confirmButtonText: 'OK'
+                    });
+                }
+            });
+        });
+    </script>
 </body>
 </html>

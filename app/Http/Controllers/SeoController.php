@@ -8,6 +8,35 @@ use Spatie\Analytics\Period;
 
 class SeoController extends Controller
 {
+
+    public function showTopReferrers()
+    {
+        $period = Period::days(90);
+        $topReferrer = Analytics::fetchTopReferrers($period, 100);
+        return view('analytics.topreferrers', ['topReferrer' => $topReferrer]);
+    }
+
+    public function showTopOperatingSystems()
+    {
+        $period = Period::days(90);
+        $osData = Analytics::fetchTopOperatingSystems($period, 100);
+        return view('analytics.operating-systems', ['osData' => $osData]);
+    }
+
+    public function showCountryVisits()
+    {
+        $period = Period::days(90);
+        $countryData = Analytics::fetchTopCountries($period, 100);
+        return view('analytics.countries', ['countryData' => $countryData]);
+    }
+
+    public function showMostVisits()
+    {
+        $period = Period::days(90);
+        $mostvisitedpages = Analytics::fetchMostVisitedPages($period, 100);
+        return view('analytics.mostvisitedpages', ['mostvisitedpages' => $mostvisitedpages]);
+    }
+
     public function getVisitorsAndPageViews()
     {
         $period = Period::days(90);

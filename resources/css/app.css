@@ -53,7 +53,7 @@
         }
 
         .sidebar-item.active {
-              background: linear-gradient(270deg, #EEEEFF, #EEEEFF, #EEEEFF, #ffffff, #EEEEFF, #EEEEFF);
+              background: linear-gradient(270deg, #9E99F1, #9E99F1, #9E99F1, #ffffff, #9E99F1, #9E99F1);
               background-size: 600% 600%;
               animation: gradientAnimationLight 15s ease infinite;
               position: relative;

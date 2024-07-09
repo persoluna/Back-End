@@ -1,15 +1,18 @@
 <x-app-layout>
-    <div class="bg-white min-h-[800px] pt-12">
-        @if (isset($header))
-            <x-breadcrumb :breadcrumbs="[['name' => 'Update Header', 'url' => route('headers.edit', $header->id)]]" />
-        @else
-            <x-breadcrumb :breadcrumbs="[['name' => 'Home', 'url' => route('dashboard')]]" />
-        @endif
-
-        <!-- header edit title -->
-        <div class="mb-8 space-y-3">
-            <h1 class="text-3xl font-semibold text-center sm:text-left sm:pl-[80px] pt-[90px]">Edit Header</h1>
-        </div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <header class="bg-gradient-to-r from-indigo-500 to-purple-600 rounded-lg shadow-lg p-6 mb-8">
+            <h1 class="text-4xl font-bold text-white mb-4">Edit Header</h1>
+            <nav class="flex items-center space-x-4">
+                <a href="{{ route('dashboard') }}" class="text-white hover:text-gray-200">Home</a>
+                <span class="text-white">/</span>
+                @if (isset($header))
+                    <a href="{{ route('headers.edit', $header->id) }}" class="text-white hover:text-gray-200">Update Header</a>
+                @else
+                    <a href="{{ route('dashboard') }}" class="text-white hover:text-gray-200">Home</a>
+                @endif
+            </nav>
+        </header>
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 mb-8">
 
         <!-- Header edit form -->
         <form action="{{ route('headers.update', $header->id) }}" method="POST" class="w-full" enctype="multipart/form-data">
