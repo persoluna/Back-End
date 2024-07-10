@@ -291,7 +291,7 @@
             <!-- SEO section -->
             <li>
                 <button type="button"
-                    class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ Route::currentRouteNamed('admin.sitemap.index') || Route::currentRouteNamed('admin.approved-urls') || Route::currentRouteNamed('SEO.index') ? 'parent-active' : '' }}"
+                    class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ Route::currentRouteNamed('admin.sitemap.index') || Route::currentRouteNamed('admin.approved-urls') || Route::currentRouteNamed('SEO.index') || request()->routeIs('meta-tags.*') ? 'parent-active' : '' }}"
                     aria-controls="dropdown-seo" data-collapse-toggle="dropdown-seo">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="dark:stroke-white"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z"/><circle cx="12" cy="10" r="3"/></svg>
                     <span class="flex-1 ms-3 text-left rtl:text-right whitespace-nowrap">SEO</span>
@@ -302,7 +302,7 @@
                     </svg>
                 </button>
                 <ul id="dropdown-seo"
-                    class="{{ Route::currentRouteNamed('SEO.index') || Route::currentRouteNamed('admin.sitemap.index') || Route::currentRouteNamed('admin.approved-urls') ? 'block' : 'hidden' }} py-2 space-y-2">
+                    class="{{ Route::currentRouteNamed('SEO.index') || Route::currentRouteNamed('admin.sitemap.index') || Route::currentRouteNamed('admin.approved-urls') || request()->routeIs('meta-tags.*') ? 'block' : 'hidden' }} py-2 space-y-2">
                     <li>
                         <a href="{{ route('admin.sitemap.index') }}"
                             class="{{ Route::currentRouteNamed('admin.sitemap.index') ? 'active' : '' }} sidebar-item flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
@@ -317,6 +317,11 @@
                         <a href="{{ route('SEO.index') }}"
                             class="{{ Route::currentRouteNamed('SEO.index') ? 'active' : '' }} sidebar-item flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
                             GA statistics</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('meta-tags.index') }}"
+                            class="{{ request()->routeIs('meta-tags.*') ? 'active' : '' }} sidebar-item flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
+                            Meta tags</a>
                     </li>
                 </ul>
             </li>

@@ -5,6 +5,7 @@ use App\Models\ServiceCategory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 class Service extends Model
 {
@@ -28,5 +29,10 @@ class Service extends Model
     public function servicecategory(): BelongsTo
     {
         return $this->belongsTo(ServiceCategory::class, 'category_id');
+    }
+
+    public function metaTags(): MorphMany
+    {
+        return $this->morphMany(MetaTag::class, 'metatagable');
     }
 }

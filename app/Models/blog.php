@@ -6,6 +6,7 @@ use App\Models\BlogCategory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 class blog extends Model
 {
@@ -34,5 +35,10 @@ class blog extends Model
     public function blogcategory(): BelongsTo
     {
         return $this->belongsTo(BlogCategory::class, 'category_id');
+    }
+
+    public function metaTags(): MorphMany
+    {
+        return $this->morphMany(MetaTag::class, 'metatagable');
     }
 }

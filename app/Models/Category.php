@@ -6,6 +6,7 @@ use App\Models\Product;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 class Category extends Model
 {
@@ -34,5 +35,10 @@ class Category extends Model
     public function subcategories(): HasMany
     {
         return $this->hasMany(Subcategory::class);
+    }
+
+    public function metaTags(): MorphMany
+    {
+        return $this->morphMany(MetaTag::class, 'metatagable');
     }
 }
