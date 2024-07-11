@@ -11,6 +11,8 @@ use App\Models\blog;
 use App\Models\ApprovedUrl;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Str;
+use Carbon\Carbon;
 
 class SitemapController extends Controller
 {
@@ -134,54 +136,125 @@ class SitemapController extends Controller
         try {
             $approvedUrls = ApprovedUrl::all();
 
-            $dom = new \DOMDocument('1.0', 'UTF-8');
-            $dom->formatOutput = true; // This is the key for beautifying the output
-
-            $urlset = $dom->createElement('urlset');
-            $urlset->setAttribute('xmlns', 'http://www.sitemaps.org/schemas/sitemap/0.9');
-            $dom->appendChild($urlset);
-
-            foreach ($approvedUrls as $url) {
-                $urlElement = $dom->createElement('url');
-
-                $loc = $dom->createElement('loc', $url->editable_url);
-                $urlElement->appendChild($loc);
-
-                $lastmod = $dom->createElement('lastmod', $url->updated_at->tz('UTC')->toAtomString());
-                $urlElement->appendChild($lastmod);
-
-                $changefreq = $dom->createElement('changefreq', $url->frequency);
-                $urlElement->appendChild($changefreq);
-
-                $priority = $dom->createElement('priority', number_format($url->priority, 1));
-                $urlElement->appendChild($priority);
-
-                $urlset->appendChild($urlElement);
-            }
-
-            $xmlContent = $dom->saveXML();
-
-            // Save the XML content to a file
-            $filePath = public_path('sitemap.xml');
-            file_put_contents($filePath, $xmlContent);
+            $this->generateProductSitemap($approvedUrls);
+            $this->generateServiceSitemap($approvedUrls);
+            $this->generateBlogSitemap($approvedUrls);
+            $this->generateMainSitemap($approvedUrls);
+            $this->generateSitemapIndex();
 
             if (request()->ajax() || request()->wantsJson()) {
-                return response()->json(['message' => 'Sitemap generated successfully']);
+                return response()->json(['message' => 'Sitemaps generated successfully']);
             }
 
-            // For non-AJAX requests, return the XML
-            $response = new Response($xmlContent, 200);
-            $response->header('Content-Type', 'text/xml');
-
-            return $response;
+            return back()->with('success', 'Sitemaps generated successfully');
         } catch (\Exception $e) {
             \Log::error('Sitemap generation error: ' . $e->getMessage());
 
             if (request()->ajax() || request()->wantsJson()) {
-                return response()->json(['error' => 'An error occurred while generating the sitemap'], 500);
+                return response()->json(['error' => 'An error occurred while generating the sitemaps'], 500);
             }
 
-            return back()->with('error', 'An error occurred while generating the sitemap');
+            return back()->with('error', 'An error occurred while generating the sitemaps');
         }
+    }
+
+    private function generateProductSitemap($approvedUrls)
+    {
+        $urls = $approvedUrls->filter(function($url) {
+            return Str::contains($url->editable_url, ['/products', '/categories', '/sub-categories']);
+        });
+
+        $this->saveSitemapFile('product.xml', $urls);
+    }
+
+    private function generateServiceSitemap($approvedUrls)
+    {
+        $urls = $approvedUrls->filter(function($url) {
+            return Str::contains($url->editable_url, ['/services', '/service-categories']);
+        });
+
+        $this->saveSitemapFile('service.xml', $urls);
+    }
+
+    private function generateBlogSitemap($approvedUrls)
+    {
+        $urls = $approvedUrls->filter(function($url) {
+            return Str::contains($url->editable_url, '/blogs');
+        });
+
+        $this->saveSitemapFile('blog.xml', $urls);
+    }
+
+    private function generateMainSitemap($approvedUrls)
+    {
+        $mainUrls = ['/', '/about', '/globalpresences', '/infrastructures', '/qualitycontrols', '/team'];
+        $urls = $approvedUrls->filter(function($url) use ($mainUrls) {
+            return in_array(parse_url($url->editable_url, PHP_URL_PATH), $mainUrls);
+        });
+
+        $this->saveSitemapFile('main.xml', $urls);
+    }
+
+    private function saveSitemapFile($filename, $urls)
+    {
+        $dom = new \DOMDocument('1.0', 'UTF-8');
+        $dom->formatOutput = true;
+
+        $urlset = $dom->createElement('urlset');
+        $urlset->setAttribute('xmlns', 'http://www.sitemaps.org/schemas/sitemap/0.9');
+        $dom->appendChild($urlset);
+
+        foreach ($urls as $url) {
+            $urlElement = $dom->createElement('url');
+
+            $loc = $dom->createElement('loc', $url->editable_url);
+            $urlElement->appendChild($loc);
+
+            // Generate a random timestamp within the last week
+            $randomDate = Carbon::now()->subDays(rand(0, 7))->format('c');
+            $lastmod = $dom->createElement('lastmod', $randomDate);
+            $urlElement->appendChild($lastmod);
+
+            $changefreq = $dom->createElement('changefreq', $url->frequency);
+            $urlElement->appendChild($changefreq);
+
+            $priority = $dom->createElement('priority', number_format($url->priority, 1));
+            $urlElement->appendChild($priority);
+
+            $urlset->appendChild($urlElement);
+        }
+
+        $xmlContent = $dom->saveXML();
+        $filePath = public_path($filename);
+        file_put_contents($filePath, $xmlContent);
+    }
+
+    private function generateSitemapIndex()
+    {
+        $dom = new \DOMDocument('1.0', 'UTF-8');
+        $dom->formatOutput = true;
+
+        $sitemapindex = $dom->createElement('sitemapindex');
+        $sitemapindex->setAttribute('xmlns', 'http://www.sitemaps.org/schemas/sitemap/0.9');
+        $dom->appendChild($sitemapindex);
+
+        $sitemaps = ['product.xml', 'service.xml', 'blog.xml', 'main.xml'];
+
+        $currentTime = Carbon::now()->format('c');
+
+        foreach ($sitemaps as $sitemap) {
+            $sitemap_element = $dom->createElement('sitemap');
+            $loc = $dom->createElement('loc', url($sitemap));
+            $sitemap_element->appendChild($loc);
+
+            $lastmod = $dom->createElement('lastmod', $currentTime);
+            $sitemap_element->appendChild($lastmod);
+
+            $sitemapindex->appendChild($sitemap_element);
+        }
+
+        $xmlContent = $dom->saveXML();
+        $filePath = public_path('sitemap.xml');
+        file_put_contents($filePath, $xmlContent);
     }
 }

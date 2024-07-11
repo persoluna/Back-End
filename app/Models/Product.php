@@ -27,6 +27,7 @@ class Product extends Model
         'status',
         'meta_tags',
         'benefit_ids',
+        'catalog_pdf',
     ];
 
     protected $casts = [

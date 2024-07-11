@@ -76,6 +76,7 @@ class ProductController extends Controller
             'meta_canonical' => 'nullable|url',
             'meta_tags' => 'nullable',
             'benefit_ids' => 'nullable|array',
+            'catalog_pdf' => 'nullable|mimes:pdf|max:10240',
         ]);
 
         if (!$request->has('category_id')) {
@@ -92,6 +93,13 @@ class ProductController extends Controller
         }
 
         $validatedData['image'] = json_encode($imageNames);
+
+        // Handle catalog PDF upload
+        if ($request->hasFile('catalog_pdf')) {
+            $pdfFilename = time() . '_' . uniqid() . '.pdf';
+            $request->file('catalog_pdf')->storeAs('public/product_catalogs', $pdfFilename);
+            $validatedData['catalog_pdf'] = $pdfFilename;
+        }
 
         // Convert benefit_ids array to JSON
         if ($request->has('benefit_ids')) {
@@ -146,6 +154,7 @@ class ProductController extends Controller
             'meta_keyword' => 'nullable',
             'meta_canonical' => 'nullable|url',
             'meta_tags' => 'nullable',
+            'catalog_pdf' => 'nullable|mimes:pdf|max:10240',
         ]);
 
         // Start with existing images that weren't removed
@@ -174,6 +183,17 @@ class ProductController extends Controller
         // Remove the 'existing_images' key from validatedData as it's not a field in the products table
         unset($validatedData['existing_images']);
 
+        // Handle catalog PDF update
+        if ($request->hasFile('catalog_pdf')) {
+            // Delete old PDF if exists
+            if ($product->catalog_pdf) {
+                Storage::delete('public/product_catalogs/' . $product->catalog_pdf);
+            }
+            $pdfFilename = time() . '_' . uniqid() . '.pdf';
+            $request->file('catalog_pdf')->storeAs('public/product_catalogs', $pdfFilename);
+            $validatedData['catalog_pdf'] = $pdfFilename;
+        }
+
         $product->update($validatedData);
 
         return redirect()->route('products.index')->with('success', 'Product updated successfully.');
@@ -190,6 +210,11 @@ class ProductController extends Controller
         // Delete each image file
         foreach ($images as $image) {
             Storage::delete('public/product_images/' . $image);
+        }
+
+        // Delete catalog PDF if exists
+        if ($product->catalog_pdf) {
+            Storage::delete('public/product_catalogs/' . $product->catalog_pdf);
         }
 
         // Delete the product

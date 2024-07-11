@@ -144,6 +144,7 @@
                         </div>
                     @enderror
                 </div>
+
                 <!-- Alt Tag input field -->
                 <div class="lg:col-span-1">
                     <label
@@ -154,6 +155,35 @@
                         id="alt_tag" placeholder="Enter the alt tag for the Product image" type="text"
                         name="alt_tag" value="{{ $product->alt_tag }}">
                     @error('alt_tag')
+                        <div class="text-red-500 mt-2 text-sm">
+                            {{ $message }}
+                        </div>
+                    @enderror
+                </div>
+                <br>
+
+                <!-- Catalog PDF input field -->
+                <div class="lg:col-span-1">
+                    <label
+                        class="text-base font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                        for="catalog_pdf">Catalog PDF</label>
+
+                    @if($product->catalog_pdf)
+                        <div class="mb-2">
+                            <span class="text-sm">Current PDF: {{ $product->catalog_pdf }}</span>
+                            <a href="{{ asset('storage/product_catalogs/' . $product->catalog_pdf) }}"
+                               target="_blank"
+                               class="ml-2 text-blue-600 hover:text-blue-800">View</a>
+                        </div>
+                    @endif
+
+                    <input
+                        class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                        id="catalog_pdf" type="file" name="catalog_pdf" accept=".pdf">
+
+                    <p class="mt-1 text-sm text-gray-500">Upload a new PDF to replace the current one, or leave empty to keep the existing PDF.</p>
+
+                    @error('catalog_pdf')
                         <div class="text-red-500 mt-2 text-sm">
                             {{ $message }}
                         </div>
