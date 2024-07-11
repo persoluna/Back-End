@@ -128,7 +128,7 @@
                     <input
                         class="border-input bg-background ring-offset-background placeholder:text-muted-foreground focus-visible:ring-ring flex h-10 w-full rounded-md border px-3 py-2 text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                         id="product_name" placeholder="Enter the product name" type="text" name="product_name"
-                        value="{{ old('product_name') }}">
+                        value="{{ old('product_name') }}" oninput="generateSlug()">
                     @error('product_name')
                         <div class="text-red-500 mt-2 text-sm">
                             {{ $message }}
@@ -201,7 +201,8 @@
                     @enderror
                 </div>
 
-<!--            {{-- Meta title input field --}}
+<!--
+                {{-- Meta title input field --}}
                 <div class="lg:col-span-1">
                     <label
                         class="text-base font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
@@ -265,8 +266,8 @@
                         </div>
                     @enderror
                 </div>
--->
-                <!-- Meta Tags input field -->
+
+                {{-- Meta Tags input field --}}
                 <div class="lg:col-span-2">
                     <label
                         class="text-base font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
@@ -280,6 +281,7 @@
                         </div>
                     @enderror
                 </div>
+-->
 
                 <div class="pt-8 flex justify-center sm:w-fit lg:col-span-2 pb-12">
                 <button
@@ -335,6 +337,16 @@
         dropZone.addEventListener("dragleave", handleDragLeave);
         dropZone.addEventListener("drop", handleDrop);
 
+        function generateSlug() {
+            const productName = document.getElementById('product_name').value;
+            const slug = productName
+                .toLowerCase()
+                .replace(/[^\w\s-]/g, '') // Remove special characters
+                .replace(/\s+/g, '-') // Replace spaces with hyphens
+                .replace(/--+/g, '-') // Replace multiple hyphens with single hyphen
+                .trim(); // Trim leading and trailing spaces/hyphens
+            document.getElementById('slug').value = slug;
+        }
         function handleFiles(event) {
             const fileList = event.target.files;
             displayImages(fileList);

@@ -2,62 +2,68 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>http://localhost:8000/about</loc>
-    <lastmod>2024-07-09T08:39:57+00:00</lastmod>
+    <lastmod>2024-07-08T11:18:23+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>http://localhost:8000/globalpresences</loc>
-    <lastmod>2024-07-08T08:39:57+00:00</lastmod>
+    <lastmod>2024-07-09T11:18:23+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>http://localhost:8000/infrastructures</loc>
-    <lastmod>2024-07-10T08:39:57+00:00</lastmod>
+    <lastmod>2024-07-06T11:18:23+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>http://localhost:8000/qualitycontrols</loc>
-    <lastmod>2024-07-09T08:39:57+00:00</lastmod>
+    <lastmod>2024-07-10T11:18:23+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>http://localhost:8000/team</loc>
-    <lastmod>2024-07-10T08:39:57+00:00</lastmod>
+    <lastmod>2024-07-09T11:18:23+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>http://192.168.0.114:8000/about</loc>
-    <lastmod>2024-07-04T08:39:57+00:00</lastmod>
+    <lastmod>2024-07-11T11:18:23+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>http://192.168.0.114:8000/globalpresences</loc>
-    <lastmod>2024-07-10T08:39:57+00:00</lastmod>
+    <lastmod>2024-07-09T11:18:23+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>http://192.168.0.114:8000/infrastructures</loc>
-    <lastmod>2024-07-09T08:39:57+00:00</lastmod>
+    <lastmod>2024-07-10T11:18:23+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>http://192.168.0.114:8000/qualitycontrols</loc>
-    <lastmod>2024-07-06T08:39:57+00:00</lastmod>
+    <lastmod>2024-07-06T11:18:23+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>http://192.168.0.114:8000/team</loc>
-    <lastmod>2024-07-07T08:39:57+00:00</lastmod>
+    <lastmod>2024-07-06T11:18:23+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>http://localhost:8000/</loc>
+    <lastmod>2024-07-04T11:18:23+00:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
   </url>
 </urlset>

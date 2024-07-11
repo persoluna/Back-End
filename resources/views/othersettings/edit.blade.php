@@ -1,7 +1,7 @@
 <x-app-layout>
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <header class="bg-gradient-to-r from-indigo-500 to-purple-600 rounded-lg shadow-lg p-6 mb-8">
-            <h1 class="text-4xl font-bold text-white mb-4">Other Settings</h1>
+            <h1 class="text-4xl font-bold text-white mb-4">Google Tag Manager Setting</h1>
             <nav class="flex items-center space-x-4">
                 <a href="{{ route('dashboard') }}" class="text-white hover:text-gray-200">Home</a>
                 <span class="text-white">/</span>
@@ -61,7 +61,7 @@
 
                 <!-- analytics code input field -->
                 <div class="lg:col-span-1">
-                    <label class="text-base font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70" for="analytics_code">Google Analytics Code</label>
+                    <label class="text-base font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70" for="analytics_code">Header Script</label>
                     <input class="border-input bg-background ring-offset-background placeholder:text-muted-foreground focus-visible:ring-ring flex h-10 w-full rounded-md border px-3 py-2 text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50" placeholder="Enter code" type="text" name="analytics_code" value="{{ old('analytics_code', $othersetting->analytics_code) }}">
                     @error('analytics_code')
                         <div class="text-red-500 mt-2 text-sm">{{ $message }}</div>
@@ -70,7 +70,7 @@
 
                 <!-- Facebook Code input field -->
                 <div class="lg:col-span-1">
-                    <label class="text-base font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70" for="facebook_code">Pixel Code</label>
+                    <label class="text-base font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70" for="facebook_code">Body Script</label>
                     <input class="border-input bg-background ring-offset-background placeholder:text-muted-foreground focus-visible:ring-ring flex h-10 w-full rounded-md border px-3 py-2 text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50" placeholder="Enter code" type="text" name="facebook_code" value="{{ old('facebook_code', $othersetting->facebook_code) }}">
                     @error('facebook_code')
                         <div class="text-red-500 mt-2 text-sm">{{ $message }}</div>

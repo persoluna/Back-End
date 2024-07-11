@@ -477,7 +477,7 @@
                     <li>
                         <a href="{{ route('othersettings.index') }}"
                             class="{{ Route::currentRouteNamed('othersettings.index') ? 'active' : '' }} sidebar-item flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
-                            Google setting</a>
+                            GTM settign</a>
                     </li>
                     <li>
                         <a href="{{ route('backups.index') }}"

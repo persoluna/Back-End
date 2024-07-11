@@ -2,61 +2,61 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>http://localhost:8000/blogs</loc>
-    <lastmod>2024-07-06T08:39:57+00:00</lastmod>
+    <lastmod>2024-07-09T11:18:23+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>http://localhost:8000/blogs/blog-1</loc>
-    <lastmod>2024-07-10T08:39:57+00:00</lastmod>
+    <lastmod>2024-07-11T11:18:23+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>http://localhost:8000/blogs/blog-2</loc>
-    <lastmod>2024-07-06T08:39:57+00:00</lastmod>
+    <lastmod>2024-07-09T11:18:23+00:00</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>http://localhost:8000/blogs/blog-3</loc>
-    <lastmod>2024-07-11T08:39:57+00:00</lastmod>
+    <lastmod>2024-07-05T11:18:23+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>http://localhost:8000/blogs/uyfuy</loc>
-    <lastmod>2024-07-09T08:39:57+00:00</lastmod>
+    <lastmod>2024-07-11T11:18:23+00:00</lastmod>
     <changefreq>always</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>http://192.168.0.114:8000/blogs</loc>
-    <lastmod>2024-07-09T08:39:57+00:00</lastmod>
+    <lastmod>2024-07-08T11:18:23+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>http://192.168.0.114:8000/blogs/blog-1</loc>
-    <lastmod>2024-07-05T08:39:57+00:00</lastmod>
+    <lastmod>2024-07-09T11:18:23+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>http://192.168.0.114:8000/blogs/blog-2</loc>
-    <lastmod>2024-07-06T08:39:57+00:00</lastmod>
+    <lastmod>2024-07-06T11:18:23+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>http://192.168.0.114:8000/blogs/blog-3</loc>
-    <lastmod>2024-07-07T08:39:57+00:00</lastmod>
+    <lastmod>2024-07-08T11:18:23+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>http://192.168.0.114:8000/blogs/uyfuy</loc>
-    <lastmod>2024-07-08T08:39:57+00:00</lastmod>
+    <lastmod>2024-07-08T11:18:23+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>

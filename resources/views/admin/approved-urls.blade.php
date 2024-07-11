@@ -8,8 +8,41 @@
         </div>
     @endif
 
-    <div class="mb-6">
+    <!-- Search and Dropdown Container -->
+    <div class="flex items-center mb-6 space-x-4">
+        <!-- Search Box -->
         <input type="text" id="search" placeholder="Search URLs" class="w-full px-3 py-2 border rounded-md">
+
+        <!-- Dropdown Button and Menu -->
+        <div class="relative inline-block text-left">
+            <button id="dropdownDefaultButton" data-dropdown-toggle="dropdown" class="truncate text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
+                Download Sitemap
+                <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
+                </svg>
+            </button>
+
+            <!-- Dropdown Menu -->
+            <div id="dropdown" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+                <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
+                    <li>
+                        <a href="{{ route('admin.download-sitemap', 'product.xml') }}" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Download Product Sitemap</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('admin.download-sitemap', 'service.xml') }}" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Download Service Sitemap</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('admin.download-sitemap', 'blog.xml') }}" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Download Blog Sitemap</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('admin.download-sitemap', 'main.xml') }}" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Download Main Sitemap</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('admin.download-sitemap', 'sitemap.xml') }}" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Download Sitemap Index</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
@@ -88,7 +121,7 @@
 </div>
 
 <div id="generate-sitemap-button" class="fixed bottom-4 right-4 z-50">
-    <button onclick="generateSitemap()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full shadow-lg flex items-center">
+    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full shadow-lg flex items-center">
         <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
         </svg>
@@ -97,40 +130,44 @@
 </div>
 
 <script>
-    function generateSitemap() {
-        fetch('{{ route('admin.generate-sitemap') }}', {
-            method: 'POST',
-            headers: {
-                'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-                'X-Requested-With': 'XMLHttpRequest'  // Add this line to ensure it's treated as an AJAX request
-            },
-        })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.json();
-        })
-        .then(data => {
-            if (data.message) {
-                alert(data.message);
-            } else if (data.error) {
-                throw new Error(data.error);
-            } else {
-                throw new Error('Unexpected response format');
-            }
-        })
-        .catch((error) => {
-            console.error('Error:', error);
-            alert('An error occurred while generating the sitemap: ' + error.message);
-        });
-    }
-</script>
+function generateSitemap() {
+    fetch('{{ route('admin.generate-sitemap') }}', {
+        method: 'POST',
+        headers: {
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'X-Requested-With': 'XMLHttpRequest'
+        },
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
+    .then(data => {
+        if (data.message) {
+            alert(data.message);
+        } else if (data.error) {
+            throw new Error(data.error);
+        } else {
+            throw new Error('Unexpected response format');
+        }
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+        alert('An error occurred while generating the sitemap: ' + error.message);
+    });
+}
 
-<script>
 document.addEventListener('DOMContentLoaded', function() {
+    // Dropdown toggle functionality
+    document.getElementById('dropdownDefaultButton').addEventListener('click', function () {
+        const dropdown = document.getElementById('dropdown');
+        dropdown.classList.toggle('hidden');
+    });
+
     const searchInput = document.getElementById('search');
     const priorityRange = document.getElementById('priority-range');
     const priorityValue = document.getElementById('priority-value');
@@ -194,6 +231,9 @@ document.addEventListener('DOMContentLoaded', function() {
             alert('An error occurred. Please try again.');
         });
     });
+
+    // Add event listener to the generate sitemap button
+    document.getElementById('generate-sitemap-button').addEventListener('click', generateSitemap);
 });
 </script>
 </x-app-layout>

@@ -68,6 +68,8 @@ Route::get('/analytics/mostvisitpages', [SeoController::class, 'showMostVisits']
 Route::get('/analytics/countries', [SeoController::class, 'showCountryVisits'])->name('analytics.countries');
 Route::get('/analytics/operating-systems', [SeoController::class, 'showTopOperatingSystems'])->name('analytics.operating-systems');
 
+Route::get('/admin/download-sitemap/{filename}', [SitemapController::class, 'downloadSitemap'])->name('admin.download-sitemap');
+Route::post('/admin/sitemap/manual-insert', [SitemapController::class, 'manualInsert'])->name('admin.sitemap.manualInsert');
 Route::post('/admin/generate-sitemap', [SitemapController::class, 'generateSitemap'])->name('admin.generate-sitemap');
 Route::get('/admin/approved-urls', [SitemapController::class, 'showApprovedUrls'])->name('admin.approved-urls');
 Route::put('/admin/update-approved-urls', [SitemapController::class, 'updateApprovedUrls'])->name('admin.update-approved-urls');

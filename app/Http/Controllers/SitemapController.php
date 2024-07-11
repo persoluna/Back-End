@@ -21,52 +21,41 @@ class SitemapController extends Controller
         $urls = [];
 
         // Products
-        $urls[] = url("/products");
         $productUrls = Product::pluck('slug')->map(function ($slug) {
             return url("/products/{$slug}");
         });
         $urls = array_merge($urls, $productUrls->all());
 
         // Product Categories
-        $urls[] = url("/categories");
         $categoryUrls = Category::pluck('slug')->map(function ($slug) {
             return url("/categories/{$slug}");
         });
         $urls = array_merge($urls, $categoryUrls->all());
 
         // Product Subcategories
-        $urls[] = url("/subcategories");
         $subcategoryUrls = Subcategory::pluck('slug')->map(function ($slug) {
             return url("/sub-categories/{$slug}");
         });
         $urls = array_merge($urls, $subcategoryUrls->all());
 
         // Services
-        $urls[] = url("/services");
         $serviceUrls = Service::pluck('slug')->map(function ($slug) {
             return url("/services/{$slug}");
         });
         $urls = array_merge($urls, $serviceUrls->all());
 
         // Service Categories
-        $urls[] = url("/service-categories");
         $serviceCategoryUrls = ServiceCategory::pluck('slug')->map(function ($slug) {
             return url("/service-categories/{$slug}");
         });
         $urls = array_merge($urls, $serviceCategoryUrls->all());
 
         // Blogs
-        $urls[] = url("/blogs");
         $blogUrls = blog::pluck('blog_slug')->map(function ($blog_slug) {
             return url("/blogs/{$blog_slug}");
         });
         $urls = array_merge($urls, $blogUrls->all());
 
-        $urls[] = url("/about");
-        $urls[] = url("/globalpresences");
-        $urls[] = url("/infrastructures");
-        $urls[] = url("/qualitycontrols");
-        $urls[] = url("/team");
         return $urls;
     }
 
@@ -77,6 +66,24 @@ class SitemapController extends Controller
 
         $newUrls = array_diff($generatedUrls, $approvedUrls);
         return view('admin.sitemap', compact('newUrls'));
+    }
+
+    public function manualInsert(Request $request)
+    {
+        $validatedData = $request->validate([
+            'manual_url' => 'required|url',
+            'manual_priority' => 'required|numeric|min:0|max:1',
+            'manual_frequency' => 'required|in:always,hourly,daily,weekly,monthly,yearly,never',
+        ]);
+
+        ApprovedUrl::create([
+            'original_url' => $validatedData['manual_url'],
+            'editable_url' => $validatedData['manual_url'],
+            'priority' => $validatedData['manual_priority'],
+            'frequency' => $validatedData['manual_frequency'],
+        ]);
+
+        return redirect()->route('admin.sitemap.index')->with('success', 'URL manually added successfully.');
     }
 
     public function store(Request $request)
@@ -187,9 +194,22 @@ class SitemapController extends Controller
 
     private function generateMainSitemap($approvedUrls)
     {
-        $mainUrls = ['/', '/about', '/globalpresences', '/infrastructures', '/qualitycontrols', '/team'];
-        $urls = $approvedUrls->filter(function($url) use ($mainUrls) {
-            return in_array(parse_url($url->editable_url, PHP_URL_PATH), $mainUrls);
+        // Define keywords for filtering
+        $productKeywords = ['/products', '/categories', '/sub-categories' , '/subcategories'];
+        $serviceKeywords = ['/services', '/service-categories'];
+        $blogKeyword = '/blogs';
+
+        // Collect URLs for the main sitemap that are not related to products, services, or blogs
+        $urls = $approvedUrls->filter(function($url) use ($productKeywords, $serviceKeywords, $blogKeyword) {
+            $path = parse_url($url->editable_url, PHP_URL_PATH);
+
+            // Check if the URL is related to products, services, or blogs
+            $isProductRelated = Str::contains($path, $productKeywords);
+            $isServiceRelated = Str::contains($path, $serviceKeywords);
+            $isBlogRelated = Str::contains($path, $blogKeyword);
+
+            // Include URL in main sitemap if it is not related to products, services, or blogs
+            return !$isProductRelated && !$isServiceRelated && !$isBlogRelated;
         });
 
         $this->saveSitemapFile('main.xml', $urls);
@@ -256,5 +276,16 @@ class SitemapController extends Controller
         $xmlContent = $dom->saveXML();
         $filePath = public_path('sitemap.xml');
         file_put_contents($filePath, $xmlContent);
+    }
+
+    public function downloadSitemap($filename)
+    {
+        $filePath = public_path($filename);
+
+        if (file_exists($filePath)) {
+            return response()->download($filePath);
+        } else {
+            return redirect()->route('admin.approved-urls.index')->with('error', 'File not found.');
+        }
     }
 }
