@@ -48,12 +48,17 @@ use App\Http\Controllers\CoreValueController;
 use App\Http\Controllers\ScriptController;
 use App\Http\Controllers\BenefitController;
 use App\Http\Controllers\MetaTagController;
+use App\Http\Controllers\MasterCatalogController;
 use App\Livewire\SearchApplication;
 use App\Livewire\SearchBanner;
 use App\Livewire\SearchCounter;
 use App\Livewire\SearchSubcategory;
 use App\Livewire\SearchWhyChooseUs;
 use Illuminate\Support\Facades\Route;
+
+Route::get('/master-catalog', [MasterCatalogController::class, 'index'])->name('master-catalog.index');
+Route::put('/master-catalog', [MasterCatalogController::class, 'update'])->name('master-catalog.update');
+Route::delete('/master-catalog', [MasterCatalogController::class, 'destroy'])->name('master-catalog.destroy');
 
 Route::get('meta-tags/get-items/{type}', [MetaTagController::class, 'getItems'])->name('meta-tags.items');
 Route::resource('meta-tags', MetaTagController::class);

@@ -168,6 +168,18 @@
                         class="text-base font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                         for="catalog_pdf">Catalog PDF</label>
 
+                    @if($masterCatalog && $masterCatalog->catalog_pdf)
+                        <!-- Master Catalog Option -->
+                        <div class="mb-2">
+                            <input type="checkbox" id="use_master_catalog" name="use_master_catalog" value="1"
+                                   {{ $product->catalog_pdf === $masterCatalog->catalog_pdf ? 'checked' : '' }}
+                                   class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                            <label for="use_master_catalog" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                                Use Master Catalog ({{ $masterCatalog->catalog_pdf }})
+                            </label>
+                        </div>
+                    @endif
+
                     @if($product->catalog_pdf)
                         <div class="mb-2">
                             <span class="text-sm">Current PDF: {{ $product->catalog_pdf }}</span>
@@ -180,9 +192,7 @@
                     <input
                         class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
                         id="catalog_pdf" type="file" name="catalog_pdf" accept=".pdf">
-
                     <p class="mt-1 text-sm text-gray-500">Upload a new PDF to replace the current one, or leave empty to keep the existing PDF.</p>
-
                     @error('catalog_pdf')
                         <div class="text-red-500 mt-2 text-sm">
                             {{ $message }}

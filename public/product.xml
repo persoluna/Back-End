@@ -2,175 +2,181 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>http://localhost:8000/products</loc>
-    <lastmod>2024-07-10T06:19:56+00:00</lastmod>
+    <lastmod>2024-07-10T08:39:57+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>http://localhost:8000/products/product-1</loc>
-    <lastmod>2024-07-09T06:19:56+00:00</lastmod>
+    <lastmod>2024-07-11T08:39:57+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>http://localhost:8000/products/product-2</loc>
-    <lastmod>2024-07-09T06:19:56+00:00</lastmod>
+    <lastmod>2024-07-08T08:39:57+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>http://localhost:8000/products/product-3</loc>
-    <lastmod>2024-07-05T06:19:56+00:00</lastmod>
+    <lastmod>2024-07-05T08:39:57+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>http://localhost:8000/categories</loc>
-    <lastmod>2024-07-11T06:19:56+00:00</lastmod>
+    <lastmod>2024-07-08T08:39:57+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>http://localhost:8000/categories/001</loc>
-    <lastmod>2024-07-06T06:19:56+00:00</lastmod>
+    <lastmod>2024-07-09T08:39:57+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>http://localhost:8000/categories/002</loc>
-    <lastmod>2024-07-11T06:19:56+00:00</lastmod>
+    <lastmod>2024-07-10T08:39:57+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>http://localhost:8000/categories/003</loc>
-    <lastmod>2024-07-10T06:19:56+00:00</lastmod>
+    <lastmod>2024-07-10T08:39:57+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>http://localhost:8000/sub-categories/sub-001</loc>
-    <lastmod>2024-07-05T06:19:56+00:00</lastmod>
+    <lastmod>2024-07-04T08:39:57+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>http://localhost:8000/sub-categories/sub-002</loc>
-    <lastmod>2024-07-04T06:19:56+00:00</lastmod>
+    <lastmod>2024-07-04T08:39:57+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>http://localhost:8000/sub-categories/sub-003</loc>
-    <lastmod>2024-07-07T06:19:56+00:00</lastmod>
+    <lastmod>2024-07-07T08:39:57+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>http://localhost:8000/products/eqwe</loc>
-    <lastmod>2024-07-10T06:19:56+00:00</lastmod>
+    <lastmod>2024-07-07T08:39:57+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.1</priority>
   </url>
   <url>
     <loc>http://192.168.0.114:8000/products</loc>
-    <lastmod>2024-07-07T06:19:56+00:00</lastmod>
+    <lastmod>2024-07-10T08:39:57+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>http://192.168.0.114:8000/products/eqwe</loc>
-    <lastmod>2024-07-11T06:19:56+00:00</lastmod>
+    <lastmod>2024-07-10T08:39:57+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>http://192.168.0.114:8000/products/hg</loc>
-    <lastmod>2024-07-04T06:19:56+00:00</lastmod>
+    <lastmod>2024-07-09T08:39:57+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>http://192.168.0.114:8000/products/product-1</loc>
-    <lastmod>2024-07-06T06:19:56+00:00</lastmod>
+    <lastmod>2024-07-08T08:39:57+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>http://192.168.0.114:8000/products/product-2</loc>
-    <lastmod>2024-07-08T06:19:56+00:00</lastmod>
+    <lastmod>2024-07-07T08:39:57+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>http://192.168.0.114:8000/products/product-3</loc>
-    <lastmod>2024-07-09T06:19:56+00:00</lastmod>
+    <lastmod>2024-07-10T08:39:57+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>http://192.168.0.114:8000/products/rrrrrr-ttttt</loc>
-    <lastmod>2024-07-11T06:19:56+00:00</lastmod>
+    <lastmod>2024-07-10T08:39:57+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>http://192.168.0.114:8000/categories</loc>
-    <lastmod>2024-07-05T06:19:56+00:00</lastmod>
+    <lastmod>2024-07-10T08:39:57+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>http://192.168.0.114:8000/categories/001</loc>
-    <lastmod>2024-07-06T06:19:56+00:00</lastmod>
+    <lastmod>2024-07-11T08:39:57+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>http://192.168.0.114:8000/categories/002</loc>
-    <lastmod>2024-07-04T06:19:56+00:00</lastmod>
+    <lastmod>2024-07-06T08:39:57+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>http://192.168.0.114:8000/categories/003</loc>
-    <lastmod>2024-07-11T06:19:56+00:00</lastmod>
+    <lastmod>2024-07-05T08:39:57+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>http://192.168.0.114:8000/sub-categories/sub-001</loc>
-    <lastmod>2024-07-11T06:19:56+00:00</lastmod>
+    <lastmod>2024-07-06T08:39:57+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>http://192.168.0.114:8000/sub-categories/sub-002</loc>
-    <lastmod>2024-07-06T06:19:56+00:00</lastmod>
+    <lastmod>2024-07-04T08:39:57+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>http://192.168.0.114:8000/sub-categories/sub-003</loc>
-    <lastmod>2024-07-09T06:19:56+00:00</lastmod>
+    <lastmod>2024-07-11T08:39:57+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>http://localhost:8000/products/dsad</loc>
-    <lastmod>2024-07-08T06:19:56+00:00</lastmod>
+    <lastmod>2024-07-06T08:39:57+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>http://localhost:8000/products/hg</loc>
-    <lastmod>2024-07-04T06:19:56+00:00</lastmod>
+    <lastmod>2024-07-06T08:39:57+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>http://localhost:8000/products/rrrrrr-ttttt</loc>
-    <lastmod>2024-07-08T06:19:56+00:00</lastmod>
+    <lastmod>2024-07-10T08:39:57+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>http://localhost:8000/products/rrrrrrrrrrrrrrr</loc>
+    <lastmod>2024-07-05T08:39:57+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>

@@ -8,9 +8,11 @@ use App\Models\Category;
 use App\Models\Product;
 use App\Models\Subcategory;
 use App\Models\Benefit;
+use App\Models\MasterCatalog;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Maatwebsite\Excel\Facades\Excel;
+
 
 class ProductController extends Controller
 {
@@ -53,7 +55,8 @@ class ProductController extends Controller
         $subcategories = Subcategory::all();
         $categories = Category::all();
         $benefits = Benefit::all();
-        return view('products.create', compact('categories', 'subcategories', 'benefits'));
+        $masterCatalog = MasterCatalog::first();
+        return view('products.create', compact('categories', 'subcategories', 'benefits', 'masterCatalog'));
     }
 
     /**
@@ -76,6 +79,7 @@ class ProductController extends Controller
             'meta_canonical' => 'nullable|url',
             'meta_tags' => 'nullable',
             'benefit_ids' => 'nullable|array',
+            'use_master_catalog' => 'nullable|boolean',
             'catalog_pdf' => 'nullable|mimes:pdf|max:10240',
         ]);
 
@@ -94,12 +98,21 @@ class ProductController extends Controller
 
         $validatedData['image'] = json_encode($imageNames);
 
-        // Handle catalog PDF upload
-        if ($request->hasFile('catalog_pdf')) {
+        // Handle catalog PDF
+        if ($request->has('use_master_catalog') && $request->use_master_catalog) {
+            $masterCatalog = MasterCatalog::first();
+            if ($masterCatalog && $masterCatalog->catalog_pdf) {
+                $newPdfFilename = 'product_' . time() . '_' . uniqid() . '.pdf';
+                if (Storage::copy('public/master_catalog/' . $masterCatalog->catalog_pdf, 'public/product_catalogs/' . $newPdfFilename)) {
+                    $validatedData['catalog_pdf'] = $newPdfFilename;
+                }
+            }
+        } elseif ($request->hasFile('catalog_pdf')) {
             $pdfFilename = time() . '_' . uniqid() . '.pdf';
             $request->file('catalog_pdf')->storeAs('public/product_catalogs', $pdfFilename);
             $validatedData['catalog_pdf'] = $pdfFilename;
         }
+
 
         // Convert benefit_ids array to JSON
         if ($request->has('benefit_ids')) {
@@ -127,13 +140,14 @@ class ProductController extends Controller
     {
         $subcategories = Subcategory::all();
         $categories = Category::all();
-        return view('products.edit', compact('product', 'categories', 'subcategories'));
+        $masterCatalog = MasterCatalog::first();
+        return view('products.edit', compact('product', 'categories', 'subcategories', 'masterCatalog'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-     public function update(Request $request, Product $product)
+    public function update(Request $request, Product $product)
     {
         if (!$request->has('category_id')) {
             return back()->withInput()->withErrors(['category_id' => 'Please select a category']);
@@ -155,6 +169,7 @@ class ProductController extends Controller
             'meta_canonical' => 'nullable|url',
             'meta_tags' => 'nullable',
             'catalog_pdf' => 'nullable|mimes:pdf|max:10240',
+            'use_master_catalog' => 'nullable|boolean',
         ]);
 
         // Start with existing images that weren't removed
@@ -184,7 +199,22 @@ class ProductController extends Controller
         unset($validatedData['existing_images']);
 
         // Handle catalog PDF update
-        if ($request->hasFile('catalog_pdf')) {
+        $masterCatalog = MasterCatalog::first();
+
+        // Handle catalog PDF update
+        if ($request->has('use_master_catalog') && $request->use_master_catalog) {
+            $masterCatalog = MasterCatalog::first();
+            if ($masterCatalog && $masterCatalog->catalog_pdf) {
+                // Delete old PDF if exists
+                if ($product->catalog_pdf) {
+                    Storage::delete('public/product_catalogs/' . $product->catalog_pdf);
+                }
+                $newPdfFilename = 'product_' . time() . '_' . uniqid() . '.pdf';
+                if (Storage::copy('public/master_catalog/' . $masterCatalog->catalog_pdf, 'public/product_catalogs/' . $newPdfFilename)) {
+                    $validatedData['catalog_pdf'] = $newPdfFilename;
+                }
+            }
+        } elseif ($request->hasFile('catalog_pdf')) {
             // Delete old PDF if exists
             if ($product->catalog_pdf) {
                 Storage::delete('public/product_catalogs/' . $product->catalog_pdf);
