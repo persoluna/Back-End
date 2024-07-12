@@ -49,6 +49,8 @@ use App\Http\Controllers\ScriptController;
 use App\Http\Controllers\BenefitController;
 use App\Http\Controllers\MetaTagController;
 use App\Http\Controllers\MasterCatalogController;
+use App\Http\Controllers\VideoCategoryController;
+use App\Http\Controllers\VideoController;
 use App\Livewire\SearchApplication;
 use App\Livewire\SearchBanner;
 use App\Livewire\SearchCounter;
@@ -222,6 +224,9 @@ Route::post('infrastructure/ckeditor/upload', [InfrastructureController::class, 
 Route::post('/infrastructure/images/deleteUnused', [InfrastructureController::class, 'deleteUnusedImagesOnUnload'])->name('infrastructure.images.deleteUnused');
 
 Route::resource('qualitycontrols', QualityControlController::class);
+
+Route::resource('videos', VideoController::class);
+Route::resource('videocategories', VideoCategoryController::class);
 
 // For qualitycontrol
 Route::post('qualitycontrol/ckeditor/upload', [QualityControlController::class, 'upload'])->name('qualitycontrol.ckeditor.upload');

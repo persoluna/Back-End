@@ -222,6 +222,34 @@
                 </ul>
             </li>
 
+            <li>
+                <button type="button"
+                    class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->routeIs('videos.*') || request()->routeIs('videocategories.*') ? 'parent-active' : '' }}"
+                    aria-controls="dropdown-video" data-collapse-toggle="dropdown-video">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="dark:stroke-white">
+                    <rect x="2" y="5" width="20" height="14" rx="2" ry="2"></rect>
+                    <polygon points="10 8 16 12 10 16 10 8"></polygon>
+                </svg>
+                    <span class="flex-1 ms-3 text-left rtl:text-right whitespace-nowrap">Video</span>
+                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                        viewBox="0 0 10 6">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="m1 1 4 4 4-4" />
+                    </svg>
+                </button>
+                <ul id="dropdown-video"
+                    class="{{ request()->routeIs('videos.*') || request()->routeIs('videocategories.*') ? 'block' : 'hidden' }} py-2 space-y-2">
+                    <li>
+                        <a href="{{ route('videos.index') }}"
+                            class="{{ request()->routeIs('videos.*') ? 'active' : '' }} sidebar-item flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Videos</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('videocategories.index') }}"
+                            class="{{ request()->routeIs('videocategories.*') ? 'active' : '' }} sidebar-item flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Categories</a>
+                    </li>
+                </ul>
+            </li>
+
             <!-- Service dropdown -->
             <li>
                 <button type="button"
