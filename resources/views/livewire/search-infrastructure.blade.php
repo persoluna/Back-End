@@ -17,7 +17,11 @@
                 </th>
                 <th
                     class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-nowrap text-left text-[13px] sm:text-[15px] font-semibold text-gray-600 uppercase tracking-wider">
-                    Image
+                    Created At
+                </th>
+                <th
+                    class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-nowrap text-left text-[13px] sm:text-[15px] font-semibold text-gray-600 uppercase tracking-wider">
+                    Updated At
                 </th>
                 <th
                     class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-nowrap text-left text-[13px] sm:text-[15px] font-semibold text-gray-600 uppercase tracking-wider">
@@ -35,10 +39,10 @@
                         {{ $infrastructure->sub_title }}
                     </td>
                     <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                        <div class="w-[100px] h-12 overflow-hidden">
-                            <img src="{{ asset('storage/infrastructures/' . $infrastructure->image) }}"
-                                class="object-cover w-full h-full">
-                        </div>
+                        {{ $infrastructure->created_at }}
+                    </td>
+                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                        {{ $infrastructure->updated_at }}
                     </td>
                     <td class="px-5 py-8 border-b border-gray-200 bg-white flex text-sm gap-3">
                         <a href="{{ route('infrastructures.edit', $infrastructure->id) }}"

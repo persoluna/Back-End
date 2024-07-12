@@ -50,7 +50,8 @@ class InfrastructureController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'image' => 'required|image',
+            'images' => 'nullable|array',
+            'images.*' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'title' => 'nullable',
             'sub_title' => 'nullable',
             'description' => 'nullable',
@@ -65,8 +66,15 @@ class InfrastructureController extends Controller
         // Delete unused images
         $this->deleteUnusedImages($uploadedImageUrls, $imageUrls);
 
-        $infrastructureImagePath = $request->file('image')->store('public/infrastructures');
-        $validatedData['image'] = basename($infrastructureImagePath);
+        $imageNames = [];
+        if ($request->hasFile('images')) {
+            foreach ($request->file('images') as $image) {
+                $filename = time() . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
+                $image->storeAs('public/infrastructures', $filename);
+                $imageNames[] = $filename;
+            }
+        }
+        $validatedData['image'] = json_encode($imageNames);
 
         $infrastructure = Infrastructure::create($validatedData);
 
@@ -97,7 +105,9 @@ class InfrastructureController extends Controller
     public function update(Request $request, $id)
     {
         $validatedData = $request->validate([
-            'image' => 'nullable',
+            'images' => 'nullable|array',
+            'images.*' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'existing_images' => 'nullable|array',
             'title' => 'nullable',
             'sub_title' => 'nullable',
             'description' => 'nullable',
@@ -116,14 +126,23 @@ class InfrastructureController extends Controller
             $this->deleteUnusedImages($uploadedImageUrls, $imageUrls);
         }
 
-        // Check if a new image is uploaded
-        if ($request->hasFile('image')) {
-            // Delete the old infrastructure image from the 'public/infrastructures/' directory
-            Storage::delete('public/infrastructures/' . $infrastructure->image);
+        $imageNames = $request->input('existing_images', []);
 
-            // Store the new infrastructure image in the 'public/infrastructures' directory
-            $infrastructureImagePath = $request->file('image')->store('public/infrastructures');
-            $validatedData['image'] = basename($infrastructureImagePath);
+        if ($request->hasFile('images')) {
+            foreach ($request->file('images') as $image) {
+                $filename = time() . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
+                $image->storeAs('public/infrastructures', $filename);
+                $imageNames[] = $filename;
+            }
+        }
+
+        $validatedData['image'] = json_encode($imageNames);
+
+         // Remove old images that are no longer in use
+        $oldImages = json_decode($infrastructure->getOriginal('image'), true);
+        $imagesToDelete = array_diff($oldImages, $imageNames);
+        foreach ($imagesToDelete as $imageToDelete) {
+            Storage::delete('public/infrastructures/' . $imageToDelete);
         }
 
         $infrastructure->update($validatedData);
@@ -136,8 +155,15 @@ class InfrastructureController extends Controller
      */
     public function destroy(Infrastructure $infrastructure)
     {
-        // Delete the infrastructure image from the 'public/infrastructures' directory
-        Storage::delete('public/infrastructures/' . $infrastructure->image);
+        // Get the list of image filenames
+        $images = json_decode($infrastructure->image, true);
+
+        // Delete each image file from storage
+        if (is_array($images)) {
+            foreach ($images as $image) {
+                Storage::delete('public/infrastructures/' . $image);
+            }
+        }
 
         // Detect and delete images in the description
         $this->deleteImagesFromDescription($infrastructure->description);
