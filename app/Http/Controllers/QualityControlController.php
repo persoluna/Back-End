@@ -50,7 +50,8 @@ class QualityControlController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'image' => 'required|image',
+            'images' => 'nullable|array',
+            'images.*' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'title' => 'nullable',
             'sub_title' => 'nullable',
             'description' => 'nullable',
@@ -65,8 +66,15 @@ class QualityControlController extends Controller
         // Delete unused images
         $this->deleteUnusedImages($uploadedImageUrls, $imageUrls);
 
-        $qualitycontrolImagePath = $request->file('image')->store('public/qualitycontrols');
-        $validatedData['image'] = basename($qualitycontrolImagePath);
+        $imageNames = [];
+        if ($request->hasFile('images')) {
+            foreach ($request->file('images') as $image) {
+                $filename = time() . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
+                $image->storeAs('public/qualitycontrols', $filename);
+                $imageNames[] = $filename;
+            }
+        }
+        $validatedData['image'] = json_encode($imageNames);
 
         $qualitycontrol = QualityControl::create($validatedData);
 
@@ -97,7 +105,9 @@ class QualityControlController extends Controller
     public function update(Request $request, $id)
     {
         $validatedData = $request->validate([
-            'image' => 'nullable',
+            'images' => 'nullable|array',
+            'images.*' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'existing_images' => 'nullable|array',
             'title' => 'nullable',
             'sub_title' => 'nullable',
             'description' => 'nullable',
@@ -116,15 +126,25 @@ class QualityControlController extends Controller
             $this->deleteUnusedImages($uploadedImageUrls, $imageUrls);
         }
 
-        // Check if a new image is uploaded
-        if ($request->hasFile('image')) {
-            // Delete the old qualitycontrol image from the 'public/qualitycontrols/' directory
-            Storage::delete('public/qualitycontrols/' . $qualitycontrol->image);
+        $oldImages = json_decode($qualitycontrol->image, true) ?: [];
+        $newImageNames = $request->input('existing_images', []);
 
-            // Store the new qualitycontrols image in the 'public/qualitycontrols' directory
-            $qualitycontrolImagePath = $request->file('image')->store('public/qualitycontrols');
-            $validatedData['image'] = basename($qualitycontrolImagePath);
+        // Delete removed images
+        $imagesToDelete = array_diff($oldImages, $newImageNames);
+        foreach ($imagesToDelete as $imageToDelete) {
+            Storage::delete('public/qualitycontrols/' . $imageToDelete);
         }
+
+        // Add new images
+        if ($request->hasFile('images')) {
+            foreach ($request->file('images') as $image) {
+                $filename = time() . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
+                $image->storeAs('public/qualitycontrols', $filename);
+                $newImageNames[] = $filename;
+            }
+        }
+
+        $validatedData['image'] = json_encode($newImageNames);
 
         $qualitycontrol->update($validatedData);
 
@@ -136,8 +156,15 @@ class QualityControlController extends Controller
      */
     public function destroy(QualityControl $qualitycontrol)
     {
-        // Delete the qualityControl image from the 'public/qualitycontrols' directory
-        Storage::delete('public/qualitycontrols/' . $qualitycontrol->image);
+        // Get the list of image filenames
+        $images = json_decode($qualitycontrol->image, true);
+
+        // Delete each image file from storage
+        if (is_array($images)) {
+            foreach ($images as $image) {
+                Storage::delete('public/qualitycontrols/' . $image);
+            }
+        }
 
         // Detect and delete images in the description
         $this->deleteImagesFromDescription($qualitycontrol->description);
